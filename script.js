@@ -358,89 +358,107 @@ if (sidebarEl) {
   });
 }
 
-// ── Dynamic Content Media Injector (No Duplicates!) ──
-const imagePool = [
-  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1531297122539-d3ee268b6a38?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=800&q=80'
+// ── Dynamic Content Media Injector (No Duplicates, Highly Relevant) ──
+const videoMap = [
+  { k: ['history', 'what is javascript'], v: 'dGcsHMXbSOA' },
+  { k: ['variable', 'declaration'], v: 'sjyJIdbiW8U' },
+  { k: ['scope', 'lexical'], v: 'bD-62OM4igw' },
+  { k: ['hoisting', 'tdz'], v: 'EvfRXyKa_GI' },
+  { k: ['primitive', 'data types'], v: '71hE3L-b5kQ' },
+  { k: ['mutability', 'immutable'], v: '3-B711RzDEw' },
+  { k: ['type conversion'], v: '2-iR0hXn3rI' },
+  { k: ['truthy', 'falsy'], v: 'XqCDeQO29v8' },
+  { k: ['operator', 'ternary', 'short-circuit'], v: 'O8wunCEZfK8' },
+  { k: ['loop', 'iteration'], v: 's9wW2PpJsmU' },
+  { k: ['function', 'arrow'], v: '3a0I8ICR1Vg' },
+  { k: ['closure'], v: 'vKJpN5FAeF4' },
+  { k: ['this keyword'], v: 'gvicrj31JOM' },
+  { k: ['prototype', 'inheritance'], v: 'Fsp45sWEQGQ' },
+  { k: ['built-in method', 'array', 'string'], v: 'R8rmfD9Y5-c' },
+  { k: ['destructuring'], v: 'NIq3qLaHCIs' },
+  { k: ['spread', 'rest'], v: 'iLx4ma8ZqvQ' },
+  { k: ['map vs set', 'object vs array'], v: 'hLgIlN22-s' },
+  { k: ['symbol'], v: '4J5hnOCj69w' },
+  { k: ['sync', 'async'], v: 'Kpn2ajSa92c' },
+  { k: ['callback', 'promise'], v: '8aGhZQkoFbQ' },
+  { k: ['async / await'], v: 'V_Kr9OSfDeU' },
+  { k: ['fetch api'], v: 'cuEtnrL9-H0' },
+  { k: ['event', 'propagation', 'delegation'], v: 'XF1_MlZ5l6M' },
+  { k: ['dom', 'bom'], v: 'y17RuWUpcgU' },
+  { k: ['shallow copy', 'deep copy'], v: 'c_H8H_L-xQo' },
+  { k: ['debounce', 'throttle'], v: 'cjIswDCKgu0' },
+  { k: ['crud in nested', 'array of object'], v: '7W43QQKCQlY' },
+  { k: ['map', 'filter', 'reduce'], v: 's9wW2PpJsmU' },
+  { k: ['what is node'], v: 'ENrzD9HAZK4' },
+  { k: ['module', 'node'], v: 'mK54Cn4ceac' },
+  { k: ['http vs express'], v: 'SccSCuHhOw0' },
+  { k: ['middleware'], v: 'lY6icfhap2o' },
+  { k: ['routing', 'param'], v: 'pKd0Rpw7O48' },
+  { k: ['auth', 'session', 'cookie'], v: 'mbsmsi7l3r4' },
+  { k: ['security', 'vulnerability'], v: 'W7CGW3KTMKA' },
+  { k: ['api', 'rest'], v: '-MTSRvTe1eM' },
+  { k: ['http status'], v: 'wGjC8xW3oM8' },
+  { k: ['mvc', 'mvcs'], v: 'pWbMrx5rVBE' },
+  { k: ['what is mongodb', 'database'], v: '-bt_y4Loofg' },
+  { k: ['shell command', 'crud', 'mongodb'], v: 'DZBGEVgL2eE' },
+  { k: ['aggregation pipeline'], v: 'Kk6Er0c7srU' },
+  { k: ['index', 'testing'], v: 'HnbxjK2H9XU' },
+  { k: ['scaling', 'replication', 'sharding'], v: 'pGjO6n5nOOM' },
+  { k: ['acid', 'base', 'cap theorem'], v: 'k-Yaq8AHlFA' },
+  { k: ['schema design'], v: 'leCECSSAE4Q' },
+  { k: ['project overview', 'architecture'], v: '7CqJlxBYj-M' },
+  { k: ['folder structure'], v: '4b_pG4W2V6E' },
+  { k: ['full workflow'], v: 'qY5AEE-U5uY' },
+  { k: ['admin portal'], v: 'CBsejb9E7K8' },
+  { k: ['user side'], v: 'jC8EIDmJz48' }
 ];
 
-const videoPool = [
-  { keywords: ['variable', 'scope', 'hoisting', 'let', 'const', 'type'], video: 'https://www.youtube.com/embed/sjyJIdbiW8U' },
-  { keywords: ['function', 'closure', 'arrow', 'callback', 'this'], video: 'https://www.youtube.com/embed/3a0I8ICR1Vg' },
-  { keywords: ['array', 'object', 'method', 'prototype', 'mutability'], video: 'https://www.youtube.com/embed/7W43QQKCQlY' },
-  { keywords: ['async', 'promise', 'await', 'event loop', 'callback'], video: 'https://www.youtube.com/embed/8aGhZQkoFbQ' },
-  { keywords: ['dom', 'event', 'browser', 'web', 'bom'], video: 'https://www.youtube.com/embed/y17RuWUpcgU' },
-  { keywords: ['node', 'express', 'server', 'middleware', 'module'], video: 'https://www.youtube.com/embed/ENrzD9HAZK4' },
-  { keywords: ['mongo', 'database', 'model', 'schema', 'nosql', 'aggregation'], video: 'https://www.youtube.com/embed/-bt_y4Loofg' },
-  { keywords: ['auth', 'session', 'cookie', 'jwt', 'mvc'], video: 'https://www.youtube.com/embed/mbsmsi7l3r4' },
-  { keywords: ['loop', 'iteration', 'map', 'filter', 'reduce'], video: 'https://www.youtube.com/embed/s9wW2PpJsmU' },
-  { keywords: ['operator', 'ternary', 'nullish'], video: 'https://www.youtube.com/embed/O8wunCEZfK8' },
-  { keywords: ['primitive', 'data type'], video: 'https://www.youtube.com/embed/71hE3L-b5kQ' },
-  { keywords: ['truthy', 'falsy'], video: 'https://www.youtube.com/embed/XqCDeQO29v8' },
-  { keywords: ['conversion', 'coercion'], video: 'https://www.youtube.com/embed/2-iR0hXn3rI' },
-  { keywords: ['history', 'javascript'], video: 'https://www.youtube.com/embed/dGcsHMXbSOA' }
-];
-
-const fallbackVideos = [
-  'https://www.youtube.com/embed/W6NZfCO5SIk',
-  'https://www.youtube.com/embed/hdI2bqOjy3c',
-  'https://www.youtube.com/embed/PkZNo7MF68',
-  'https://www.youtube.com/embed/zQnBQ4tB3ZA',
-  'https://www.youtube.com/embed/pKd0Rpw7O48',
-  'https://www.youtube.com/embed/L18RHG2DwwA',
-  'https://www.youtube.com/embed/ZS_kXvOeQ5Y',
-  'https://www.youtube.com/embed/Ukg_U3CnJWI',
-  'https://www.youtube.com/embed/F418a0-2fFw'
-];
-
-imagePool.sort(() => Math.random() - 0.5);
+const fallbackVideos = ['W6NZfCO5SIk', 'hdI2bqOjy3c', 'PkZNo7MF68', 'zQnBQ4tB3ZA'];
+let usedVideos = new Set();
 
 document.querySelectorAll('h2').forEach((h2, index) => {
   const text = h2.innerText.toLowerCase();
+  const searchWord = text.replace(/[^a-z0-9\s]/g, '').split(' ').filter(w => w.length > 3)[0] || 'code';
   
-  let videoIndex = videoPool.findIndex(m => m.keywords.some(k => text.includes(k)));
-  
-  if (videoIndex !== -1) {
-    let videoUrl = videoPool[videoIndex].video;
-    videoPool.splice(videoIndex, 1);
-    let imgUrl = imagePool.pop() || `https://loremflickr.com/800/600/coding,technology?lock=${index}`;
-
-    const mediaContainer = document.createElement('div');
-    mediaContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 my-10 fade-up';
-  
-    mediaContainer.innerHTML = `
-      <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] group relative">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none flex items-end p-6">
-          <span class="text-[var(--accent)] font-['Fredoka'] text-2xl tracking-wide drop-shadow-[0_0_10px_rgba(var(--accent),0.8)]">Concept Visual</span>
-        </div>
-        <img loading="lazy" src="${imgUrl}" class="w-full h-full object-cover aspect-video group-hover:scale-110 transition-transform duration-700" alt="Concept Visualization">
-      </div>
-      
-      <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
-        <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial Short</div>
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
-        <iframe loading="lazy" title="Concept Video Tutorial" class="w-full h-full aspect-video relative z-0" src="${videoUrl}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    `;
-    
-    h2.after(mediaContainer);
+  // Find specific video mapping
+  let videoId = null;
+  for (let mapping of videoMap) {
+    if (mapping.k.some(keyword => text.includes(keyword)) && !usedVideos.has(mapping.v)) {
+      videoId = mapping.v;
+      usedVideos.add(mapping.v);
+      break;
+    }
   }
+
+  // Fallback to avoid missing videos
+  if (!videoId) {
+    const un-usedFallbacks = fallbackVideos.filter(v => !usedVideos.has(v));
+    videoId = un-usedFallbacks.length > 0 ? un-usedFallbacks[0] : 'W6NZfCO5SIk';
+    usedVideos.add(videoId);
+  }
+
+  // Use Pollinations AI for highly relevant, stunning, copyright-free concept visual
+  let imgUrl = `https://image.pollinations.ai/prompt/Stunning%20isometric%203D%20visualization%20of%20programming%20concept%20${searchWord}%20dark%20theme%20neon%20tech?width=800&height=600&nologo=true`;
+
+  const mediaContainer = document.createElement('div');
+  mediaContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 my-10 fade-up media-block';
+
+  mediaContainer.innerHTML = `
+    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] group relative">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none flex items-end p-6">
+        <span class="text-[var(--accent)] font-['Fredoka'] text-2xl tracking-wide drop-shadow-[0_0_10px_rgba(var(--accent),0.8)]">Concept: ${searchWord.toUpperCase()}</span>
+      </div>
+      <img loading="lazy" src="${imgUrl}" class="w-full h-full object-cover aspect-video group-hover:scale-110 transition-transform duration-700" alt="Concept Visualization">
+    </div>
+    
+    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
+      <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial</div>
+      <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+      <iframe loading="lazy" title="Concept Video Tutorial" class="w-full h-full aspect-video relative z-0" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  `;
+  
+  h2.after(mediaContainer);
 });
 
 // ── TAILWIND & BUBBLE GLARE SUPER STYLES INJECTION ──

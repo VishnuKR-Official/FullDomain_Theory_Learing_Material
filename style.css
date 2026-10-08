@@ -3,62 +3,62 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  /* Default Theme (Yellowish-Orange Red / Sunset) */
-  --bg: #FFC371;       
-  --text: #121212;     
-  --text-dim: #993300; 
-  --border: rgba(18, 18, 18, 0.15); 
-  --accent: #FF0055;   
-  --link: #121212;
-  --code-bg: #FFF3E0;  
-  --code-border: #FFCC80;
-  --selection-bg: #FF0055;
+  /* Default Theme (Yellow-Blue) */
+  --bg-gradient: linear-gradient(135deg, #FDEB71 0%, #F8D800 40%, #0396FF 100%);
+  --text: #ffffff;     
+  --text-dim: #FDEB71; 
+  --border: rgba(255, 255, 255, 0.2); 
+  --accent: #F8D800;   
+  --link: #ffffff;
+  --code-bg: #000000;  
+  --code-border: #0396FF;
+  --selection-bg: #0396FF;
   --selection-text: #FFF;
   
   --topbar-h: 80px;
   --sidebar-w: 300px;
 }
 
-/* Theme: Node.js (Dark Tech) */
+/* Theme: Node.js (Green-Red) */
 body[data-theme="node"] {
-  --bg: #0F111A;
-  --text: #E6EDF3;
-  --text-dim: #8B949E;
-  --border: rgba(255, 255, 255, 0.15);
-  --accent: #3FB950;
-  --link: #E6EDF3;
-  --code-bg: #010409;
-  --code-border: #21262D;
-  --selection-bg: #3FB950;
+  --bg-gradient: linear-gradient(135deg, #81FBB8 0%, #28C76F 40%, #EA5455 100%);
+  --text: #ffffff;
+  --text-dim: #81FBB8;
+  --border: rgba(255, 255, 255, 0.2);
+  --accent: #28C76F;
+  --link: #ffffff;
+  --code-bg: #000000;
+  --code-border: #EA5455;
+  --selection-bg: #EA5455;
   --selection-text: #000;
 }
 
-/* Theme: MongoDB (Desert Sand / Earth) */
+/* Theme: MongoDB (Purple-Orange) */
 body[data-theme="mongo"] {
-  --bg: #F5F2EB;
-  --text: #1B3B2B;
-  --text-dim: #4A6354;
-  --border: rgba(27, 59, 43, 0.15);
-  --accent: #00ED64;
-  --link: #1B3B2B;
-  --code-bg: #EAE6DF;
-  --code-border: #D0CCC5;
-  --selection-bg: #00ED64;
-  --selection-text: #000;
+  --bg-gradient: linear-gradient(135deg, #9D50BB 0%, #6E48AA 40%, #F3A183 100%);
+  --text: #ffffff;
+  --text-dim: #F3A183;
+  --border: rgba(255, 255, 255, 0.2);
+  --accent: #F3A183;
+  --link: #ffffff;
+  --code-bg: #000000;
+  --code-border: #9D50BB;
+  --selection-bg: #9D50BB;
+  --selection-text: #FFF;
 }
 
-/* Theme: Project (Deep Indigo / Cyber) */
+/* Theme: Project (Pink-Blue) */
 body[data-theme="project"] {
-  --bg: #150F24;
-  --text: #F8F5FF;
-  --text-dim: #9D8BB5;
-  --border: rgba(255, 255, 255, 0.15);
-  --accent: #FF00E5;
-  --link: #F8F5FF;
-  --code-bg: #221838;
-  --code-border: #3A2350;
-  --selection-bg: #FF00E5;
-  --selection-text: #FFF;
+  --bg-gradient: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 40%, #A1C4FD 100%);
+  --text: #121212;
+  --text-dim: #FF9A9E;
+  --border: rgba(0, 0, 0, 0.2);
+  --accent: #FF9A9E;
+  --link: #121212;
+  --code-bg: #000000;
+  --code-border: #A1C4FD;
+  --selection-bg: #A1C4FD;
+  --selection-text: #000;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,13 +81,14 @@ html.lenis { height: auto; }
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: var(--bg);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
   cursor: auto; 
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.8s cubic-bezier(0.19, 1, 0.22, 1), color 0.8s ease;
+  transition: color 0.8s ease;
 }
 
 /* ═══ CUSTOM CURSOR, RIPPLE, & MOUSE BLOB ═══ */

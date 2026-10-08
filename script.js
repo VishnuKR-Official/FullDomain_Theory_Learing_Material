@@ -463,8 +463,8 @@ setTimeout(() => {
 
   document.querySelectorAll('.story-box').forEach(box => {
     box.style.borderLeft = 'none'; // Override vanilla css
-    // Crisp White Cards with Black Text
-    box.classList.add('backdrop-blur-3xl', 'bg-white/95', 'text-black', 'rounded-3xl', 'border-2', 'border-white/50', 'shadow-[0_20px_50px_0_rgba(0,0,0,0.1)]', 'hover:bg-white', 'transition-all', 'duration-500');
+    // Deep Black Cards with White Text
+    box.classList.add('backdrop-blur-3xl', 'bg-black/95', 'text-white', 'rounded-3xl', 'border-2', 'border-white/20', 'shadow-[0_20px_50px_0_rgba(0,0,0,0.5)]', 'hover:bg-black', 'transition-all', 'duration-500');
   });
 
   document.querySelectorAll('pre').forEach(pre => {
@@ -575,7 +575,7 @@ gsap.utils.toArray('h2, .story-box, .grid').forEach(el => {
     scrollTrigger: {
       trigger: el,
       start: "top 90%",
-      toggleActions: "play none none reverse"
+      toggleActions: "play none none none" // Fixed stability issue: play once, never reverse
     },
     ...randomAnim
   });

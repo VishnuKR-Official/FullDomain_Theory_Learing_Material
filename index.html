@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>eyeBRO — Master Cheatsheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Fredoka:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: { preflight: false },
+      theme: { extend: {} }
+    }
+  </script>
+</head>
+<body>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="logo">⚡</span>
+    <span class="logo-text">DevCheat</span>
+    <button class="close-sidebar" id="closeSidebar">✕</button>
+  </div>
+
+  <nav class="nav">
+
+    <div class="nav-section-label">JavaScript</div>
+
+    <a class="nav-link" href="#js-what">What is JS &amp; History</a>
+    <a class="nav-link" href="#js-vars">Variables &amp; Declarations</a>
+    <a class="nav-link" href="#js-scope">Scope &amp; Scope Chain</a>
+    <a class="nav-link" href="#js-hoisting">Hoisting &amp; TDZ</a>
+    <a class="nav-link" href="#js-datatypes">Data Types</a>
+    <a class="nav-link" href="#js-mutability">Mutability &amp; Immutability</a>
+    <a class="nav-link" href="#js-coercion">Type Conversion</a>
+    <a class="nav-link" href="#js-truthy">Truthy &amp; Falsy</a>
+    <a class="nav-link" href="#js-operators">Operators</a>
+    <a class="nav-link" href="#js-loops">Loops</a>
+    <a class="nav-link" href="#js-functions">Functions</a>
+    <a class="nav-link" href="#js-closures">Closures</a>
+    <a class="nav-link" href="#js-this">this Keyword</a>
+    <a class="nav-link" href="#js-proto">Prototypes</a>
+    <a class="nav-link" href="#js-methods">Built-in Methods</a>
+    <a class="nav-link" href="#js-destructuring">Destructuring</a>
+    <a class="nav-link" href="#js-spread">Spread &amp; Rest</a>
+    <a class="nav-link" href="#js-map-set">Map &amp; Set</a>
+    <a class="nav-link" href="#js-symbol">Symbol</a>
+    <a class="nav-link" href="#js-async">Async &amp; Sync</a>
+    <a class="nav-link" href="#js-callbacks">Callbacks &amp; Promise</a>
+    <a class="nav-link" href="#js-async-await">Async / Await</a>
+    <a class="nav-link" href="#js-fetch">Fetch API</a>
+    <a class="nav-link" href="#js-events">Events &amp; Event Loop</a>
+    <a class="nav-link" href="#js-dom">DOM &amp; BOM</a>
+    <a class="nav-link" href="#js-misc">Misc: strict, ==, CJS vs ES6</a>
+    <a class="nav-link" href="#js-copy">Shallow &amp; Deep Copy</a>
+    <a class="nav-link" href="#js-debounce">Debouncing &amp; Throttling</a>
+    <a class="nav-link" href="#js-crud">CRUD in Nested Objects</a>
+    <a class="nav-link" href="#js-map-filter">map · filter · reduce</a>
+
+    <div class="nav-section-label">Node.js</div>
+    <a class="nav-link" href="#node-what">What is Node.js</a>
+    <a class="nav-link" href="#node-modules">Modules</a>
+    <a class="nav-link" href="#node-servers">HTTP &amp; Express</a>
+    <a class="nav-link" href="#node-middleware">Middleware</a>
+    <a class="nav-link" href="#node-routing">Routing &amp; Params</a>
+    <a class="nav-link" href="#node-auth">Auth &amp; Sessions</a>
+    <a class="nav-link" href="#node-security">Security &amp; Validation</a>
+    <a class="nav-link" href="#node-apis">APIs</a>
+    <a class="nav-link" href="#node-misc">npm, npx, nvm, .env, pkg.json</a>
+    <a class="nav-link" href="#node-concurrency">Concurrency &amp; Threads</a>
+    <a class="nav-link" href="#node-status">Status Codes</a>
+
+    <div class="nav-section-label">MongoDB</div>
+    <a class="nav-link" href="#mongo-what">What is MongoDB</a>
+    <a class="nav-link" href="#mongo-crud">CRUD &amp; Commands</a>
+    <a class="nav-link" href="#mongo-aggregation">Aggregation</a>
+    <a class="nav-link" href="#mongo-indexes">Indexes</a>
+    <a class="nav-link" href="#mongo-scaling">Scaling &amp; Replication</a>
+    <a class="nav-link" href="#mongo-acid">ACID, BASE &amp; CAP</a>
+    <a class="nav-link" href="#mongo-modelling">Schema &amp; Modelling</a>
+    <a class="nav-link" href="#mongo-misc">Misc: BSON, Capped, TTL, Lookup</a>
+
+    <div class="nav-section-label">Project Guide</div>
+    <a class="nav-link" href="#project-overview">Overview &amp; Architecture</a>
+    <a class="nav-link" href="#project-structure">Folder Structure</a>
+    <a class="nav-link" href="#project-workflow">Full Workflow</a>
+    <a class="nav-link" href="#project-admin">Admin Portal</a>
+    <a class="nav-link" href="#project-user">User Side</a>
+  </nav>
+</aside>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="layout">
+  <header class="topbar" id="topbar">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <div class="topbar-logo" style="display: flex; align-items: center; cursor: pointer;">
+        <!-- Demon Eye Gamer Logo -->
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF0040" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px; filter: drop-shadow(0 0 8px rgba(255,0,64,0.6));">
+          <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"></path>
+          <circle cx="12" cy="12" r="4" fill="#FF0040"></circle>
+          <line x1="12" y1="9" x2="12" y2="15" stroke="#111" stroke-width="2.5"></line>
+        </svg>
+        <!-- eyeBRO Text Logo -->
+        <div style="display:inline-flex; align-items:center; border: 2.5px solid #111; border-radius: 8px; overflow:hidden; font-family:'Fredoka', sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:-0.5px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          <span style="background: #fff; color: #000; padding: 2px 8px;">eye</span>
+          <span style="background: #111; color: #fff; padding: 2px 8px;">BRO</span>
+        </div>
+      </div>
+    </div>
+    <nav class="topbar-tabs relative group" style="overflow: visible;">
+      <!-- Main Domain Tab -->
+      <button class="flex items-center gap-2 px-6 py-2 bg-[var(--accent)] text-black rounded-full shadow-[0_0_20px_var(--accent)] hover:shadow-[0_0_30px_var(--accent)] font-bold text-lg font-['Fredoka'] transition-all">
+        1st Full Domain
+        <svg class="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+      </button>
+      <!-- Sub-menus (Tabs) -->
+      <div class="absolute top-full right-0 mt-3 w-52 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 flex flex-col gap-1 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-50">
+        <button class="tab-btn w-full text-left px-4 py-3 hover:bg-[var(--accent)] hover:text-black rounded-xl transition-colors active font-semibold text-white/90" data-target="JavaScript">JS Core</button>
+        <button class="tab-btn w-full text-left px-4 py-3 hover:bg-[var(--accent)] hover:text-black rounded-xl transition-colors font-semibold text-white/90" data-target="Node.js">Node.js</button>
+        <button class="tab-btn w-full text-left px-4 py-3 hover:bg-[var(--accent)] hover:text-black rounded-xl transition-colors font-semibold text-white/90" data-target="MongoDB">MongoDB</button>
+        <button class="tab-btn w-full text-left px-4 py-3 hover:bg-[var(--accent)] hover:text-black rounded-xl transition-colors font-semibold text-white/90" data-target="Project Guide">Project API</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="content" id="mainContent">
+
+    <!-- ░░░░░░░░░░ JAVASCRIPT ░░░░░░░░░░ -->
+    <section class="chapter-banner js-banner">
+      <svg class="chapter-icon" style="border-radius:12px; box-shadow: 0 10px 30px rgba(247, 223, 30, 0.3);" viewBox="0 0 128 128" width="1em" height="1em"><path fill="#F7DF1E" d="M0 0h128v128H0z"/><path d="M97.08 81c-2.3-4.88-9.06-8.54-15.68-12.06l-4.71-2.49c-5.87-3.11-8.15-4.52-8.15-7.73 0-2.61 2.22-5 6.94-5 6.47 0 9.8 4 10.15 4.41l8.52-11.45s-5.07-6.07-18.43-6.07c-13.43 0-21.75 8-21.75 19.34 0 10.74 8 13.9 15.34 17.65l4.89 2.53c5.44 2.84 8.7 4.7 8.7 8.35 0 3.7-3.32 6.13-9.52 6.13-7.79 0-13-5.28-13.43-5.75l-9 11.23c1.78 2.1 7.9 10 23.36 10 14.36 0 24.36-7.89 24.36-20.24 0-9.45-5.91-14.07-11.59-16.85zM45.54 99.43V42.66h-14.7v57c0 14.85-6.86 16.74-12.7 17.15V128c11.9.46 27.4-4.22 27.4-28.57z"/></svg>
+      <div>
+        <h1>JavaScript</h1>
+        <p>The language of the web — from browser tricks to full-stack power</p>
+      </div>
+    </section>
+
+    <!-- ── What is JS ── -->
+    <section class="card" id="js-what">
+      <h2>🌐 What is JavaScript, History &amp; Alternatives</h2>
+      <div class="story-box">
+        📖 <strong>Story:</strong> Imagine the web in 1995 was a static newspaper — you could only read it. Brendan Eich was hired by Netscape and, in just <strong>10 days</strong>, created a scripting language to make pages interactive. It was first called <em>Mocha</em>, then <em>LiveScript</em>, then renamed <strong>JavaScript</strong> — purely as a marketing move to ride Java's hype.
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Created:</strong> 1995 by Brendan Eich at Netscape</li>
+            <li><strong>First names:</strong> Mocha → LiveScript → JavaScript</li>
+            <li><strong>Standardised:</strong> ECMAScript (ECMA-262) by ECMA International</li>
+            <li><strong>Paradigm:</strong> Multi-paradigm — OOP, functional, event-driven</li>
+            <li><strong>Runtime:</strong> V8 (Chrome/Node), SpiderMonkey (Firefox)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Why JavaScript?</h3>
+          <ul>
+            <li>Only language natively run by browsers</li>
+            <li>Full-stack capability via Node.js</li>
+            <li>Huge ecosystem (npm &gt; 2 million packages)</li>
+            <li>Non-blocking, event-driven &amp; fast for I/O</li>
+            <li>Single language for frontend + backend</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Alternatives to JavaScript</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Language</th><th>Compiled to</th><th>Use Case</th></tr></thead>
+          <tbody>
+            <tr><td>TypeScript</td><td>JS</td><td>Typed JS for large apps</td></tr>
+            <tr><td>CoffeeScript</td><td>JS</td><td>Cleaner syntax (legacy)</td></tr>
+            <tr><td>Dart</td><td>JS / native</td><td>Flutter, web apps</td></tr>
+            <tr><td>WebAssembly</td><td>Binary</td><td>Performance-critical tasks</td></tr>
+            <tr><td>Elm / ClojureScript</td><td>JS</td><td>Functional front-end</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>ECMAScript Evolution</h3>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">ES5 (2009)</span> strict mode, JSON, Array methods</div>
+        <div class="tl-item"><span class="tl-year">ES6 (2015)</span> let/const, arrow fn, classes, Promises, modules</div>
+        <div class="tl-item"><span class="tl-year">ES2017</span> async/await</div>
+        <div class="tl-item"><span class="tl-year">ES2020</span> Optional chaining (?.), nullish coalescing (??)</div>
+        <div class="tl-item"><span class="tl-year">ES2022</span> Top-level await, class fields</div>
+      </div>
+      <div class="callout info"><strong>Characteristics:</strong> Interpreted (JIT compiled), dynamically typed, single-threaded, prototype-based, first-class functions, garbage collected, event-driven.</div>
+      <div class="adv-dis">
+        <div class="adv"><h4>✅ Advantages</h4><ul><li>Runs in every browser</li><li>Huge community &amp; npm</li><li>Non-blocking I/O</li><li>Full-stack (Node.js)</li><li>Quick to prototype</li></ul></div>
+        <div class="dis"><h4>❌ Disadvantages</h4><ul><li>Dynamically typed = runtime bugs</li><li>Single-threaded (workarounds needed)</li><li>Inconsistent browser behaviour (legacy)</li><li>Security: client code is visible</li><li>Callback hell (pre-Promises)</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ── Variables ── -->
+    <section class="card" id="js-vars">
+      <h2>📦 Variables &amp; Declarations</h2>
+      <div class="story-box">📖 Think of variables like labeled boxes in a warehouse. <code>var</code> is an old rusty box you can move anywhere (function scope). <code>let</code> is a proper box locked inside a room (block scope). <code>const</code> is a locked safe — the lock can't change, but items inside an object can still be rearranged.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Keyword</th><th>Scope</th><th>Hoisted?</th><th>Re-declare?</th><th>Re-assign?</th></tr></thead>
+          <tbody>
+            <tr><td><code>var</code></td><td>Function</td><td>Yes (undefined)</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td><code>let</code></td><td>Block</td><td>Yes (TDZ)</td><td>No</td><td>Yes</td></tr>
+            <tr><td><code>const</code></td><td>Block</td><td>Yes (TDZ)</td><td>No</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>var x = 10;        // function scoped
+let y = 20;        // block scoped
+const PI = 3.14;   // can't reassign
+
+const obj = { a: 1 };
+obj.a = 99;        // ✅ allowed — obj reference is const, not contents
+obj = {};          // ❌ TypeError — can't reassign const binding</code></pre>
+    </section>
+
+    <!-- ── Scope ── -->
+    <section class="card" id="js-scope">
+      <h2>🔭 Scope, Scope Chain &amp; Lexical Environment</h2>
+      <div class="story-box">📖 Imagine nested rooms inside a house. If you lose your keys in the inner bedroom, you look there first, then in the hallway, then the living room, then outside. That search path is the <strong>scope chain</strong>. The blueprint of which variables belong to which room — created at code-writing time — is the <strong>Lexical Environment</strong>.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Types of Scope</h3>
+          <ul>
+            <li><strong>Global scope</strong> — accessible everywhere</li>
+            <li><strong>Function scope</strong> — inside a function only</li>
+            <li><strong>Block scope</strong> — inside <code>{}</code> (let/const)</li>
+            <li><strong>Module scope</strong> — inside ES6 modules</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Lexical Environment</h3>
+          <p>Created at <em>write-time</em>. Contains:</p>
+          <ul>
+            <li><strong>Environment Record</strong> — actual variables &amp; functions</li>
+            <li><strong>Outer reference</strong> — link to parent scope</li>
+          </ul>
+          <p>Scope chain is built by following these outer references.</p>
+        </div>
+      </div>
+      <pre><code>let city = "Delhi";         // global
+
+function country() {
+  let state = "Rajasthan";  // function scope
+
+  function village() {
+    let area = "Jaipur";    // inner scope
+    console.log(city);      // ✅ reaches global via scope chain
+    console.log(state);     // ✅ reaches parent
+    console.log(area);      // ✅ own scope
+  }
+  village();
+  // console.log(area);     // ❌ ReferenceError
+}</code></pre>
+    </section>
+
+    <!-- ── Hoisting ── -->
+    <section class="card" id="js-hoisting">
+      <h2>🏗️ Hoisting &amp; Temporal Dead Zone (TDZ)</h2>
+      <div class="story-box">📖 Before your JavaScript code runs, the JS engine does a quick "pre-scan" — like a manager who walks through the office before work starts, noting where every desk (function/variable) will be, but not filling them yet. That pre-scan is hoisting. For <code>let</code>/<code>const</code>, the desk is noted but locked (TDZ) until the actual declaration line.</div>
+      <div class="grid-2">
+        <div>
+          <h3>var hoisting</h3>
+          <pre><code>console.log(a); // undefined (hoisted)
+var a = 5;
+console.log(a); // 5</code></pre>
+        </div>
+        <div>
+          <h3>let/const — TDZ</h3>
+          <pre><code>console.log(b); // ❌ ReferenceError (TDZ)
+let b = 10;
+console.log(b); // 10</code></pre>
+        </div>
+      </div>
+      <pre><code>// Function declarations are fully hoisted
+greet(); // ✅ Works!
+function greet() { console.log("Hello"); }
+
+// Function expressions are NOT
+greet2(); // ❌ TypeError: greet2 is not a function
+var greet2 = function() { console.log("Hi"); };</code></pre>
+      <div class="callout warning"><strong>TDZ:</strong> The period between entering the block and the actual declaration line where <code>let</code>/<code>const</code> exist but cannot be accessed. Accessing them throws <code>ReferenceError</code>.</div>
+    </section>
+
+    <!-- ── Data Types ── -->
+    <section class="card" id="js-datatypes">
+      <h2>🔢 Primitive &amp; Non-Primitive Data Types</h2>
+      <div class="story-box">📖 Primitives are like individual Lego bricks — they are values themselves, stored directly in the stack. Non-primitives (objects/arrays) are like a treasure map — the variable holds the <em>map (reference)</em>, not the treasure chest itself. That's why two variables pointing to the same object share the same chest!</div>
+      <div class="grid-2">
+        <div>
+          <h3>Primitive (7 types)</h3>
+          <ul>
+            <li><code>string</code> — "hello"</li>
+            <li><code>number</code> — 42, 3.14, NaN, Infinity</li>
+            <li><code>boolean</code> — true / false</li>
+            <li><code>undefined</code> — declared but not assigned</li>
+            <li><code>null</code> — intentional empty value</li>
+            <li><code>bigint</code> — 9007199254740991n</li>
+            <li><code>symbol</code> — unique identifier</li>
+          </ul>
+          <p>✅ Immutable · Stored by <strong>value</strong> · Copied on assignment</p>
+        </div>
+        <div>
+          <h3>Non-Primitive (Reference types)</h3>
+          <ul>
+            <li><code>Object</code> — { key: value }</li>
+            <li><code>Array</code> — [1, 2, 3]</li>
+            <li><code>Function</code> — () =&gt; {}</li>
+            <li><code>Date</code>, <code>RegExp</code>, <code>Map</code>, <code>Set</code></li>
+          </ul>
+          <p>✅ Mutable · Stored by <strong>reference</strong> · Shared on assignment</p>
+          <pre><code>let a = { x: 1 };
+let b = a;       // same reference
+b.x = 99;
+console.log(a.x); // 99 ← a also changed!</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Mutability ── -->
+    <section class="card" id="js-mutability">
+      <h2>🔒 Mutability &amp; Immutability</h2>
+      <div class="story-box">📖 A string is like a printed book — you can't erase a letter; you have to print a whole new book with the change. An object is like a whiteboard — you can erase and rewrite as much as you like on the same board.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Immutable — Primitives</h3>
+          <pre><code>let name = "Ram";
+name[0] = "S";     // silent fail in non-strict
+console.log(name); // "Ram" — unchanged!
+
+// Strings are immutable in JS.
+// Every operation returns a NEW string.
+let upper = name.toUpperCase(); // "RAM"
+console.log(name); // still "Ram"</code></pre>
+          <div class="callout info">Yes — strings are immutable. You cannot change a character in place. That is WHY <code>name[0] = "S"</code> silently does nothing.</div>
+        </div>
+        <div>
+          <h3>Mutable — Objects/Arrays</h3>
+          <pre><code>const arr = [1, 2, 3];
+arr.push(4);        // ✅ mutates in place
+arr[0] = 99;        // ✅ mutates
+
+const obj = { a: 1 };
+obj.b = 2;          // ✅ mutates
+
+// To make object immutable:
+Object.freeze(obj);
+obj.b = 99;         // silent fail
+console.log(obj.b); // 2</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Type Conversion ── -->
+    <section class="card" id="js-coercion">
+      <h2>🔄 Type Conversion — Explicit &amp; Implicit</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Explicit (you do it)</h3>
+          <pre><code>Number("42")      // 42
+Number(true)      // 1
+Number(false)     // 0
+Number(null)      // 0
+Number(undefined) // NaN
+Number("")        // 0
+
+String(42)        // "42"
+Boolean(0)        // false
+Boolean("hi")     // true
+
+parseInt("42px")  // 42
+parseFloat("3.14x") // 3.14</code></pre>
+        </div>
+        <div>
+          <h3>Implicit (JS does it)</h3>
+          <pre><code>"5" + 2     // "52"  (+ triggers string concat)
+"5" - 2     // 3    (- forces number)
+"5" * "2"   // 10
+true + 1    // 2
+false + 1   // 1
+null + 1    // 1
+undefined + 1 // NaN
+
+// == uses coercion:
+0 == false  // true  ← dangerous!
+"" == false // true
+null == undefined // true
+
+// === does NOT coerce:
+0 === false // false ← safe</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Truthy / Falsy ── -->
+    <section class="card" id="js-truthy">
+      <h2>✅❌ Truthy &amp; Falsy Values</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Falsy (only 8)</h3>
+          <pre><code>false
+0
+-0
+0n        // bigint zero
+""        // empty string
+null
+undefined
+NaN</code></pre>
+        </div>
+        <div>
+          <h3>Truthy (everything else)</h3>
+          <pre><code>"0"         // truthy! non-empty string
+"false"     // truthy!
+[]          // truthy! empty array
+{}          // truthy! empty object
+function(){}// truthy
+-1          // truthy
+Infinity    // truthy</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Operators ── -->
+    <section class="card" id="js-operators">
+      <h2>⚙️ Operators: Ternary, Short-Circuit, Nullish, Optional Chaining</h2>
+
+      <h3>Ternary vs if-else</h3>
+      <pre><code>// if-else — use for complex multi-line logic
+if (age >= 18) {
+  console.log("Adult");
+} else {
+  console.log("Minor");
+}
+
+// Ternary — use for simple inline expression (returns a value)
+const label = age >= 18 ? "Adult" : "Minor";
+
+// ternary is an EXPRESSION (produces a value), if-else is a STATEMENT</code></pre>
+
+      <h3>Short-Circuit Evaluation</h3>
+      <div class="grid-2">
+        <div>
+          <pre><code>// && — stops at first FALSY
+false && doSomething();   // doSomething never called
+true && console.log("yes"); // "yes"
+const name = user && user.name; // safe access</code></pre>
+        </div>
+        <div>
+          <pre><code>// || — stops at first TRUTHY
+const val = input || "default";
+// if input is falsy, use "default"
+
+// ?? — Nullish coalescing
+// ONLY null/undefined triggers fallback (not 0 or "")
+const count = input ?? 0;
+// if input is null/undefined → 0
+// if input is 0 → 0 (preserved!)</code></pre>
+        </div>
+      </div>
+
+      <h3>Optional Chaining vs Ternary</h3>
+      <pre><code>// Without optional chaining → error if user is null
+console.log(user.address.city); // ❌ TypeError if user is null
+
+// With optional chaining (?.):
+console.log(user?.address?.city); // undefined (no error)
+console.log(user?.getName?.()); // calls method safely
+
+// Ternary checks ONE condition and returns one of two values.
+// Optional chaining (?.) short-circuits the whole chain if null/undefined.</code></pre>
+    </section>
+
+    <!-- ── Loops ── -->
+    <section class="card" id="js-loops">
+      <h2>🔁 Types of Loops</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Loop</th><th>Use For</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>for</code></td><td>Known iterations</td><td><code>for(let i=0;i&lt;5;i++)</code></td></tr>
+            <tr><td><code>while</code></td><td>Unknown iterations</td><td><code>while(i&lt;5)</code></td></tr>
+            <tr><td><code>do...while</code></td><td>Run at least once</td><td><code>do{...}while(i&lt;5)</code></td></tr>
+            <tr><td><code>for...of</code></td><td>Arrays, strings, iterables</td><td><code>for(let x of arr)</code></td></tr>
+            <tr><td><code>for...in</code></td><td>Object keys</td><td><code>for(let k in obj)</code></td></tr>
+            <tr><td><code>forEach</code></td><td>Array iteration (no return)</td><td><code>arr.forEach(x => ...)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>forEach vs map</h3>
+      <pre><code>// forEach — iterates, returns undefined, CANNOT chain
+[1,2,3].forEach(x => console.log(x * 2)); // side effects only
+
+// map — iterates, returns NEW array, chainable
+const doubled = [1,2,3].map(x => x * 2); // [2,4,6]
+// forEach modifies world, map creates new world</code></pre>
+    </section>
+
+    <!-- ── Functions ── -->
+    <section class="card" id="js-functions">
+      <h2>🧩 Functions — All Types</h2>
+
+      <h3>Regular vs Arrow Functions</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Regular</th><th>Arrow</th></tr></thead>
+          <tbody>
+            <tr><td><code>this</code></td><td>Dynamic (caller)</td><td>Lexical (enclosing scope)</td></tr>
+            <tr><td><code>arguments</code></td><td>Available</td><td>Not available</td></tr>
+            <tr><td>Constructor</td><td>Can use <code>new</code></td><td>Cannot use <code>new</code></td></tr>
+            <tr><td>Hoisted</td><td>Yes (declaration)</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>First-Class Functions</h3>
+      <div class="callout info">Functions are <strong>first-class citizens</strong> in JS — they can be assigned to variables, passed as arguments, returned from other functions, just like any other value.</div>
+
+      <h3>Pure Functions</h3>
+      <pre><code>// Pure: same input → same output, no side effects
+function add(a, b) { return a + b; } // ✅ pure
+
+// Impure: depends on external state
+let count = 0;
+function increment() { count++; } // ❌ impure — side effect</code></pre>
+
+      <h3>Higher-Order Functions</h3>
+      <pre><code>// A function that takes/returns a function
+function multiplier(factor) {
+  return function(num) { return num * factor; };
+}
+const double = multiplier(2);
+double(5); // 10
+
+// map, filter, reduce are all HOFs!</code></pre>
+
+      <h3>call, apply, bind</h3>
+      <pre><code>function greet(greeting, punct) {
+  return `${greeting}, ${this.name}${punct}`;
+}
+const user = { name: "Arjun" };
+
+greet.call(user, "Hello", "!");   // "Hello, Arjun!" — args spread
+greet.apply(user, ["Hi", "?"]);   // "Hi, Arjun?" — args as array
+const fn = greet.bind(user);      // returns new function with 'this' fixed
+fn("Hey", ".");                   // "Hey, Arjun."</code></pre>
+
+      <h3>Variadic Functions &amp; arguments</h3>
+      <pre><code>// Old way — arguments object (array-like, not real array)
+function sum() {
+  return [...arguments].reduce((a, b) => a + b, 0);
+}
+
+// Modern way — rest params (real array)
+function sum(...nums) {
+  return nums.reduce((a, b) => a + b, 0);
+}
+sum(1, 2, 3, 4); // 10</code></pre>
+    </section>
+
+    <!-- ── Closures ── -->
+    <section class="card" id="js-closures">
+      <h2>🔐 Closures</h2>
+      <div class="story-box">📖 Imagine you leave a sticky note on your fridge before going on vacation. Even when you're away (the function returned), the note is still there — the inner function remembers the variables of the outer function. That sticky note is a <strong>closure</strong>.</div>
+      <pre><code>function makeCounter() {
+  let count = 0;          // "sticky note"
+  return {
+    increment: () => ++count,
+    decrement: () => --count,
+    value: () => count
+  };
+}
+
+const counter = makeCounter();
+counter.increment(); // 1
+counter.increment(); // 2
+counter.decrement(); // 1
+counter.value();     // 1
+// count is private! can't access from outside.</code></pre>
+      <div class="callout info">Closures enable: <strong>data privacy</strong>, <strong>factory functions</strong>, <strong>memoization</strong>, <strong>module patterns</strong>.</div>
+    </section>
+
+    <!-- ── this ── -->
+    <section class="card" id="js-this">
+      <h2>🎯 <code>this</code> Keyword</h2>
+      <div class="story-box">📖 <code>this</code> is like a name badge at a conference. In a panel (regular function), the badge says whoever is speaking (the caller). In an arrow function, you keep your own badge from home (the enclosing context). In strict mode, if no one is the host, the badge is blank (undefined).</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Context</th><th>Value of <code>this</code></th></tr></thead>
+          <tbody>
+            <tr><td>Global scope (non-strict)</td><td><code>window</code> (browser)</td></tr>
+            <tr><td>Global scope (strict)</td><td><code>undefined</code></td></tr>
+            <tr><td>Object method</td><td>The object itself</td></tr>
+            <tr><td>Arrow function</td><td>Inherits from enclosing scope</td></tr>
+            <tr><td><code>new</code> constructor</td><td>Newly created object</td></tr>
+            <tr><td><code>call/apply/bind</code></td><td>Explicitly provided</td></tr>
+            <tr><td>Event listener</td><td>The DOM element</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>const obj = {
+  name: "Priya",
+  greet: function() { return this.name; },       // "Priya"
+  greetArrow: () => { return this.name; }        // undefined (lexical this = global)
+};
+
+// Why use this? To write reusable methods that operate on the calling object.</code></pre>
+    </section>
+
+    <!-- ── Prototypes ── -->
+    <section class="card" id="js-proto">
+      <h2>🧬 Prototypes &amp; Prototypal Inheritance</h2>
+      <div class="story-box">📖 Every object in JS has a hidden parent (prototype). If you ask an object for a property it doesn't have, it asks its parent, then grandparent — climbing the <strong>prototype chain</strong> until it hits <code>null</code>. Like inheriting family traits — no need to copy, just look up the family tree.</div>
+      <pre><code>function Animal(name) {
+  this.name = name;
+}
+Animal.prototype.speak = function() {
+  return `${this.name} makes a sound.`;
+};
+
+const dog = new Animal("Dog");
+dog.speak(); // "Dog makes a sound." — found on prototype, not dog itself
+
+// Modern class syntax (syntactic sugar over prototypes)
+class Vehicle {
+  constructor(brand) { this.brand = brand; }
+  honk() { return `${this.brand} goes beep!`; }
+}
+class Car extends Vehicle {
+  drive() { return `${this.brand} drives.`; }
+}
+const c = new Car("Tesla");
+c.honk(); // inherited from Vehicle.prototype</code></pre>
+    </section>
+
+    <!-- ── Methods ── -->
+    <section class="card" id="js-methods">
+      <h2>🛠️ Built-in Methods — Array, Object, String, Math, Number</h2>
+      <div class="callout info"><strong>What is a method?</strong> A method is a <em>function</em> that belongs to an object (or prototype). When you call <code>arr.push()</code>, <code>push</code> is the method, <code>arr</code> is the object it operates on.</div>
+
+      <h3>Array Methods</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>What it does</th><th>Returns</th></tr></thead>
+          <tbody>
+            <tr><td><code>push(x)</code></td><td>Add to end</td><td>New length</td></tr>
+            <tr><td><code>pop()</code></td><td>Remove from end</td><td>Removed item</td></tr>
+            <tr><td><code>shift()</code></td><td>Remove from start</td><td>Removed item</td></tr>
+            <tr><td><code>unshift(x)</code></td><td>Add to start</td><td>New length</td></tr>
+            <tr><td><code>map(fn)</code></td><td>Transform each item</td><td>New array</td></tr>
+            <tr><td><code>filter(fn)</code></td><td>Keep matching items</td><td>New array</td></tr>
+            <tr><td><code>reduce(fn,init)</code></td><td>Accumulate to one value</td><td>Single value</td></tr>
+            <tr><td><code>find(fn)</code></td><td>First matching item</td><td>Item or undefined</td></tr>
+            <tr><td><code>findIndex(fn)</code></td><td>Index of first match</td><td>Index or -1</td></tr>
+            <tr><td><code>some(fn)</code></td><td>Any item matches?</td><td>boolean</td></tr>
+            <tr><td><code>every(fn)</code></td><td>All items match?</td><td>boolean</td></tr>
+            <tr><td><code>includes(x)</code></td><td>Contains item?</td><td>boolean</td></tr>
+            <tr><td><code>indexOf(x)</code></td><td>First index of item</td><td>index or -1</td></tr>
+            <tr><td><code>slice(s,e)</code></td><td>Copy portion</td><td>New array</td></tr>
+            <tr><td><code>splice(s,n,...)</code></td><td>Remove/insert items (mutates)</td><td>Removed items</td></tr>
+            <tr><td><code>flat(depth)</code></td><td>Flatten nested arrays</td><td>New array</td></tr>
+            <tr><td><code>flatMap(fn)</code></td><td>map + flat(1)</td><td>New array</td></tr>
+            <tr><td><code>sort(fn)</code></td><td>Sort in place</td><td>Same array</td></tr>
+            <tr><td><code>reverse()</code></td><td>Reverse in place</td><td>Same array</td></tr>
+            <tr><td><code>join(sep)</code></td><td>Array to string</td><td>String</td></tr>
+            <tr><td><code>concat(...)</code></td><td>Merge arrays</td><td>New array</td></tr>
+            <tr><td><code>fill(val,s,e)</code></td><td>Fill with value</td><td>Same array (mutates)</td></tr>
+            <tr><td><code>Array.from(x)</code></td><td>Convert to array</td><td>New array</td></tr>
+            <tr><td><code>Array.isArray(x)</code></td><td>Is it an array?</td><td>boolean</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Object Methods</h3>
+      <pre><code>const obj = { a: 1, b: 2, c: 3 };
+
+Object.keys(obj)     // ["a","b","c"]
+Object.values(obj)   // [1,2,3]
+Object.entries(obj)  // [["a",1],["b",2],["c",3]]
+Object.assign({}, obj, { d: 4 }) // shallow merge
+Object.freeze(obj)   // immutable
+Object.seal(obj)     // can update values but not add/delete keys
+Object.fromEntries([["a",1],["b",2]]) // {a:1, b:2}
+Object.hasOwn(obj, "a")  // true (modern)
+"a" in obj               // true (checks prototype too)</code></pre>
+
+      <h3>String Methods</h3>
+      <pre><code>const s = "Hello World";
+s.length              // 11
+s.toUpperCase()       // "HELLO WORLD"
+s.toLowerCase()       // "hello world"
+s.trim()              // remove whitespace both ends
+s.trimStart()         // remove leading whitespace
+s.trimEnd()           // remove trailing whitespace
+s.includes("World")   // true
+s.startsWith("He")    // true
+s.endsWith("ld")      // true
+s.indexOf("o")        // 4
+s.slice(0, 5)         // "Hello"
+s.substring(6, 11)    // "World"
+s.replace("World","JS") // "Hello JS"
+s.replaceAll("l","L") // "HeLLo WorLd"
+s.split(" ")          // ["Hello","World"]
+s.padStart(15, "-")   // "----Hello World"
+s.padEnd(15, "-")     // "Hello World----"
+s.repeat(2)           // "Hello WorldHello World"
+s.charAt(0)           // "H"
+s.charCodeAt(0)       // 72
+String.fromCharCode(72) // "H"
+s.at(-1)              // "d" (last char)</code></pre>
+
+      <h3>Math Methods</h3>
+      <pre><code>Math.round(4.6)    // 5
+Math.ceil(4.1)     // 5
+Math.floor(4.9)    // 4
+Math.abs(-5)       // 5
+Math.max(1,2,3)    // 3
+Math.min(1,2,3)    // 1
+Math.pow(2,10)     // 1024
+Math.sqrt(25)      // 5
+Math.random()      // 0 to 1 (exclusive)
+// Random between 1-100:
+Math.floor(Math.random() * 100) + 1
+Math.PI            // 3.14159...
+Math.trunc(4.9)    // 4 (removes decimal, no rounding)
+Math.sign(-5)      // -1</code></pre>
+
+      <h3>Number Methods</h3>
+      <pre><code>Number.isInteger(42)       // true
+Number.isFinite(Infinity)  // false
+Number.isNaN(NaN)          // true  ← use this, not global isNaN
+Number.parseInt("42px")    // 42
+Number.parseFloat("3.14x") // 3.14
+(3.14159).toFixed(2)       // "3.14"
+(1234567).toLocaleString() // "1,234,567"
+Number.MAX_SAFE_INTEGER    // 9007199254740991</code></pre>
+    </section>
+
+    <!-- ── Destructuring ── -->
+    <section class="card" id="js-destructuring">
+      <h2>📦 Destructuring — Arrays &amp; Objects</h2>
+      <pre><code>// Array destructuring
+const [first, second, ...rest] = [10, 20, 30, 40];
+// first=10, second=20, rest=[30,40]
+
+// Swap variables
+let a = 1, b = 2;
+[a, b] = [b, a]; // a=2, b=1
+
+// Object destructuring
+const { name, age, city = "Unknown" } = { name: "Ravi", age: 25 };
+// city defaults to "Unknown" if not present
+
+// Rename while destructuring
+const { name: userName } = { name: "Sita" };
+// userName = "Sita"
+
+// Nested destructuring
+const { address: { pincode } } = { address: { pincode: "110001" } };
+
+// In function params
+function display({ name, age }) {
+  console.log(`${name} is ${age}`);
+}</code></pre>
+    </section>
+
+    <!-- ── Spread/Rest ── -->
+    <section class="card" id="js-spread">
+      <h2>🌊 Spread &amp; Rest Operators</h2>
+      <div class="story-box">📖 <strong>Spread</strong> is like opening a gift box and placing each item on the table. <strong>Rest</strong> is like scooping leftover candies into a bag labeled "the rest".</div>
+      <div class="grid-2">
+        <div>
+          <h3>Spread (<code>...</code>) — expands</h3>
+          <pre><code>const a = [1, 2, 3];
+const b = [...a, 4, 5]; // [1,2,3,4,5]
+
+const obj1 = { x: 1 };
+const obj2 = { ...obj1, y: 2 }; // {x:1,y:2}
+
+// Clone an array (shallow)
+const clone = [...a];
+
+// Pass array as args
+Math.max(...a); // 3</code></pre>
+        </div>
+        <div>
+          <h3>Rest (<code>...</code>) — collects</h3>
+          <pre><code>function sum(...nums) {
+  // nums is a real array
+  return nums.reduce((a, b) => a + b, 0);
+}
+sum(1, 2, 3, 4); // 10
+
+// In destructuring
+const [first, ...others] = [1, 2, 3, 4];
+// first=1, others=[2,3,4]
+
+// Object rest
+const { a, ...remaining } = { a:1, b:2, c:3 };
+// remaining = { b:2, c:3 }</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Map Set ── -->
+    <section class="card" id="js-map-set">
+      <h2>🗺️ Map vs Set vs Object vs Array</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Object</th><th>Map</th><th>Array</th><th>Set</th></tr></thead>
+          <tbody>
+            <tr><td>Key type</td><td>String/Symbol only</td><td>Any type</td><td>Index (number)</td><td>N/A</td></tr>
+            <tr><td>Order</td><td>Not guaranteed</td><td>Insertion order</td><td>Index order</td><td>Insertion order</td></tr>
+            <tr><td>Duplicates</td><td>No duplicate keys</td><td>No duplicate keys</td><td>Allowed</td><td>No duplicates</td></tr>
+            <tr><td>Size</td><td><code>Object.keys().length</code></td><td><code>.size</code></td><td><code>.length</code></td><td><code>.size</code></td></tr>
+            <tr><td>Iterable</td><td>Indirectly</td><td>Directly</td><td>Directly</td><td>Directly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Map
+const map = new Map();
+map.set("key", "value");
+map.set(42, "number key");
+map.get("key");     // "value"
+map.has("key");     // true
+map.delete("key");
+map.size;           // 1
+for(let [k,v] of map) { ... }
+
+// Set — unique values only
+const set = new Set([1,2,2,3,3]);
+// {1,2,3}
+set.add(4);
+set.has(1);         // true
+set.delete(1);
+set.size;           // 3
+// Remove duplicates from array:
+const unique = [...new Set([1,2,2,3])];</code></pre>
+    </section>
+
+    <!-- ── Symbol ── -->
+    <section class="card" id="js-symbol">
+      <h2>🔑 Symbol Data Type</h2>
+      <div class="story-box">📖 Imagine every person in the world gets a serial number at birth — even if two people have the same name, their serial numbers are unique forever. Symbol works the same way — every <code>Symbol()</code> call creates a globally unique value, even with the same description.</div>
+      <pre><code>const id1 = Symbol("id");
+const id2 = Symbol("id");
+id1 === id2; // false — always unique!
+
+const user = {
+  name: "Arjun",
+  [id1]: 123    // hidden from normal enumeration
+};
+
+Object.keys(user);   // ["name"] — Symbol not included
+user[id1];           // 123
+
+// Use case: avoid property name collisions in shared objects
+// Symbol.iterator, Symbol.toPrimitive are built-in well-known symbols</code></pre>
+    </section>
+
+    <!-- ── Async ── -->
+    <section class="card" id="js-async">
+      <h2>⚡ Synchronous vs Asynchronous</h2>
+      <div class="story-box">📖 Synchronous is like a single cashier at a counter — serve one customer, finish, then next. Asynchronous is like ordering food at a restaurant — you order (non-blocking), get a token, and the kitchen works while you sit. When ready, they call your token (callback/promise).</div>
+      <div class="grid-2">
+        <div>
+          <h3>Synchronous</h3>
+          <pre><code>// Executes line by line, blocking
+console.log("1");
+// Heavy computation blocks here
+console.log("2");
+// Output: 1, 2</code></pre>
+        </div>
+        <div>
+          <h3>Asynchronous</h3>
+          <pre><code>console.log("1");
+setTimeout(() => console.log("2"), 1000);
+console.log("3");
+// Output: 1, 3, 2
+// "2" is non-blocking — JS moves on!</code></pre>
+        </div>
+      </div>
+
+      <h3>How JS Handles Async — Event Loop</h3>
+      <div class="callout info">
+        JS is <strong>single-threaded</strong> but uses the <strong>Event Loop</strong> to handle async via:<br>
+        <strong>Call Stack</strong> → <strong>Web APIs</strong> (setTimeout, fetch, DOM events) → <strong>Task Queue / Microtask Queue</strong> → <strong>Event Loop picks &amp; pushes to stack</strong>
+      </div>
+      <pre><code>// Phases order of execution:
+// 1. Call Stack (sync code)
+// 2. Microtask Queue (Promises .then, queueMicrotask)
+// 3. Macrotask/Task Queue (setTimeout, setInterval, I/O)
+
+console.log("A");
+setTimeout(() => console.log("B"), 0);
+Promise.resolve().then(() => console.log("C"));
+console.log("D");
+// Output: A D C B
+// C (microtask) runs before B (macrotask)!</code></pre>
+
+      <h3>Heap &amp; Stack</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Call Stack</th><th>Heap</th></tr></thead>
+          <tbody>
+            <tr><td>Stores</td><td>Function execution contexts, primitives</td><td>Objects, arrays, functions (reference types)</td></tr>
+            <tr><td>Structure</td><td>LIFO (Last In First Out)</td><td>Unstructured memory pool</td></tr>
+            <tr><td>Size</td><td>Limited (Stack overflow)</td><td>Large (GC managed)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Callbacks / Promises ── -->
+    <section class="card" id="js-callbacks">
+      <h2>📞 Callbacks → Promises → Evolution</h2>
+      <div class="story-box">📖 <strong>Callback</strong>: "Call me when you're done cooking!" You hand the chef a note (callback) and go watch TV. The problem: if the chef needs another chef who needs another chef — that's <strong>callback hell</strong> (Pyramid of Doom). <strong>Promises</strong> fixed this by saying: "I promise to return a result (or failure) — you can chain your next step."</div>
+
+      <h3>Callback Hell</h3>
+      <pre><code>// Pyramid of doom — hard to read and maintain
+loginUser(function(user) {
+  getUserProfile(user.id, function(profile) {
+    getUserPosts(profile.id, function(posts) {
+      displayPosts(posts, function() {
+        // 😱 getting deeper...
+      });
+    });
+  });
+});</code></pre>
+
+      <h3>Promises — Why they came</h3>
+      <pre><code>// A Promise has 3 states: pending → fulfilled | rejected
+
+const fetchData = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const success = true;
+    if (success) resolve({ data: "✅ result" });
+    else reject(new Error("❌ Failed"));
+  }, 1000);
+});
+
+fetchData
+  .then(result => console.log(result))  // fulfilled
+  .catch(err => console.error(err))     // rejected
+  .finally(() => console.log("Done"));  // always runs</code></pre>
+
+      <h3>Promise Chaining</h3>
+      <pre><code>loginUser()
+  .then(user => getUserProfile(user.id))
+  .then(profile => getUserPosts(profile.id))
+  .then(posts => displayPosts(posts))
+  .catch(err => handleError(err));
+// Flat and readable! 🎉</code></pre>
+
+      <h3>Promise Types / Static Methods</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>Behaviour</th></tr></thead>
+          <tbody>
+            <tr><td><code>Promise.all([p1,p2])</code></td><td>Wait for ALL. Rejects if ANY fails.</td></tr>
+            <tr><td><code>Promise.allSettled([...])</code></td><td>Wait for ALL, never rejects. Reports each result.</td></tr>
+            <tr><td><code>Promise.race([...])</code></td><td>First to settle (resolve OR reject) wins.</td></tr>
+            <tr><td><code>Promise.any([...])</code></td><td>First to RESOLVE wins. Fails only if ALL reject.</td></tr>
+            <tr><td><code>Promise.resolve(val)</code></td><td>Instantly resolved promise.</td></tr>
+            <tr><td><code>Promise.reject(err)</code></td><td>Instantly rejected promise.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── async await ── -->
+    <section class="card" id="js-async-await">
+      <h2>⏳ async / await — Why it came after Promises</h2>
+      <div class="story-box">📖 Even with promise chaining, you're still writing <code>.then().then().then()</code>. <strong>async/await</strong> (ES2017) made async code look <em>synchronous</em> — like reading a story left to right, top to bottom. Under the hood, it's still Promises.</div>
+      <pre><code>// async function always returns a Promise
+async function loadDashboard() {
+  try {
+    const user = await loginUser();         // waits here
+    const profile = await getProfile(user.id); // then here
+    const posts = await getPosts(profile.id);
+    displayPosts(posts);
+  } catch (err) {
+    console.error("Error:", err.message);
+  } finally {
+    hideLoader();
+  }
+}
+
+// Run multiple in parallel (don't await sequentially if independent!)
+const [a, b] = await Promise.all([fetchA(), fetchB()]);
+// Promise.all is FASTER than awaiting one by one</code></pre>
+    </section>
+
+    <!-- ── Fetch ── -->
+    <section class="card" id="js-fetch">
+      <h2>🌐 Fetch API</h2>
+      <pre><code>// fetch returns a Promise that resolves to a Response object
+fetch("https://api.example.com/users")
+  .then(res => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();          // returns another Promise
+  })
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// With async/await (cleaner):
+async function getUsers() {
+  const res = await fetch("https://api.example.com/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Ravi" })
+  });
+  if (!res.ok) throw new Error("Request failed");
+  return await res.json();
+}</code></pre>
+    </section>
+
+    <!-- ── Events ── -->
+    <section class="card" id="js-events">
+      <h2>📣 Events — Listener, Handler, Propagation, Delegation</h2>
+      <div class="story-box">📖 An event is like someone pressing a doorbell. The <strong>event listener</strong> is the wiring from the bell to the alert system. The <strong>event handler</strong> is the security guard who decides what to do when the bell rings.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Event Listener</th><th>Event Handler</th></tr></thead>
+          <tbody>
+            <tr><td>How</td><td><code>addEventListener("click", fn)</code></td><td><code>onclick = fn</code></td></tr>
+            <tr><td>Multiple</td><td>Yes — stack multiple</td><td>No — replaces previous</td></tr>
+            <tr><td>Remove</td><td><code>removeEventListener</code></td><td>Set to null</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Event Propagation</h3>
+      <pre><code>// 3 phases:
+// 1. CAPTURING: event goes DOWN from window → target
+// 2. TARGET: event at the exact element
+// 3. BUBBLING: event goes UP from target → window (default)
+
+// addEventListener 3rd arg: true = capturing, false (default) = bubbling
+
+document.getElementById("parent").addEventListener("click", fn, true);  // capture
+document.getElementById("child").addEventListener("click", fn);          // bubble
+
+event.stopPropagation(); // stops bubbling/capturing
+event.preventDefault();  // stops default browser behavior</code></pre>
+
+      <h3>Event Delegation</h3>
+      <div class="story-box">📖 Instead of hiring 100 security guards (one per door), hire ONE manager at the main entrance who checks the visitor's destination and routes accordingly. Event delegation puts ONE listener on the parent to handle events from all children.</div>
+      <pre><code>// Instead of adding listener to each &lt;li&gt;:
+document.getElementById("list").addEventListener("click", function(e) {
+  if (e.target.tagName === "LI") {
+    console.log("Clicked:", e.target.textContent);
+  }
+});
+// Works even for dynamically added &lt;li&gt; elements!</code></pre>
+    </section>
+
+    <!-- ── DOM ── -->
+    <section class="card" id="js-dom">
+      <h2>🌳 DOM &amp; BOM</h2>
+      <div class="grid-2">
+        <div>
+          <h3>DOM (Document Object Model)</h3>
+          <p>Tree representation of your HTML. JS can read/modify it.</p>
+          <pre><code>document.getElementById("id")
+document.querySelector(".class")
+document.querySelectorAll("li")
+
+// Modify
+el.textContent = "New text";
+el.innerHTML = "&lt;b&gt;Bold&lt;/b&gt;";
+el.style.color = "red";
+el.classList.add("active");
+el.classList.remove("active");
+el.classList.toggle("active");
+el.setAttribute("href","...");
+
+// Create &amp; append
+const div = document.createElement("div");
+document.body.appendChild(div);
+div.remove();</code></pre>
+        </div>
+        <div>
+          <h3>BOM (Browser Object Model)</h3>
+          <p>Represents the browser window — not part of the DOM.</p>
+          <pre><code>window.innerWidth      // viewport width
+window.location.href   // current URL
+window.location.reload()
+window.history.back()
+window.history.push()  // SPA routing
+navigator.userAgent    // browser info
+navigator.geolocation
+screen.width
+localStorage.setItem("key","val")
+sessionStorage.setItem("key","val")
+alert("Hi");
+confirm("Sure?");
+prompt("Enter name:");</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Misc ── -->
+    <section class="card" id="js-misc">
+      <h2>🔧 Misc: strict mode, == vs ===, CommonJS vs ES6, static</h2>
+
+      <h3>Strict Mode</h3>
+      <pre><code>"use strict"; // put at top of file or function
+
+// Prevents:
+x = 5;            // ❌ ReferenceError — must declare with var/let/const
+delete Object.prototype; // ❌ not allowed
+function fn(a, a) {} // ❌ duplicate params</code></pre>
+
+      <h3>== vs ===</h3>
+      <pre><code>// == (loose equality) — does type coercion
+0 == false;       // true ← BAD
+"1" == 1;         // true
+null == undefined;// true
+
+// === (strict equality) — no coercion
+0 === false;      // false ✅
+"1" === 1;        // false ✅
+// Always prefer ===</code></pre>
+
+      <h3>CommonJS (CJS) vs ES6 Modules</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>CommonJS (Node.js)</th><th>ES6 Modules</th></tr></thead>
+          <tbody>
+            <tr><td>Syntax</td><td><code>require() / module.exports</code></td><td><code>import / export</code></td></tr>
+            <tr><td>Loading</td><td>Synchronous</td><td>Asynchronous (static)</td></tr>
+            <tr><td>Environment</td><td>Node.js (original)</td><td>Browser + modern Node</td></tr>
+            <tr><td>Tree-shaking</td><td>Not possible</td><td>Possible</td></tr>
+            <tr><td>File ext</td><td>.js (default)</td><td>.mjs or "type":"module"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Function Scope vs Block Scope</h3>
+      <pre><code>// var is function-scoped — visible throughout the function
+function fn() {
+  if(true) { var x = 1; }
+  console.log(x); // 1 ← var leaks out of the block
+
+  if(true) { let y = 2; }
+  console.log(y); // ❌ ReferenceError — let is block-scoped
+}</code></pre>
+
+      <h3>static keyword</h3>
+      <pre><code>class MathUtil {
+  static PI = 3.14;            // belongs to CLASS, not instances
+  static add(a, b) { return a + b; }
+}
+
+MathUtil.PI;     // 3.14  ✅
+MathUtil.add(2, 3); // 5 ✅
+const m = new MathUtil();
+m.PI;            // undefined — not on instance</code></pre>
+    </section>
+
+    <!-- ── Shallow/Deep Copy ── -->
+    <section class="card" id="js-copy">
+      <h2>🪞 Shallow Copy vs Deep Copy</h2>
+      <div class="story-box">📖 <strong>Shallow copy</strong> is like photocopying only the first page of a book — the words on page 1 are new, but the rest still refers to the original chapters. <strong>Deep copy</strong> makes a complete independent clone of every page.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Shallow Copy</h3>
+          <pre><code>const orig = { a: 1, nested: { b: 2 } };
+
+// Methods:
+const s1 = Object.assign({}, orig);
+const s2 = { ...orig };
+
+// Problem: nested objects are still shared!
+s1.a = 99;         // ✅ doesn't affect orig
+s1.nested.b = 99;  // ❌ AFFECTS orig.nested.b!</code></pre>
+        </div>
+        <div>
+          <h3>Deep Copy</h3>
+          <pre><code>// Simple (no functions/Date/RegExp):
+const deep = JSON.parse(JSON.stringify(orig));
+
+// Modern (handles most types):
+const deep2 = structuredClone(orig);
+
+// Or use lodash _.cloneDeep(orig)
+
+deep.nested.b = 99; // ✅ orig.nested.b unchanged</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Debounce ── -->
+    <section class="card" id="js-debounce">
+      <h2>⏱️ Debouncing &amp; Throttling</h2>
+      <div class="story-box">📖 <strong>Debounce</strong>: An elevator door — it waits until no one is pressing the button for X seconds before closing. <strong>Throttle</strong>: A machine gun with a rate limiter — no matter how fast you pull the trigger, it fires at most once per second.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Debounce — wait for pause</h3>
+          <pre><code>function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+// Use case: search bar — call API only after user stops typing
+const search = debounce((query) => fetchResults(query), 500);</code></pre>
+        </div>
+        <div>
+          <h3>Throttle — limit rate</h3>
+          <pre><code>function throttle(fn, limit) {
+  let lastCall = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      fn.apply(this, args);
+    }
+  };
+}
+// Use case: scroll events, resize handlers
+window.addEventListener("scroll", throttle(handleScroll, 200));</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CRUD Nested ── -->
+    <section class="card" id="js-crud">
+      <h2>🗄️ CRUD in Nested Objects &amp; Array of Objects</h2>
+      <pre><code>// Initial data
+let users = [
+  { id: 1, name: "Arjun", address: { city: "Delhi", pin: "110001" } },
+  { id: 2, name: "Priya", address: { city: "Mumbai" } }
+];
+
+// ── CREATE ──
+users.push({ id: 3, name: "Ravi", address: { city: "Chennai" } });
+
+// ── READ ──
+const user = users.find(u => u.id === 1);
+const city = user?.address?.city ?? "Unknown";  // optional chaining + nullish
+
+// ── UPDATE ──
+users = users.map(u => u.id === 1
+  ? { ...u, name: "Arjun Kumar", address: { ...u.address, pin: "110002" } }
+  : u
+);
+
+// ── DELETE ──
+users = users.filter(u => u.id !== 2);
+
+// ── DEFAULT VALUES in nested ──
+const { name = "Guest", address: { city = "Unknown", pin = "000000" } = {} } = user || {};
+
+// ── SET value in deeply nested object ──
+const data = {};
+// Safely set deeply nested key without error:
+data.user = data.user || {};
+data.user.profile = data.user.profile || {};
+data.user.profile.name = "Kiran";</code></pre>
+    </section>
+
+    <!-- ── map filter reduce ── -->
+    <section class="card" id="js-map-filter">
+      <h2>🧪 Practical: map · filter · reduce</h2>
+      <pre><code>const students = [
+  { name: "Arjun", marks: 85, pass: true },
+  { name: "Priya", marks: 42, pass: false },
+  { name: "Ravi",  marks: 91, pass: true },
+  { name: "Meena", marks: 55, pass: true }
+];
+
+// MAP — transform each student to just their name
+const names = students.map(s => s.name);
+// ["Arjun","Priya","Ravi","Meena"]
+
+// FILTER — only passed students
+const passed = students.filter(s => s.pass);
+// [{name:"Arjun",...},{name:"Ravi",...},{name:"Meena",...}]
+
+// REDUCE — total marks
+const total = students.reduce((acc, s) => acc + s.marks, 0);
+// 273
+
+// CHAIN — average marks of passed students
+const avg = students
+  .filter(s => s.pass)
+  .reduce((acc, s, _, arr) => acc + s.marks / arr.length, 0);
+// (85+91+55)/3 = 77
+
+// Find highest scorer
+const topScorer = students.reduce((best, s) => s.marks > best.marks ? s : best);
+// {name:"Ravi", marks:91, ...}</code></pre>
+    </section>
+
+    <!-- ░░░░░░░░░░ NODE.JS ░░░░░░░░░░ -->
+    <section class="chapter-banner node-banner">
+      <svg class="chapter-icon" viewBox="0 0 24 24" fill="none" stroke="#3FB950" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" style="filter: drop-shadow(0 0 20px rgba(63, 185, 80, 0.4));"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+      <div>
+        <h1>Node.js</h1>
+        <p>JavaScript on the server — fast, event-driven, and non-blocking</p>
+      </div>
+    </section>
+
+    <section class="card" id="node-what">
+      <h2>🖥️ What is Node.js</h2>
+      <div class="story-box">📖 In 2009, Ryan Dahl was frustrated that Apache web servers blocked threads waiting for I/O (like a cashier freezing until the kitchen finishes). He took Chrome's V8 engine, wrapped it in C++ with libuv (an event loop library), and created <strong>Node.js</strong> — JavaScript outside the browser, with non-blocking I/O. The result: a single-threaded server that could handle thousands of concurrent connections.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Created:</strong> 2009 by Ryan Dahl</li>
+            <li><strong>Engine:</strong> V8 (Google)</li>
+            <li><strong>I/O:</strong> Non-blocking via libuv</li>
+            <li><strong>Threading:</strong> Single-threaded event loop + thread pool</li>
+            <li><strong>Package manager:</strong> npm (Node Package Manager)</li>
+          </ul>
+          <h3>Alternatives</h3>
+          <ul>
+            <li>Deno (Ryan Dahl again — fixes Node's regrets)</li>
+            <li>Bun (new, faster JS runtime)</li>
+            <li>Python (Django/Flask), Ruby (Rails), Go, Java</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Features</h3>
+          <ul>
+            <li>Non-blocking, event-driven I/O</li>
+            <li>npm — world's largest package registry</li>
+            <li>Single language front+back</li>
+            <li>Streams for large data</li>
+            <li>Great for: REST APIs, real-time apps, microservices</li>
+            <li>NOT great for: CPU-heavy tasks</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Architecture</h3>
+      <div class="callout info"><strong>Event Loop + Thread Pool:</strong> Node's main thread runs the event loop. For blocking I/O (file, DB), libuv uses a thread pool (4 threads by default). The result arrives via a callback back to the event loop — keeping the main thread free.</div>
+
+      <h3>Thread vs Process</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Thread</th><th>Process</th></tr></thead>
+          <tbody>
+            <tr><td>Memory</td><td>Shared within process</td><td>Isolated memory space</td></tr>
+            <tr><td>Speed</td><td>Faster to create</td><td>Slower to create</td></tr>
+            <tr><td>Crash</td><td>Can crash whole process</td><td>Isolated — others survive</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Parallelism vs Concurrency</h3>
+      <pre><code>// Concurrency: juggling multiple tasks (may not be at exact same instant)
+// Node.js is concurrent via event loop — one thread, many tasks in flight
+
+// Parallelism: truly simultaneous execution on multiple cores
+// Node achieves this via: cluster module, worker_threads, child_process
+
+// Analogy: 
+// Concurrency = one chef multitasking (chopping while something boils)
+// Parallelism = multiple chefs cooking simultaneously</code></pre>
+    </section>
+
+    <section class="card" id="node-modules">
+      <h2>📦 Modules in Node.js</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Examples</th><th>How to use</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Built-in</strong></td><td>fs, http, path, os, events, crypto, util, cluster, child_process</td><td><code>require('fs')</code></td></tr>
+            <tr><td><strong>Third-party</strong></td><td>express, mongoose, lodash, axios, jsonwebtoken</td><td>Install via npm, then <code>require</code></td></tr>
+            <tr><td><strong>Custom</strong></td><td>Your own files</td><td><code>module.exports = ...</code> / <code>require('./myFile')</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Custom module — math.js
+function add(a, b) { return a + b; }
+module.exports = { add };          // CJS
+
+// OR ES6:
+export function add(a, b) { return a + b; }
+
+// Using it:
+const { add } = require('./math'); // CJS
+import { add } from './math.js';   // ES6
+
+// Useful built-in modules:
+const fs      = require('fs');     // File System
+const path    = require('path');   // Path utilities
+const os      = require('os');     // OS info
+const events  = require('events'); // EventEmitter
+const util    = require('util');   // Promisify and more
+const crypto  = require('crypto'); // Hashing, encryption
+const cluster = require('cluster');// Multi-core
+const { Worker } = require('worker_threads'); // Worker threads</code></pre>
+
+      <h3>REPL, npm, npx, nvm</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tool</th><th>What it does</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><strong>REPL</strong></td><td>Interactive Node.js shell (Read-Eval-Print-Loop)</td><td>Just type <code>node</code> in terminal</td></tr>
+            <tr><td><strong>npm</strong></td><td>Install &amp; manage packages</td><td><code>npm install express</code></td></tr>
+            <tr><td><strong>npx</strong></td><td>Execute npm packages without global install</td><td><code>npx create-react-app</code></td></tr>
+            <tr><td><strong>nvm</strong></td><td>Node Version Manager — switch Node versions</td><td><code>nvm use 18</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>package.json vs package-lock.json</h3>
+      <pre><code>// package.json — your project manifest
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "scripts": { "start": "node index.js", "dev": "nodemon index.js" },
+  "dependencies": { "express": "^4.18.0" },   // production deps
+  "devDependencies": { "nodemon": "^3.0.0" }  // dev only
+}
+
+// package-lock.json — exact versions tree (generated automatically)
+// NEVER edit manually. Ensures reproducible installs across machines.
+// Commit it to git!</code></pre>
+
+      <h3>.env &amp; .gitignore</h3>
+      <pre><code>// .env — store secrets (never commit to git!)
+PORT=3000
+DB_URL=mongodb://localhost:27017/mydb
+JWT_SECRET=supersecretkey
+
+// Access in Node:
+require('dotenv').config();
+process.env.PORT;       // "3000"
+process.env.JWT_SECRET;
+
+// .gitignore — tell git what to ignore
+node_modules/
+.env
+*.log
+dist/
+.DS_Store</code></pre>
+
+      <h3>Cluster &amp; Event Modules</h3>
+      <pre><code>// Cluster — use all CPU cores
+const cluster = require('cluster');
+const os = require('os');
+if (cluster.isPrimary) {
+  for (let i = 0; i < os.cpus().length; i++) cluster.fork(); // one worker per CPU
+} else {
+  require('./server'); // each worker runs your server
+}
+
+// Event module — pub/sub inside Node
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+emitter.on('data', (msg) => console.log("Received:", msg));
+emitter.emit('data', "Hello!");
+
+// util module
+const util = require('util');
+const readFile = util.promisify(fs.readFile); // converts callback fn to Promise
+const content = await readFile('file.txt', 'utf8');</code></pre>
+
+      <h3>child_process: spawn vs fork</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>spawn</th><th>fork</th></tr></thead>
+          <tbody>
+            <tr><td>Purpose</td><td>Run any shell command or executable</td><td>Run another Node.js script</td></tr>
+            <tr><td>Communication</td><td>Via streams (stdin/stdout)</td><td>Via IPC (message passing)</td></tr>
+            <tr><td>Example</td><td><code>spawn('ls', ['-la'])</code></td><td><code>fork('./worker.js')</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Worker Threads vs Normal Threads</h3>
+      <pre><code>// Worker threads — for CPU-intensive tasks (image processing, data parsing)
+// They run in separate threads BUT share memory via SharedArrayBuffer
+const { Worker } = require('worker_threads');
+const worker = new Worker('./heavyTask.js');
+worker.on('message', result => console.log(result));
+
+// Normal thread = the main event loop thread in Node.js
+// Worker threads don't block the main thread — that's the point!</code></pre>
+    </section>
+
+    <section class="card" id="node-servers">
+      <h2>🌐 HTTP vs Express — Framework vs Runtime</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>http (built-in)</th><th>express (framework)</th></tr></thead>
+          <tbody>
+            <tr><td>What</td><td>Core Node module</td><td>Third-party web framework</td></tr>
+            <tr><td>Routing</td><td>Manual (if/else)</td><td>Built-in router</td></tr>
+            <tr><td>Middleware</td><td>None built-in</td><td>Rich middleware system</td></tr>
+            <tr><td>Code</td><td>More verbose</td><td>Clean &amp; concise</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Framework vs Runtime Environment:
+// Runtime = environment to execute code (Node.js itself)
+// Framework = built ON TOP of runtime with pre-built structure (Express)
+
+// http module
+const http = require('http');
+http.createServer((req, res) => {
+  if (req.url === '/' && req.method === 'GET') {
+    res.writeHead(200, {'Content-Type':'text/plain'});
+    res.end("Hello World");
+  }
+}).listen(3000);
+
+// Express equivalent (much cleaner)
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => res.send("Hello World"));
+app.listen(3000);</code></pre>
+    </section>
+
+    <section class="card" id="node-middleware">
+      <h2>🔗 Middleware — Types &amp; Usage</h2>
+      <div class="story-box">📖 Middleware is like airport security. Every passenger (request) goes through multiple checkpoints before boarding (response): ticket check → baggage scan → passport control → boarding. Each checkpoint can let you through, reject you, or redirect you.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>When to use</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Application-level</td><td>Runs for all routes</td><td><code>app.use(fn)</code></td></tr>
+            <tr><td>Router-level</td><td>Runs for specific router</td><td><code>router.use(fn)</code></td></tr>
+            <tr><td>Error-handling</td><td>Catches errors (4 params)</td><td><code>app.use((err,req,res,next)=>{})</code></td></tr>
+            <tr><td>Built-in</td><td>JSON parsing, static files</td><td><code>express.json()</code>, <code>express.static()</code></td></tr>
+            <tr><td>Third-party</td><td>Extra functionality</td><td>morgan, cors, multer, helmet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Morgan — HTTP request logger
+const morgan = require('morgan');
+app.use(morgan('dev')); // logs: GET / 200 5.123 ms
+
+// Multer — file uploads
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+app.post('/upload', upload.single('photo'), (req, res) => {
+  res.send(req.file); // file info
+});
+
+// Express built-in
+app.use(express.json());                         // parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // parse form data
+app.use(express.static('public'));               // serve static files
+
+// Error handling middleware (must be LAST, 4 params)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: err.message });
+});
+
+// Auth middleware
+function requireLogin(req, res, next) {
+  if (!req.session?.userId) return res.redirect('/login');
+  next();
+}
+app.get('/dashboard', requireLogin, (req, res) => res.render('dashboard'));</code></pre>
+
+      <h3>Template Engine — What, Why, and EJS</h3>
+      <div class="story-box">📖 A template engine merges your HTML structure with dynamic data server-side. Unlike a plain HTML file with a script tag (client-side rendering), EJS runs on the server — so the data is already baked into the HTML before it arrives at the browser. Better for SEO, auth-protected pages, and MVC separation.</div>
+      <pre><code>// Why not just HTML + script tags?
+// — HTML + client script = browser fetches HTML, then JS, then data (slower)
+// — Template engine = server sends fully-rendered HTML in one shot (faster first paint)
+
+// EJS Syntax:
+// &lt;%= expr %&gt;    — output escaped HTML (safe)
+// &lt;%- expr %&gt;    — output UNescaped HTML (raw)
+// &lt;% code %&gt;     — execute JS (no output)
+// &lt;%# comment %&gt; — EJS comment (not in output)
+// &lt;%- include('partial.ejs') %&gt; — include another file
+
+// index.ejs
+&lt;h1&gt;Welcome, &lt;%= user.name %&gt;&lt;/h1&gt;
+&lt;% if(isAdmin) { %&gt;
+  &lt;a href="/admin"&gt;Admin Panel&lt;/a&gt;
+&lt;% } %&gt;
+&lt;ul&gt;
+&lt;% users.forEach(u => { %&gt;
+  &lt;li&gt;&lt;%= u.name %&gt;&lt;/li&gt;
+&lt;% }); %&gt;
+&lt;/ul&gt;
+
+// In Express:
+app.set('view engine', 'ejs');
+app.set('views', './views');
+app.get('/', (req, res) => {
+  res.render('index', { user: req.session.user, isAdmin: true });
+});</code></pre>
+
+      <h3>app.locals &amp; app.all</h3>
+      <pre><code>// app.locals — data available to ALL views automatically
+app.locals.siteName = "MyApp";
+app.locals.currentYear = new Date().getFullYear();
+// In any EJS: &lt;%= siteName %&gt;
+
+// app.all — matches ALL HTTP methods for a route
+app.all('/secret', (req, res, next) => {
+  console.log(`${req.method} request to /secret`);
+  next();
+});</code></pre>
+    </section>
+
+    <section class="card" id="node-routing">
+      <h2>🛤️ Routing, Params, Router Chaining</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Path Params</th><th>Query Params</th></tr></thead>
+          <tbody>
+            <tr><td>Syntax</td><td><code>/users/:id</code></td><td><code>/users?search=ram&amp;page=2</code></td></tr>
+            <tr><td>Access</td><td><code>req.params.id</code></td><td><code>req.query.search</code></td></tr>
+            <tr><td>Used for</td><td>Required resource identifier</td><td>Optional filters, pagination, search</td></tr>
+            <tr><td>Example</td><td><code>GET /users/42</code></td><td><code>GET /users?role=admin</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Router chaining — clean code
+const router = express.Router();
+
+router.route('/users')
+  .get(getUsers)
+  .post(createUser);
+
+router.route('/users/:id')
+  .get(getUser)
+  .put(updateUser)
+  .delete(deleteUser);
+
+app.use('/api', router);
+
+// Router chaining on same path — DRY!</code></pre>
+    </section>
+
+    <section class="card" id="node-auth">
+      <h2>🔐 Auth, Sessions &amp; Cookies</h2>
+      <div class="story-box">📖 <strong>Authentication</strong> = "Who are you?" (proving identity — login with email+password). <strong>Authorization</strong> = "What are you allowed to do?" (checking permissions — admin can delete, user cannot).<br><br><strong>Session/Cookie Story:</strong> When you log into Netflix, Netflix gives you a wristband (session ID in cookie). Every time you click, you show your wristband. Netflix checks its guestlist (session store on server) to see your name and what you can access. When you logout, Netflix crosses your name off the list.</div>
+      <pre><code>// Sessions with express-session
+const session = require('express-session');
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: true,      // HTTPS only
+    httpOnly: true,    // no JS access (prevents XSS)
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+  }
+}));
+
+// Login — create session
+app.post('/login', async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user || !await bcrypt.compare(req.body.password, user.password)) {
+    return res.status(401).send("Invalid credentials");
+  }
+  req.session.userId = user._id;
+  req.session.role = user.role;
+  res.redirect('/dashboard');
+});
+
+// Logout — destroy session
+app.post('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie('connect.sid');
+    res.redirect('/login');
+  });
+});</code></pre>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Cookie</th><th>Session Storage</th><th>Local Storage</th></tr></thead>
+          <tbody>
+            <tr><td>Stored</td><td>Browser (sent to server)</td><td>Browser only</td><td>Browser only</td></tr>
+            <tr><td>Lifetime</td><td>Set by server / expiry</td><td>Tab close</td><td>Until cleared</td></tr>
+            <tr><td>Size</td><td>~4KB</td><td>~5MB</td><td>~5-10MB</td></tr>
+            <tr><td>Server access</td><td>Yes</td><td>No</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CORS, SOP, TLS/SSL</h3>
+      <pre><code>// SOP (Same-Origin Policy) — browser security: page at origin A
+// cannot fetch data from origin B by default.
+
+// CORS (Cross-Origin Resource Sharing) — server tells browser
+// "I allow requests from these origins"
+const cors = require('cors');
+app.use(cors({ origin: 'https://myfrontend.com', credentials: true }));
+
+// TLS/SSL — encrypts data in transit (HTTPS).
+// TLS is the updated version of SSL.
+// Certificate issued by a Certificate Authority (CA).
+// Without it: data sent over HTTP is plain text (sniffable).</code></pre>
+    </section>
+
+    <section class="card" id="node-security">
+      <h2>🛡️ Security — Top 10 Vulnerabilities &amp; Validation</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Vulnerability</th><th>What</th><th>Prevention</th></tr></thead>
+          <tbody>
+            <tr><td><strong>XSS</strong></td><td>Inject malicious scripts into pages</td><td>Escape output, CSP headers, httpOnly cookies</td></tr>
+            <tr><td><strong>CSRF</strong></td><td>Trick user's browser into making unwanted requests</td><td>CSRF tokens, SameSite cookies</td></tr>
+            <tr><td><strong>SQL Injection</strong></td><td>Inject SQL via form inputs</td><td>Parameterized queries, ORMs</td></tr>
+            <tr><td><strong>SSRF</strong></td><td>Server fetches attacker-controlled URLs</td><td>Whitelist URLs, block internal IPs</td></tr>
+            <tr><td><strong>Broken Auth</strong></td><td>Weak passwords, no rate limit</td><td>bcrypt, account lockout, MFA</td></tr>
+            <tr><td><strong>Insecure Deserialization</strong></td><td>Tampered serialized data</td><td>Validate/sign serialized objects</td></tr>
+            <tr><td><strong>Security Misconfiguration</strong></td><td>Default passwords, open ports</td><td>Harden configs, use helmet.js</td></tr>
+            <tr><td><strong>Sensitive Data Exposure</strong></td><td>Passwords in logs, no HTTPS</td><td>Encrypt at rest &amp; transit, never log secrets</td></tr>
+            <tr><td><strong>Broken Access Control</strong></td><td>User accesses admin routes</td><td>Role-based auth middleware on every protected route</td></tr>
+            <tr><td><strong>Components with Vulnerabilities</strong></td><td>Outdated npm packages</td><td>Run <code>npm audit</code>, update regularly</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Validation — Client, Server, &amp; Pre-DB</h3>
+      <pre><code>// Client-side: HTML5 required, pattern, min/max + JS validation
+// → UX only! NEVER trust client-side alone.
+
+// Server-side: validate every incoming req.body
+const { body, validationResult } = require('express-validator');
+app.post('/register', [
+  body('email').isEmail().normalizeEmail(),
+  body('password').isLength({ min: 8 }),
+  body('name').trim().notEmpty()
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+  // proceed to DB
+});
+
+// Pre-DB security (between server validation and DB write):
+// 1. Sanitize — strip HTML tags, remove special chars (DOMPurify, sanitize-html)
+// 2. Mongoose schema validation — schema.path type/min/max/enum
+// 3. Schema-level unique/required constraints
+// 4. Parameterized queries (Mongoose ORM handles this)
+// 5. Rate limiting — prevent brute force (express-rate-limit)
+const rateLimit = require('express-rate-limit');
+app.use('/login', rateLimit({ windowMs: 15*60*1000, max: 10 }));</code></pre>
+    </section>
+
+    <section class="card" id="node-apis">
+      <h2>🔌 APIs — What, Why, Types, REST</h2>
+      <div class="story-box">📖 API (Application Programming Interface) is like a restaurant menu. You (client) don't go into the kitchen (server internals) — you tell the waiter (API) what you want, and the kitchen prepares and returns it. The menu is the contract: specific items, specific formats.</div>
+      <div class="grid-2">
+        <div>
+          <h3>Types of APIs</h3>
+          <ul>
+            <li><strong>REST API</strong> — HTTP-based, stateless, resource-oriented (most common)</li>
+            <li><strong>GraphQL</strong> — query exactly what you need (flexible)</li>
+            <li><strong>WebSocket</strong> — persistent bi-directional connection (real-time)</li>
+            <li><strong>gRPC</strong> — high-performance, binary protocol (microservices)</li>
+            <li><strong>SOAP</strong> — XML-based, legacy enterprise</li>
+          </ul>
+        </div>
+        <div>
+          <h3>REST API Principles</h3>
+          <ul>
+            <li>Stateless — no server-side session between requests</li>
+            <li>Uniform interface — standard HTTP verbs (GET, POST, PUT, DELETE)</li>
+            <li>Resource-based URLs — <code>/users</code>, <code>/users/42</code></li>
+            <li>JSON data exchange</li>
+            <li>Cacheable responses</li>
+            <li>Layered system</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout info">Is Node/Express stateless? <strong>By default, yes</strong> (each HTTP request is independent). BUT sessions add statefulness on top via cookies + server-side session store.</div>
+    </section>
+
+    <section class="card" id="node-misc">
+      <h2>📊 Common HTTP Status Codes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Meaning</th><th>When</th></tr></thead>
+          <tbody>
+            <tr><td>200</td><td>OK</td><td>Successful GET/PUT</td></tr>
+            <tr><td>201</td><td>Created</td><td>Successful POST (new resource)</td></tr>
+            <tr><td>204</td><td>No Content</td><td>Successful DELETE</td></tr>
+            <tr><td>301</td><td>Moved Permanently</td><td>URL has changed</td></tr>
+            <tr><td>302</td><td>Found (Redirect)</td><td>Temporary redirect (after login)</td></tr>
+            <tr><td>304</td><td>Not Modified</td><td>Cached resource still valid</td></tr>
+            <tr><td>400</td><td>Bad Request</td><td>Validation error, malformed input</td></tr>
+            <tr><td>401</td><td>Unauthorized</td><td>Not logged in</td></tr>
+            <tr><td>403</td><td>Forbidden</td><td>Logged in but no permission</td></tr>
+            <tr><td>404</td><td>Not Found</td><td>Resource doesn't exist</td></tr>
+            <tr><td>409</td><td>Conflict</td><td>Duplicate entry</td></tr>
+            <tr><td>422</td><td>Unprocessable Entity</td><td>Validation failed</td></tr>
+            <tr><td>429</td><td>Too Many Requests</td><td>Rate limit exceeded</td></tr>
+            <tr><td>500</td><td>Internal Server Error</td><td>Unhandled server crash</td></tr>
+            <tr><td>502</td><td>Bad Gateway</td><td>Proxy/load balancer issue</td></tr>
+            <tr><td>503</td><td>Service Unavailable</td><td>Server down/overloaded</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="node-concurrency">
+      <h2>⚡ MVC &amp; MVCS Architecture</h2>
+      <pre><code>// MVC: Model - View - Controller
+// Model = Data layer (DB schema, business data)
+// View = Presentation (EJS templates, HTML)
+// Controller = Logic (handles req, calls model, sends response)
+
+// MVCS adds: Service layer (business logic separated from controller)
+// Controller → Service → Model → DB
+// Benefit: Controllers stay thin, Services are reusable &amp; testable
+
+// Flow:
+// Request → Router → Middleware → Controller → Service → Model → DB
+//        ← Response ← Controller ← Service ← Model ← DB result</code></pre>
+    </section>
+
+    <!-- ░░░░░░░░░░ MONGODB ░░░░░░░░░░ -->
+    <section class="chapter-banner mongo-banner">
+      <svg class="chapter-icon" viewBox="0 0 24 24" fill="none" stroke="#00ED64" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" style="filter: drop-shadow(0 0 20px rgba(0, 237, 100, 0.3));"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+      <div>
+        <h1>MongoDB</h1>
+        <p>The flexible, document-based NoSQL database</p>
+      </div>
+    </section>
+
+    <section class="card" id="mongo-what">
+      <h2>🗄️ What is MongoDB — DB Types &amp; Comparison</h2>
+      <div class="story-box">📖 MongoDB was created in 2007 by Eliot Horowitz &amp; Dwight Merriman (10gen, now MongoDB Inc.) because they were frustrated building web apps on rigid SQL schemas that couldn't adapt fast enough. The name comes from "humongous" — built for massive scale. Instead of rows in tables, MongoDB stores flexible JSON-like documents.</div>
+
+      <h3>SQL vs NoSQL</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>SQL (Relational)</th><th>NoSQL (Non-Relational)</th></tr></thead>
+          <tbody>
+            <tr><td>Structure</td><td>Tables, rows, columns</td><td>Documents, collections, key-value, graph</td></tr>
+            <tr><td>Schema</td><td>Fixed, predefined</td><td>Flexible / schema-less</td></tr>
+            <tr><td>Scaling</td><td>Vertical (scale up)</td><td>Horizontal (scale out / sharding)</td></tr>
+            <tr><td>Joins</td><td>Built-in JOINs</td><td>$lookup (aggregation) or embedding</td></tr>
+            <tr><td>ACID</td><td>Full ACID</td><td>BASE (usually), ACID with replica sets (MongoDB 4+)</td></tr>
+            <tr><td>Examples</td><td>MySQL, PostgreSQL, Oracle, SQLite</td><td>MongoDB, Redis, Cassandra, DynamoDB, Neo4j</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>MongoDB Architecture</h3>
+      <pre><code>Database → Collections → Documents → Fields (BSON)
+// Like:   Database → Tables   → Rows     → Columns (SQL equivalent)
+
+// BSON (Binary JSON) — why not plain JSON?
+// BSON adds: Date type, Binary, ObjectId, more number types (Int32, Int64)
+// BSON is faster to parse (binary) and richer than JSON
+// MongoDB stores BSON, communicates BSON over wire
+
+// WiredTiger — MongoDB's default storage engine (since v3.2)
+// Features: compression, document-level locking, transactions, journaling
+// Journaling = write-ahead log — ensures data recovery after crash</code></pre>
+
+      <h3>Read/Write Path</h3>
+      <pre><code>// WRITE PATH:
+// Client → mongod (server) → WiredTiger cache (in memory)
+//       → Journal (disk — guarantees durability)
+//       → Data files (disk — checkpoint every 60s)
+
+// READ PATH:
+// Client → mongod → check WiredTiger cache first
+//       → if not cached → read from data files
+//       → store in cache for future reads
+
+// Indexes speed up reads (pre-built lookup tables)</code></pre>
+    </section>
+
+    <section class="card" id="mongo-crud">
+      <h2>⚙️ Shell Commands, CRUD &amp; Utility</h2>
+      <pre><code>// ── UTILITY COMMANDS ──
+show dbs                    // list all databases
+use myDB                    // switch to / create database
+db.dropDatabase()           // delete current database ⚠️
+show collections            // list collections in current DB
+db.createCollection("users")// explicit create
+db.users.drop()             // delete collection ⚠️
+
+// Can we RENAME a database? No directly!
+// Workaround: copyTo another name + drop original
+// Can we RENAME a collection?
+db.oldName.renameCollection("newName"); // ✅ yes!
+
+// ── CREATE ──
+db.users.insertOne({ name: "Arjun", age: 25, city: "Delhi" })
+db.users.insertMany([{ name: "Priya" }, { name: "Ravi" }])
+
+// ── READ ──
+db.users.find()                           // all documents
+db.users.find({ age: { $gt: 18 } })      // filter
+db.users.findOne({ name: "Arjun" })       // single doc
+db.users.find().limit(5).skip(10).sort({ name: 1 }) // pagination
+db.users.find({}, { name: 1, _id: 0 })   // projection
+
+// ── UPDATE ──
+db.users.updateOne({ name: "Arjun" }, { $set: { age: 26 } })
+db.users.updateMany({ city: "Delhi" }, { $set: { country: "India" } })
+db.users.findOneAndUpdate({ name: "Arjun" }, { $set: { age: 27 } }, { returnDocument: "after" })
+// $set — update specific field
+// $unset — remove field: { $unset: { fieldName: "" } }
+// $inc — increment: { $inc: { age: 1 } }
+// $push — add to array: { $push: { tags: "new" } }
+// $pull — remove from array: { $pull: { tags: "old" } }
+// $addToSet — add to array only if unique (no duplicates)
+
+// ── DELETE ──
+db.users.deleteOne({ name: "Arjun" })
+db.users.deleteMany({ age: { $lt: 18 } })
+
+// ── DISTINCT (unique values) ──
+db.users.distinct("city")  // all unique city values
+
+// ── Comparison Operators ──
+// $eq $ne $gt $gte $lt $lte $in $nin
+
+// ── Logical Operators ──
+// $and $or $not $nor</code></pre>
+    </section>
+
+    <section class="card" id="mongo-aggregation">
+      <h2>🔬 Aggregation Pipeline</h2>
+      <div class="story-box">📖 Think of aggregation as an assembly line. Each stage does one job and passes the result to the next. Raw documents go in, processed results come out. Stages are like stations: one filters, one groups, one sorts, one shapes the output.</div>
+      <pre><code>db.orders.aggregate([
+  // Stage 1: Filter
+  { $match: { status: "completed", amount: { $gt: 100 } } },
+  
+  // Stage 2: Group and summarize
+  { $group: {
+    _id: "$customerId",
+    totalSpent: { $sum: "$amount" },
+    orderCount: { $count: {} },
+    avgOrder: { $avg: "$amount" }
+  }},
+  
+  // Stage 3: Add computed field
+  { $addFields: { isHighValue: { $gt: ["$totalSpent", 1000] } }},
+  
+  // Stage 4: Sort
+  { $sort: { totalSpent: -1 } },
+  
+  // Stage 5: Limit
+  { $limit: 10 },
+  
+  // Stage 6: Shape output
+  { $project: { customerId: "$_id", totalSpent: 1, orderCount: 1, _id: 0 }},
+  
+  // Stage 7: Lookup (JOIN)
+  { $lookup: {
+    from: "customers",          // join with customers collection
+    localField: "customerId",
+    foreignField: "_id",
+    as: "customerInfo"
+  }},
+  
+  // Stage 8: Write to new collection
+  { $out: "top_customers" }     // creates/replaces collection
+]);
+
+// $expr — use aggregation expressions in $match
+db.orders.find({ $expr: { $gt: ["$amount", "$budget"] } })
+
+// $cond — conditional (like ternary)
+{ $cond: { if: { $gt: ["$score", 90] }, then: "A", else: "B" } }
+
+// $facet — multiple pipelines in one query
+{ $facet: {
+  byStatus: [{ $group: { _id: "$status", count: { $sum: 1 } } }],
+  byCity: [{ $group: { _id: "$city", count: { $sum: 1 } } }]
+}}
+
+// $bucket — group into ranges
+{ $bucket: {
+  groupBy: "$age",
+  boundaries: [0, 18, 30, 60, 100],
+  default: "other",
+  output: { count: { $sum: 1 } }
+}}</code></pre>
+    </section>
+
+    <section class="card" id="mongo-indexes">
+      <h2>🗂️ Indexes — Types, Testing &amp; Management</h2>
+      <div class="story-box">📖 An index is like a book's table of contents. Without it, MongoDB reads every page (collection scan = COLLSCAN). With an index, it jumps directly to the right page (IXSCAN). Creating the right index is the #1 performance optimization in MongoDB.</div>
+      <pre><code>// Create indexes
+db.users.createIndex({ name: 1 })               // ascending
+db.users.createIndex({ name: -1 })              // descending
+db.users.createIndex({ email: 1 }, { unique: true }) // unique index
+db.users.createIndex({ name: 1, age: -1 })      // compound index
+db.users.createIndex({ bio: "text" })           // text index (full-text search)
+db.users.createIndex({ createdAt: 1 }, { expireAfterSeconds: 86400 }) // TTL index
+db.users.createIndex({ location: "2dsphere" })  // geo index
+db.users.createIndex({ tags: 1 })               // multikey (array) index
+
+// Wildcard index — index all fields
+db.users.createIndex({ "$**": 1 })
+
+// List indexes
+db.users.getIndexes()
+
+// Delete an index
+db.users.dropIndex("name_1")
+db.users.dropIndex({ name: 1 })
+db.users.dropIndexes() // drop ALL (except _id)
+
+// Test if index is working:
+db.users.find({ name: "Arjun" }).explain("executionStats")
+// Look for: winningPlan.stage = "IXSCAN" ✅ (not COLLSCAN ❌)
+// totalDocsExamined should be close to totalDocsReturned for efficiency
+
+// Capped Collection — fixed-size, auto-oldest-removal (like a circular buffer)
+db.createCollection("logs", { capped: true, size: 1000000, max: 1000 })
+// Great for: logs, activity feeds, real-time event streams
+
+// TTL Index — auto-delete documents after time expires
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 }) // delete after 1 hour</code></pre>
+    </section>
+
+    <section class="card" id="mongo-scaling">
+      <h2>📈 Scaling, Replication &amp; Sharding</h2>
+      <div class="story-box">📖 <strong>Vertical scaling</strong> = upgrading the single server to more CPU/RAM. Like replacing a tiny engine with a bigger one. Has limits. <strong>Horizontal scaling</strong> = adding more servers. Like adding more cars to carry more passengers. MongoDB shines here.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Replication</th><th>Sharding</th></tr></thead>
+          <tbody>
+            <tr><td>Purpose</td><td>High availability, redundancy</td><td>Horizontal scaling for large data</td></tr>
+            <tr><td>How</td><td>Same data copied to multiple nodes</td><td>Data split across multiple nodes by shard key</td></tr>
+            <tr><td>MongoDB term</td><td>Replica Set</td><td>Sharded Cluster</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre><code>// Replica Set: 1 Primary + N Secondaries
+// — Primary handles all writes
+// — Secondaries replicate from primary
+// — If primary fails → election → secondary becomes primary
+// — Provides read scaling (read from secondaries)
+// — Minimum 3 nodes for election quorum
+
+// Data Set = the complete dataset stored by a MongoDB instance
+
+// Sharding: shard key determines which shard a document goes to
+// config servers store cluster metadata
+// mongos = query router — clients connect to mongos, not shards directly</code></pre>
+    </section>
+
+    <section class="card" id="mongo-acid">
+      <h2>⚖️ ACID, BASE &amp; CAP Theorem</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ACID (SQL / MongoDB 4+)</th><th>BASE (traditional NoSQL)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>A</strong>tomicity — all or nothing</td><td><strong>B</strong>asically Available — always responds</td></tr>
+            <tr><td><strong>C</strong>onsistency — valid state always</td><td><strong>S</strong>oft-state — may not be latest immediately</td></tr>
+            <tr><td><strong>I</strong>solation — concurrent txns don't interfere</td><td><strong>E</strong>ventually Consistent — syncs over time</td></tr>
+            <tr><td><strong>D</strong>urability — committed data survives crash</td><td>Trade: availability over strict consistency</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout info"><strong>CAP Theorem:</strong> A distributed system can only guarantee 2 of 3:<br>
+        <strong>C</strong>onsistency | <strong>A</strong>vailability | <strong>P</strong>artition Tolerance<br>
+        MongoDB chooses CP (Consistency + Partition Tolerance) with its replica sets. During a network partition, it sacrifices availability to maintain consistency.</div>
+      <pre><code>// When to use ACID: financial transactions, user records, inventory
+// When to use BASE: social media feeds, logs, analytics (eventual OK)
+// CAP is about distributed systems — must choose a trade-off</code></pre>
+    </section>
+
+    <section class="card" id="mongo-modelling">
+      <h2>🏗️ Schema Design, Embedding vs Referencing</h2>
+      <div class="story-box">📖 <strong>Embedding</strong> = put related data inside the same document (like keeping your passport in your travel bag — always together). <strong>Referencing</strong> = store a link (ObjectId) to another document (like a library card that points to a book on a different shelf — join needed to get it).</div>
+      <pre><code>// EMBEDDING — use when:
+// - Data is always read together
+// - 1-to-few relationship (a user and their 3 addresses)
+// - Data is unique to that parent
+{
+  _id: ObjectId("..."),
+  name: "Arjun",
+  addresses: [
+    { type: "home", city: "Delhi", pin: "110001" },
+    { type: "work", city: "Gurgaon", pin: "122001" }
+  ]
+}
+
+// REFERENCING — use when:
+// - Data is shared across many documents
+// - Large nested arrays (could exceed 16MB doc limit)
+// - 1-to-many / many-to-many relationships
+// User document:
+{ _id: ObjectId("userId1"), name: "Arjun", orderId: [ObjectId("..."), ...] }
+// Order document:
+{ _id: ObjectId("orderId1"), userId: ObjectId("userId1"), total: 500 }
+
+// Database Modelling = designing how your data is structured in MongoDB
+// Schema Designing = defining what fields exist, their types, validation rules
+// (In Mongoose): 
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  isBlocked: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now }
+});</code></pre>
+    </section>
+
+    <section class="card" id="mongo-misc">
+      <h2>🔧 Misc: addToSet, $out, mongodump, lookup, indexes</h2>
+      <pre><code>// $addToSet — add to array only if NOT already present
+db.users.updateOne({ _id: id }, { $addToSet: { tags: "verified" } })
+// If tags already has "verified" → nothing added (no duplicates)
+// vs $push → always adds (allows duplicates)
+
+// mongodump — backup utility
+// mongodump --uri="mongodb://localhost:27017" --db=myDB --out=/backup
+// mongorestore --uri="..." --db=myDB /backup/myDB
+
+// $lookup — LEFT OUTER JOIN equivalent
+{ $lookup: {
+  from: "orders",          // collection to join
+  localField: "_id",       // field in current collection
+  foreignField: "userId",  // field in the joined collection
+  as: "userOrders"         // output array field name
+}}
+
+// How to check if index is working:
+db.users.find({ name: "Arjun" }).explain("executionStats")
+// → executionStats.winningPlan.stage === "IXSCAN" = good ✅
+// → executionStats.nReturned vs totalDocsExamined ratio
+
+// Check query efficiency:
+db.users.find({ ... }).explain("executionStats")
+// Look at: totalDocsExamined, executionTimeMillis, nReturned</code></pre>
+    </section>
+
+    <!-- ░░░░░░░░░░ PROJECT GUIDE ░░░░░░░░░░ -->
+    <section class="chapter-banner proj-banner">
+      <svg class="chapter-icon" viewBox="0 0 24 24" fill="none" stroke="#FF00E5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" style="filter: drop-shadow(0 0 20px rgba(255, 0, 229, 0.4));"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      <div>
+        <h1>Project Guide</h1>
+        <p>User Management System — MVCS, EJS, MongoDB, Sessions</p>
+      </div>
+    </section>
+
+    <section class="card" id="project-overview">
+      <h2>🎯 Project Overview &amp; Architecture</h2>
+      <div class="callout info">
+        <strong>Stack:</strong> Node.js + Express + MongoDB (Mongoose) + EJS + express-session + bcrypt + express-validator + connect-mongo<br>
+        <strong>Architecture:</strong> MVCS (Model → View → Controller → Service) + Session-based auth
+      </div>
+
+      <h3>Request Flow</h3>
+      <pre><code>Browser Request
+    ↓
+  Express Router          (which route matches?)
+    ↓
+  Middleware Stack         (logger → session → cors → body-parser → auth check)
+    ↓
+  Controller               (receives req, calls Service, sends res)
+    ↓
+  Service                  (business logic — validation, checks)
+    ↓
+  Model (Mongoose)         (database operations)
+    ↓
+  MongoDB                  (actual data)
+    ↓
+  Response → EJS Render / JSON / Redirect</code></pre>
+    </section>
+
+    <section class="card" id="project-structure">
+      <h2>📁 Folder Structure</h2>
+      <pre><code>user-management/
+├── .env                        # secrets (never commit)
+├── .gitignore
+├── package.json
+├── app.js                      # Express app setup, middleware registration
+├── server.js                   # HTTP server (listens on PORT)
+│
+├── config/
+│   ├── db.js                   # Mongoose connection
+│   └── session.js              # Session config
+│
+├── models/
+│   ├── User.js                 # Mongoose User schema
+│   └── Admin.js                # Admin schema (or role field in User)
+│
+├── controllers/
+│   ├── userController.js       # signup, login, logout, profile, deleteAccount
+│   └── adminController.js      # dashboard, listUsers, createUser, editUser, deleteUser, blockUser
+│
+├── services/
+│   ├── userService.js          # business logic for user ops
+│   └── adminService.js         # business logic for admin ops
+│
+├── routes/
+│   ├── userRoutes.js           # /signup /login /logout /profile
+│   └── adminRoutes.js          # /admin /admin/users /admin/users/:id
+│
+├── middlewares/
+│   ├── authMiddleware.js       # isLoggedIn, isAdmin
+│   ├── errorHandler.js         # global error middleware
+│   ├── logger.js               # morgan or custom logger
+│   └── cache.js                # cache-control headers
+│
+├── views/
+│   ├── layouts/                # header.ejs, footer.ejs
+│   ├── user/
+│   │   ├── signup.ejs
+│   │   ├── login.ejs
+│   │   └── home.ejs            # welcome page
+│   └── admin/
+│       ├── login.ejs
+│       ├── dashboard.ejs
+│       └── users/
+│           ├── list.ejs        # user list with search/sort/pagination
+│           ├── create.ejs
+│           └── edit.ejs
+│
+└── public/                     # static assets
+    ├── css/style.css
+    ├── js/main.js
+    └── uploads/                # profile images (multer)</code></pre>
+    </section>
+
+    <section class="card" id="project-workflow">
+      <h2>⚙️ Full Workflow — Code Essentials</h2>
+      <pre><code>// ── app.js ──
+const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const morgan = require('morgan');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  cookie: { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }
+}));
+
+// Pass user to all views
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.user || null;
+  res.locals.isAdmin = req.session.isAdmin || false;
+  next();
+});
+
+// Routes
+app.use('/', require('./routes/userRoutes'));
+app.use('/admin', require('./routes/adminRoutes'));
+
+// Error handler (must be last)
+app.use(require('./middlewares/errorHandler'));
+
+module.exports = app;
+
+// ── models/User.js ──
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  isBlocked: { type: Boolean, default: false },
+  profileImage: String,
+  lastLogin: Date,
+  createdAt: { type: Date, default: Date.now }
+});
+// Hash password before save
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+module.exports = mongoose.model('User', userSchema);</code></pre>
+    </section>
+
+    <section class="card" id="project-admin">
+      <h2>🛠️ Admin Portal — CRUD, Search, Sort</h2>
+      <pre><code>// ── services/adminService.js ──
+const User = require('../models/User');
+
+const listUsers = async ({ search, sort, page = 1, limit = 10 }) => {
+  const query = {};
+  if (search) {
+    query.$or = [
+      { name: new RegExp(search, 'i') },
+      { email: new RegExp(search, 'i') }
+    ];
+  }
+  const sortOption = {};
+  if (sort === 'asc') sortOption.name = 1;
+  else if (sort === 'desc') sortOption.name = -1;
+  
+  const skip = (page - 1) * limit;
+  const users = await User.find(query).sort(sortOption).skip(skip).limit(limit);
+  const total = await User.countDocuments(query);
+  return { users, total, pages: Math.ceil(total / limit) };
+};
+
+const createUser = async (data) => {
+  const exists = await User.findOne({ email: data.email });
+  if (exists) throw new Error('Email already exists');
+  return await User.create(data);
+};
+
+const updateUser = async (id, data) => {
+  return await User.findByIdAndUpdate(id, { $set: data }, { new: true, runValidators: true });
+};
+
+const deleteUser = async (id) => {
+  return await User.findByIdAndDelete(id);
+};
+
+const toggleBlock = async (id) => {
+  const user = await User.findById(id);
+  user.isBlocked = !user.isBlocked;
+  return await user.save();
+};
+
+// ── views/admin/users/list.ejs (relevant snippet) ──
+// Search bar:
+// &lt;form method="GET" action="/admin/users"&gt;
+//   &lt;input name="search" value="&lt;%= search %&gt;" placeholder="Search users..."&gt;
+//   &lt;select name="sort"&gt;
+//     &lt;option value="asc"&gt;A → Z&lt;/option&gt;
+//     &lt;option value="desc"&gt;Z → A&lt;/option&gt;
+//   &lt;/select&gt;
+//   &lt;button type="submit"&gt;Go&lt;/button&gt;
+// &lt;/form&gt;</code></pre>
+
+      <h3>Confirmation Modal Pattern</h3>
+      <pre><code>// Every destructive action shows a confirm modal
+// In EJS:
+// &lt;button onclick="confirmAction('Delete user Arjun?', '/admin/users/123/delete')"&gt;Delete&lt;/button&gt;
+
+// In JS:
+function confirmAction(message, actionUrl) {
+  document.getElementById('modal-message').textContent = message;
+  document.getElementById('modal-form').action = actionUrl;
+  document.getElementById('confirm-modal').classList.remove('hidden');
+}
+// Modal has Cancel and Confirm buttons</code></pre>
+    </section>
+
+    <section class="card" id="project-user">
+      <h2>👤 User Side — Signup, Login, Home, Profile</h2>
+      <pre><code>// ── controllers/userController.js ──
+const userService = require('../services/userService');
+
+// SIGNUP
+exports.signup = async (req, res, next) => {
+  try {
+    await userService.register(req.body);
+    res.redirect('/login?msg=registered');
+  } catch (err) { next(err); }
+};
+
+// LOGIN
+exports.login = async (req, res, next) => {
+  try {
+    const user = await userService.login(req.body.email, req.body.password);
+    req.session.user = { id: user._id, name: user.name, email: user.email };
+    user.lastLogin = new Date();
+    await user.save();
+    res.redirect('/home');
+  } catch (err) {
+    res.render('user/login', { error: err.message });
+  }
+};
+
+// HOME — protected
+exports.home = (req, res) => {
+  res.render('user/home', { user: req.session.user });
+};
+
+// PROFILE
+exports.profile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.session.user.id);
+    res.render('user/profile', { user });
+  } catch (err) { next(err); }
+};
+
+// DELETE ACCOUNT (with confirm modal)
+exports.deleteAccount = async (req, res, next) => {
+  try {
+    await User.findByIdAndDelete(req.session.user.id);
+    req.session.destroy();
+    res.redirect('/signup?msg=deleted');
+  } catch (err) { next(err); }
+};
+
+// ── home.ejs (snippet) ──
+// &lt;h1&gt;Welcome, &lt;%= user.name %&gt;! 👋&lt;/h1&gt;
+// &lt;a href="/profile"&gt;My Profile&lt;/a&gt;
+// &lt;form method="POST" action="/logout"&gt;
+//   &lt;button&gt;Logout&lt;/button&gt;
+// &lt;/form&gt;
+
+// ── profile.ejs (snippet) ──
+// Last login: &lt;%= new Date(user.lastLogin).toLocaleString() %&gt;
+// Email: &lt;%= user.email %&gt;
+// &lt;button onclick="showDeleteModal()"&gt;Delete Account&lt;/button&gt;</code></pre>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer py-24 mt-32 border-t border-[var(--border)] bg-black/10 flex flex-col items-center justify-center gap-6 relative overflow-hidden">
+      <!-- Top neon glow line -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-60"></div>
+      
+      <!-- Creator Tag -->
+      <p class="text-xl text-[var(--text-dim)] font-medium z-10 flex items-center gap-3">
+        Engineered & Designed by 
+        <a href="https://deluxe-custard-38ad53.netlify.app/" target="_blank" class="relative inline-block group text-[var(--accent)] font-['Fredoka'] font-black text-4xl tracking-wide hover:scale-110 transition-all duration-500 hover:drop-shadow-[0_0_20px_var(--accent)]">
+          Vishnu KR
+          <span class="absolute -bottom-2 left-0 w-full h-[4px] bg-[var(--accent)] rounded-full scale-x-0 origin-right transition-transform duration-500 group-hover:scale-x-100 group-hover:origin-left box-shadow-[0_0_10px_var(--accent)]"></span>
+        </a>
+      </p>
+      
+      <p class="text-[var(--text-dim)] opacity-50 text-sm z-10 mt-4 tracking-widest uppercase">eyeBRO Architecture © 2026</p>
+    </footer>
+
+  </main>
+</div>
+
+<button class="scroll-top" id="scrollTop" title="Scroll to top">↑</button>
+
+<script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

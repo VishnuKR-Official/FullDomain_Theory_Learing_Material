@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="eyeBRO — The Ultimate Awwwards-Winning JavaScript, Node.js, & MongoDB Master Cheatsheet by Vishnu KR.">
   <title>eyeBRO — Master Cheatsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Fredoka:wght@600;700&display=swap" rel="stylesheet"/>
@@ -17,7 +18,27 @@
     }
   </script>
 </head>
-<body>
+<body class="overflow-hidden">
+
+<!-- AUDIO & EFFECTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+<!-- ENTRY MODAL -->
+<div id="entryModal" class="fixed inset-0 z-[9999] bg-[#030303] flex items-center justify-center transition-all duration-1000">
+  <div class="relative group cursor-pointer" id="enterBtn">
+    <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+    <div class="relative px-12 py-6 bg-black rounded-full border border-white/20 text-white font-['Fredoka'] text-3xl tracking-widest uppercase shadow-[0_0_50px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform duration-500">
+      Enter Experience
+    </div>
+  </div>
+</div>
+
+<!-- AMBIENT BACKGROUND BLOBS -->
+<div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-[#050505]">
+  <div class="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-purple-600/30 rounded-full mix-blend-screen filter blur-[120px] animate-[spin_20s_linear_infinite]"></div>
+  <div class="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-cyan-600/20 rounded-full mix-blend-screen filter blur-[150px] animate-[spin_25s_linear_infinite_reverse]"></div>
+  <div class="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] bg-pink-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_10s_ease-in-out_infinite]"></div>
+</div>
 
 <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
 <aside class="sidebar" id="sidebar">

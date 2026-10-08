@@ -466,8 +466,146 @@ setTimeout(() => {
   });
 
   document.querySelectorAll('pre').forEach(pre => {
-    pre.classList.add('ring-1', 'ring-white/10', 'shadow-[0_0_40px_rgba(0,0,0,0.2)]', 'rounded-2xl', 'backdrop-blur-md');
+    pre.classList.add('ring-1', 'ring-white/10', 'shadow-[0_0_40px_rgba(0,0,0,0.2)]', 'rounded-2xl', 'backdrop-blur-md', 'cursor-pointer', 'group');
+    
+    // Add Click to Copy functionality and Modal trigger
+    pre.title = "Click to copy code";
+    pre.addEventListener('click', (e) => {
+      navigator.clipboard.writeText(pre.innerText);
+      playClickSound();
+      showCopyModal();
+    });
   });
 }, 100);
+
+// ── MASSIVE UI EXPERIENCE OVERHAUL ──
+
+// 1. Synthesized Audio System (No external MP3s needed)
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playBassDrop() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+  gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 1.5);
+}
+
+function playHoverSound() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+  gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.1);
+}
+
+function playClickSound() {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.05);
+  gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.05);
+}
+
+// 2. Entry Modal Logic
+const entryModal = document.getElementById('entryModal');
+const enterBtn = document.getElementById('enterBtn');
+
+enterBtn.addEventListener('click', () => {
+  playBassDrop();
+  // Animate Modal out
+  entryModal.style.opacity = '0';
+  entryModal.style.transform = 'scale(1.5) filter: blur(20px)';
+  entryModal.style.pointerEvents = 'none';
+  
+  // Trigger opening animation on body
+  gsap.from("body", {
+    duration: 2,
+    filter: "blur(20px) brightness(3)",
+    scale: 0.9,
+    ease: "power4.out"
+  });
+  
+  setTimeout(() => entryModal.remove(), 1000);
+});
+
+// Bind Hover sounds to all buttons and interactive elements
+document.querySelectorAll('button, a, .story-box, pre').forEach(el => {
+  el.addEventListener('mouseenter', playHoverSound);
+});
+
+// 3. 7+ GSAP Transition Styles for ScrollTrigger
+const animationStyles = [
+  { y: 100, skewY: 10, opacity: 0, duration: 1.2, ease: "back.out(1.7)" }, // 1. Elastic Skew
+  { rotationX: 90, transformOrigin: "50% 50% -100px", opacity: 0, duration: 1, ease: "power3.out" }, // 2. 3D Flip In
+  { scale: 0.5, filter: "blur(10px)", opacity: 0, duration: 1.5, ease: "expo.out" }, // 3. Blur Scale Reveal
+  { x: -100, opacity: 0, duration: 1, ease: "circ.out" }, // 4. Slide Left
+  { rotationZ: 15, scale: 1.2, opacity: 0, duration: 1, ease: "power4.out" }, // 5. Spin Zoom Out
+  { y: -100, rotationX: -45, opacity: 0, duration: 1.2, ease: "bounce.out" }, // 6. Bounce Drop
+  { opacity: 0, filter: "brightness(2)", duration: 1.5, ease: "power2.inOut" } // 7. Flash Fade
+];
+
+// Re-bind all h2 and story boxes with random scroll animations
+gsap.utils.toArray('h2, .story-box, .grid').forEach(el => {
+  const randomAnim = animationStyles[Math.floor(Math.random() * animationStyles.length)];
+  gsap.from(el, {
+    scrollTrigger: {
+      trigger: el,
+      start: "top 90%",
+      toggleActions: "play none none reverse"
+    },
+    ...randomAnim
+  });
+});
+
+// 4. 5+ Dynamic Transformation Styles added randomly to elements
+const transformClasses = [
+  'hover:scale-105 hover:-translate-y-2 hover:rotate-1', // Lift & tilt
+  'hover:scale-[1.02] hover:skew-x-2', // Slight skew
+  'hover:translate-x-3 hover:shadow-[10px_10px_0px_rgba(var(--accent),1)]', // Retro shift
+  'hover:scale-110 hover:z-50', // Pop out
+  'hover:rotate-[-2deg] hover:scale-105' // Reverse tilt
+];
+
+document.querySelectorAll('.story-box, pre, .grid > div').forEach(el => {
+  // Pick random transform
+  const tClass = transformClasses[Math.floor(Math.random() * transformClasses.length)];
+  tClass.split(' ').forEach(c => el.classList.add(c));
+  el.classList.add('transition-all', 'duration-500');
+});
+
+// 5. Code Copy Modal
+function showCopyModal() {
+  const modal = document.createElement('div');
+  modal.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-black px-8 py-4 rounded-full font-bold text-lg shadow-[0_10px_50px_rgba(var(--accent),0.8)] z-[10000] animate-bounce';
+  modal.innerText = 'Copied to Clipboard! 🚀';
+  document.body.appendChild(modal);
+  
+  // Animate out
+  setTimeout(() => {
+    gsap.to(modal, { y: 50, opacity: 0, duration: 0.5, onComplete: () => modal.remove() });
+  }, 2000);
+}
 
 console.log('%c✨ Multi-Sensory Multi-Theme Architecture Loaded', 'color:#FF3B00;font-size:1.2rem;font-weight:bold;');

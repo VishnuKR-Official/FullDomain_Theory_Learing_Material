@@ -3,16 +3,16 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  /* Default Theme (JavaScript / Light Brutalist) */
-  --bg: #F2F2F0;       
+  /* Default Theme (Yellowish-Orange Red / Sunset) */
+  --bg: #FFC371;       
   --text: #121212;     
-  --text-dim: #6E6E6E; 
+  --text-dim: #993300; 
   --border: rgba(18, 18, 18, 0.15); 
-  --accent: #FF3B00;   
+  --accent: #FF0055;   
   --link: #121212;
-  --code-bg: #E4E4E1;  
-  --code-border: #D1D1CE;
-  --selection-bg: #FF3B00;
+  --code-bg: #FFF3E0;  
+  --code-border: #FFCC80;
+  --selection-bg: #FF0055;
   --selection-text: #FFF;
   
   --topbar-h: 80px;

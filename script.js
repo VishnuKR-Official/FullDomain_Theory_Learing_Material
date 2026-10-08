@@ -457,12 +457,14 @@ setTimeout(() => {
   });
   
   document.querySelectorAll('h2').forEach(h => {
-    h.classList.add('bg-clip-text', 'text-transparent', 'bg-gradient-to-r', 'from-[var(--accent)]', 'to-[var(--text-dim)]');
+    // Creative Pill-shaped background for headings complementing the yellowish-orange red theme
+    h.classList.add('inline-block', 'px-8', 'py-3', 'rounded-full', 'bg-gradient-to-r', 'from-[#FF0055]', 'to-[#FF8008]', 'text-white', 'shadow-[0_10px_30px_rgba(255,128,8,0.5)]', 'border', 'border-white/20');
   });
 
   document.querySelectorAll('.story-box').forEach(box => {
     box.style.borderLeft = 'none'; // Override vanilla css
-    box.classList.add('backdrop-blur-2xl', 'bg-white/5', 'rounded-3xl', 'border', 'border-white/10', 'shadow-[0_8px_40px_0_rgba(0,0,0,0.2)]', 'hover:bg-white/10', 'transition-all', 'duration-500');
+    // Crisp White Cards with Black Text
+    box.classList.add('backdrop-blur-3xl', 'bg-white/95', 'text-black', 'rounded-3xl', 'border-2', 'border-white/50', 'shadow-[0_20px_50px_0_rgba(0,0,0,0.1)]', 'hover:bg-white', 'transition-all', 'duration-500');
   });
 
   document.querySelectorAll('pre').forEach(pre => {

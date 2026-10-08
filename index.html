@@ -136,9 +136,16 @@
         </div>
       </div>
     </div>
-    <nav class="topbar-tabs relative group" style="overflow: visible;">
-      <!-- Main Domain Tab -->
-      <button class="flex items-center gap-2 px-6 py-2 bg-[var(--accent)] text-black rounded-full shadow-[0_0_20px_var(--accent)] hover:shadow-[0_0_30px_var(--accent)] font-bold text-lg font-['Fredoka'] transition-all">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <!-- PDF Download Button -->
+      <a href="./cheatsheet.pdf" download="Exam_Cheat_Sheet.pdf" class="flex items-center gap-2 px-5 py-2 bg-[#111] text-white border border-white/20 rounded-full hover:bg-white hover:text-black font-bold text-md font-['Fredoka'] shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        Download PDF
+      </a>
+      
+      <nav class="topbar-tabs relative group" style="overflow: visible;">
+        <!-- Main Domain Tab -->
+        <button class="flex items-center gap-2 px-6 py-2 bg-[var(--accent)] text-black rounded-full shadow-[0_0_20px_var(--accent)] hover:shadow-[0_0_30px_var(--accent)] font-bold text-lg font-['Fredoka'] transition-all">
         1st Full Domain
         <svg class="w-5 h-5 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
       </button>
@@ -153,8 +160,15 @@
           <button class="tab-btn w-full text-left px-4 py-3 hover:bg-[var(--accent)] hover:text-black rounded-xl transition-colors font-semibold text-white/90" data-target="Project Guide">Project API</button>
         </div>
       </div>
-    </nav>
+        </div>
+      </nav>
+    </div>
   </header>
+
+  <!-- Right Edge Scroll Handle -->
+  <div class="fixed top-0 right-0 w-[6px] h-full z-[100] pointer-events-none bg-black/20 backdrop-blur-sm">
+    <div id="scrollProgress" class="w-full bg-[var(--accent)] shadow-[0_0_15px_var(--accent)] transition-all duration-75" style="height: 0%; border-radius: 0 0 4px 4px;"></div>
+  </div>
 
   <main class="content" id="mainContent">
 

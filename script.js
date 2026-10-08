@@ -629,3 +629,12 @@ function showCopyModal() {
 }
 
 console.log('%c✨ Multi-Sensory Multi-Theme Architecture Loaded', 'color:#FF3B00;font-size:1.2rem;font-weight:bold;');
+
+// ── Custom Scroll Progress Handle ──
+window.addEventListener('scroll', () => {
+  const scrollPx = document.documentElement.scrollTop;
+  const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (scrollPx / winHeightPx) * 100;
+  const bar = document.getElementById('scrollProgress');
+  if (bar) bar.style.height = `${scrolled}%`;
+});

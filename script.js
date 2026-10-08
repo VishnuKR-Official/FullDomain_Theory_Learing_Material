@@ -481,7 +481,7 @@ setTimeout(() => {
 // ── MASSIVE UI EXPERIENCE OVERHAUL ──
 
 // 1. Synthesized Audio System (No external MP3s needed)
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// audioCtx already declared at top of file
 
 function playBassDrop() {
   if (audioCtx.state === 'suspended') audioCtx.resume();

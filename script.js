@@ -432,8 +432,8 @@ document.querySelectorAll('h2').forEach((h2, index) => {
 
   // Fallback to avoid missing videos
   if (!videoId) {
-    const un-usedFallbacks = fallbackVideos.filter(v => !usedVideos.has(v));
-    videoId = un-usedFallbacks.length > 0 ? un-usedFallbacks[0] : 'W6NZfCO5SIk';
+    const unusedFallbacks = fallbackVideos.filter(v => !usedVideos.has(v));
+    videoId = unusedFallbacks.length > 0 ? unusedFallbacks[0] : 'W6NZfCO5SIk';
     usedVideos.add(videoId);
   }
 

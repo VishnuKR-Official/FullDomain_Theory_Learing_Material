@@ -225,7 +225,7 @@ const themeTriggers = [
   { trigger: '.js-banner', theme: 'light' },
   { trigger: '.node-banner', theme: 'node' },
   { trigger: '.mongo-banner', theme: 'mongo' },
-  { trigger: '#project-overview', theme: 'project' }
+  { trigger: '.proj-banner', theme: 'project' }
 ];
 
 themeTriggers.forEach(t => {
@@ -415,36 +415,32 @@ document.querySelectorAll('h2').forEach((h2, index) => {
   const text = h2.innerText.toLowerCase();
   
   let videoIndex = videoPool.findIndex(m => m.keywords.some(k => text.includes(k)));
-  let videoUrl = '';
   
   if (videoIndex !== -1) {
-    videoUrl = videoPool[videoIndex].video;
+    let videoUrl = videoPool[videoIndex].video;
     videoPool.splice(videoIndex, 1);
-  } else {
-    videoUrl = fallbackVideos.pop() || 'https://www.youtube.com/embed/W6NZfCO5SIk';
-  }
+    let imgUrl = imagePool.pop() || `https://loremflickr.com/800/600/coding,technology?lock=${index}`;
 
-  let imgUrl = imagePool.pop() || `https://loremflickr.com/800/600/coding,technology?lock=${index}`;
-
-  const mediaContainer = document.createElement('div');
-  mediaContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 my-10 fade-up';
+    const mediaContainer = document.createElement('div');
+    mediaContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 my-10 fade-up';
   
-  mediaContainer.innerHTML = `
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] group relative">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none flex items-end p-6">
-        <span class="text-[var(--accent)] font-['Fredoka'] text-2xl tracking-wide drop-shadow-[0_0_10px_rgba(var(--accent),0.8)]">Concept Visual</span>
+    mediaContainer.innerHTML = `
+      <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] group relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none flex items-end p-6">
+          <span class="text-[var(--accent)] font-['Fredoka'] text-2xl tracking-wide drop-shadow-[0_0_10px_rgba(var(--accent),0.8)]">Concept Visual</span>
+        </div>
+        <img loading="lazy" src="${imgUrl}" class="w-full h-full object-cover aspect-video group-hover:scale-110 transition-transform duration-700" alt="Concept Visualization">
       </div>
-      <img src="${imgUrl}" class="w-full h-full object-cover aspect-video group-hover:scale-110 transition-transform duration-700" alt="Concept Image">
-    </div>
+      
+      <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
+        <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial Short</div>
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+        <iframe loading="lazy" title="Concept Video Tutorial" class="w-full h-full aspect-video relative z-0" src="${videoUrl}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    `;
     
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
-      <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial Short</div>
-      <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
-      <iframe class="w-full h-full aspect-video relative z-0" src="${videoUrl}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  `;
-  
-  h2.after(mediaContainer);
+    h2.after(mediaContainer);
+  }
 });
 
 // ── TAILWIND & BUBBLE GLARE SUPER STYLES INJECTION ──

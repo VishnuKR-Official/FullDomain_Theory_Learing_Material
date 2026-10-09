@@ -144,7 +144,7 @@ body {
   background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 4vw; z-index: 1000;
+  z-index: 1000;
   transition: border-color 0.8s ease;
 }
 .menu-toggle { background: transparent; border: none; cursor: pointer; color: var(--text); display: flex; align-items: center; transition: color 0.3s; }

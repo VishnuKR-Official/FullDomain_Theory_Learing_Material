@@ -8,7 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Fredoka:wght@600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="theme-color" content="#000000" />
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -125,29 +128,34 @@
 
 <!-- ═══════════════════ MAIN ═══════════════════ -->
 <div class="layout">
-  <header class="topbar" id="topbar">
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  <header class="topbar px-3 sm:px-[4vw]" id="topbar">
+    <div class="flex items-center gap-2 sm:gap-6">
+      <button class="menu-toggle mr-1" id="menuToggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
       </button>
-      <div class="topbar-logo" style="display: flex; align-items: center; cursor: pointer;">
+      <div class="topbar-logo flex items-center cursor-pointer">
         <!-- Demon Eye Gamer Logo -->
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FF0040" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px; filter: drop-shadow(0 0 8px rgba(255,0,64,0.6));">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF0040" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 sm:w-8 sm:h-8 mr-1 sm:mr-3" style="filter: drop-shadow(0 0 8px rgba(255,0,64,0.6));">
           <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"></path>
           <circle cx="12" cy="12" r="4" fill="#FF0040"></circle>
           <line x1="12" y1="9" x2="12" y2="15" stroke="#111" stroke-width="2.5"></line>
         </svg>
         <!-- eyeBRO Text Logo -->
-        <div style="display:inline-flex; align-items:center; border: 2.5px solid #111; border-radius: 8px; overflow:hidden; font-family:'Fredoka', sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:-0.5px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-          <span style="background: #fff; color: #000; padding: 2px 8px;">eye</span>
-          <span style="background: #111; color: #fff; padding: 2px 8px;">BRO</span>
+        <div class="inline-flex items-center border-[2px] sm:border-[2.5px] border-[#111] rounded-md sm:rounded-lg overflow-hidden font-['Fredoka'] font-extrabold text-[0.95rem] sm:text-[1.3rem] tracking-tight shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+          <span class="bg-white text-black px-1.5 sm:px-2 py-0.5">eye</span>
+          <span class="bg-[#111] text-white px-1.5 sm:px-2 py-0.5">BRO</span>
         </div>
       </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
+    <div class="flex items-center gap-2 sm:gap-6">
+      <!-- Install App Button -->
+      <button id="installBtn" class="hidden flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 bg-gradient-to-r from-[#FF0040] to-[#990024] text-white rounded-full font-bold text-xs sm:text-md shadow-[0_0_15px_rgba(255,0,64,0.5)] hover:scale-105 transition-all">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+        <span class="hidden sm:inline">Install</span>
+      </button>
       <!-- PDF Download Button -->
-      <a href="./cheatsheet.pdf" download="Exam_Cheat_Sheet.pdf" class="flex items-center gap-2 px-3 sm:px-5 py-2 bg-[#111] text-white border border-white/20 rounded-full hover:bg-white hover:text-black font-bold text-sm sm:text-md font-['Fredoka'] shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all">
-        <svg class="w-5 h-5 min-w-[20px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+      <a href="./cheatsheet.pdf" download="Exam_Cheat_Sheet.pdf" class="flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 bg-[#111] text-white border border-white/20 rounded-full hover:bg-white hover:text-black font-bold text-xs sm:text-md font-['Fredoka'] shadow-[0_0_15px_rgba(0,0,0,0.5)] transition-all">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 min-w-[16px] sm:min-w-[20px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         <span class="hidden sm:inline">Download PDF</span>
       </a>
       
@@ -2505,5 +2513,31 @@ exports.deleteAccount = async (req, res, next) => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.classList.remove('hidden');
+  });
+
+  document.addEventListener('click', async (e) => {
+    if (e.target.closest('#installBtn')) {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('installBtn').classList.add('hidden');
+        }
+        deferredPrompt = null;
+      }
+    }
+  });
+</script>
 </body>
 </html>

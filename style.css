@@ -225,17 +225,17 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 600; color: var(--text)
 
 /* ═══ EDITORIAL TABLES ═══ */
 .table-wrap { width: 100%; overflow-x: auto; margin: 4rem 0; border-top: 2px solid var(--border); border-bottom: 2px solid var(--border); transition: border-color 0.8s ease; }
-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 1.1rem; }
-th { padding: 1.5rem 1rem; color: var(--text); font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05); }
-td { padding: 1.5rem 1rem; color: var(--text-dim); border-bottom: 1px solid var(--border); transition: all 0.3s; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: clamp(1.1rem, 3.5vw, 1.3rem); }
+th { padding: 1.5rem 1rem; color: var(--text); font-weight: 700; text-transform: uppercase; font-size: clamp(1.2rem, 4vw, 1.4rem); border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.05); }
+td { padding: 1.5rem 1rem; color: var(--text-dim); border-bottom: 1px solid var(--border); transition: all 0.3s; line-height: 1.6; }
 tr:last-child td { border-bottom: none; }
 tr:hover td { color: var(--text); background: rgba(255,255,255,0.05); }
 td code { color: var(--accent) !important; font-weight: 600; }
 
 /* ═══ CARDS / SECTIONS ═══ */
 .card { margin: 15vh 0; padding: 0; background: transparent; border: none; position: relative; }
-.card p { font-size: 1.4rem; color: var(--text-dim); max-width: 900px; margin-bottom: 1.8rem; line-height: 1.6; font-weight: 500; }
-.card ul { font-size: 1.4rem; padding-left: 0; list-style: none; color: var(--text-dim); font-weight: 500; }
+.card p { font-size: clamp(1.4rem, 4.5vw, 1.7rem); color: var(--text-dim); max-width: 900px; margin-bottom: 1.8rem; line-height: 1.6; font-weight: 500; }
+.card ul { font-size: clamp(1.4rem, 4.5vw, 1.7rem); padding-left: 0; list-style: none; color: var(--text-dim); font-weight: 500; line-height: 1.6; }
 .card ul li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; transition: border-color 0.8s ease; }
 .card ul li::before { content: '— '; color: var(--accent); margin-right: 12px; transition: color 0.8s ease; }
 .card.text-white p, .card.text-white ul li::before { color: #ffffff !important; }

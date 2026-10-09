@@ -263,16 +263,16 @@ gsap.fromTo('.proj-banner h1, .proj-banner .chapter-icon', { rotationY: 180, opa
 document.querySelectorAll('h2').forEach(heading => {
   gsap.fromTo(heading, 
     { opacity: 0, y: 40, rotationZ: 2 }, 
-    { opacity: 1, y: 0, rotationZ: 0, ease: 'power3.out', duration: 1.2, scrollTrigger: { trigger: heading, start: 'top 90%', toggleActions: 'play none none reverse' } }
+    { opacity: 1, y: 0, rotationZ: 0, ease: 'power3.out', duration: 1.2, scrollTrigger: { trigger: heading, start: 'top 98%', toggleActions: 'play none none none' } }
   );
 });
 
 document.querySelectorAll('pre, .story-box').forEach(el => {
-  gsap.fromTo(el, { opacity: 0, scale: 0.95, y: 50 }, { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'back.out(1.2)', scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' } });
+  gsap.fromTo(el, { opacity: 0, scale: 0.95, y: 50 }, { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'back.out(1.2)', scrollTrigger: { trigger: el, start: 'top 98%', toggleActions: 'play none none none' } });
 });
 
 document.querySelectorAll('.card p, .card ul, .table-wrap').forEach(el => {
-  gsap.fromTo(el, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' } });
+  gsap.fromTo(el, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 98%', toggleActions: 'play none none none' } });
 });
 
 setTimeout(() => {

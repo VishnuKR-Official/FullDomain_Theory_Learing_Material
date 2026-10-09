@@ -437,20 +437,10 @@ document.querySelectorAll('h2').forEach((h2, index) => {
     usedVideos.add(videoId);
   }
 
-  // Use Pollinations AI for highly relevant, stunning, copyright-free concept visual
-  let imgUrl = `https://image.pollinations.ai/prompt/Stunning%20isometric%203D%20visualization%20of%20programming%20concept%20${searchWord}%20dark%20theme%20neon%20tech?width=800&height=600&nologo=true`;
-
   const mediaContainer = document.createElement('div');
-  mediaContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 my-10 fade-up media-block';
+  mediaContainer.className = 'w-full max-w-4xl mx-auto my-10 fade-up media-block';
 
   mediaContainer.innerHTML = `
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] group relative">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none flex items-end p-6">
-        <span class="text-[var(--accent)] font-['Fredoka'] text-2xl tracking-wide drop-shadow-[0_0_10px_rgba(var(--accent),0.8)]">Concept: ${searchWord.toUpperCase()}</span>
-      </div>
-      <img loading="lazy" src="${imgUrl}" class="w-full h-full object-cover aspect-video group-hover:scale-110 transition-transform duration-700" alt="Concept Visualization">
-    </div>
-    
     <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
       <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial</div>
       <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
@@ -558,6 +548,9 @@ enterBtn.addEventListener('click', () => {
   entryModal.style.opacity = '0';
   entryModal.style.transform = 'scale(1.5) filter: blur(20px)';
   entryModal.style.pointerEvents = 'none';
+  
+  // Re-enable scrolling!
+  document.body.classList.remove('overflow-hidden');
   
   // Trigger opening animation on body
   gsap.from("body", {

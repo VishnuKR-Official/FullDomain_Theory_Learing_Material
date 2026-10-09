@@ -237,6 +237,8 @@ td code { color: var(--accent) !important; font-weight: 600; }
 .card ul { font-size: 1.4rem; padding-left: 0; list-style: none; color: rgba(0,0,0,0.8); font-weight: 500; }
 .card ul li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.2); display: flex; transition: border-color 0.8s ease; }
 .card ul li::before { content: '— '; color: #000000; margin-right: 12px; transition: color 0.8s ease; }
+.card.text-white p, .card.text-white ul li::before { color: #ffffff !important; }
+.card.text-white ul { color: rgba(255,255,255,0.8) !important; }
 
 /* ═══ CODE & STORY BOXES ═══ */
 pre {

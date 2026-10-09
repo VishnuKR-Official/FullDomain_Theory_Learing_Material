@@ -516,30 +516,12 @@ if (entryModal && enterBtn) {
   });
 }
 
-// 3. 7+ GSAP Transition Styles for ScrollTrigger
-const animationStyles = [
-  { y: 100, skewY: 10, opacity: 0, duration: 1.2, ease: "back.out(1.7)" }, // 1. Elastic Skew
-  { rotationX: 90, transformOrigin: "50% 50% -100px", opacity: 0, duration: 1, ease: "power3.out" }, // 2. 3D Flip In
-  { scale: 0.5, filter: "blur(10px)", opacity: 0, duration: 1.5, ease: "expo.out" }, // 3. Blur Scale Reveal
-  { x: -100, opacity: 0, duration: 1, ease: "circ.out" }, // 4. Slide Left
-  { rotationZ: 15, scale: 1.2, opacity: 0, duration: 1, ease: "power4.out" }, // 5. Spin Zoom Out
-  { y: -100, rotationX: -45, opacity: 0, duration: 1.2, ease: "bounce.out" }, // 6. Bounce Drop
-  { opacity: 0, filter: "brightness(2)", duration: 1.5, ease: "power2.inOut" } // 7. Flash Fade
-];
+// 3. (Removed conflicting random GSAP animations that caused blank spaces)
 
-// Re-bind all h2 and story boxes with random scroll animations
-gsap.utils.toArray('h2, .story-box, .grid').forEach(el => {
-  const randomAnim = animationStyles[Math.floor(Math.random() * animationStyles.length)];
-  gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: "top 90%",
-      toggleActions: "play none none none" // Fixed stability issue: play once, never reverse
-    },
-    ...randomAnim
-  });
-});
-
+// Refresh ScrollTrigger to calculate heights correctly after all initial dynamic changes
+setTimeout(() => {
+  ScrollTrigger.refresh();
+}, 2000);
 // 4. 5+ Dynamic Transformation Styles added randomly to elements
 const transformClasses = [
   'hover:scale-105 hover:-translate-y-2 hover:rotate-1', // Lift & tilt

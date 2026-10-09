@@ -557,7 +557,8 @@ enterBtn.addEventListener('click', () => {
     duration: 2,
     filter: "blur(20px) brightness(3)",
     scale: 0.9,
-    ease: "power4.out"
+    ease: "power4.out",
+    clearProps: "all"
   });
   
   setTimeout(() => entryModal.remove(), 1000);
@@ -625,7 +626,7 @@ console.log('%c✨ Multi-Sensory Multi-Theme Architecture Loaded', 'color:#FF3B0
 
 // ── Custom Scroll Progress Handle ──
 window.addEventListener('scroll', () => {
-  const scrollPx = document.documentElement.scrollTop;
+  const scrollPx = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
   const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   const scrolled = (scrollPx / winHeightPx) * 100;
   const bar = document.getElementById('scrollProgress');

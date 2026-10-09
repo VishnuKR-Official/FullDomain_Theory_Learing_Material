@@ -205,11 +205,6 @@ Object.keys(sectionData).forEach(selector => {
     banner.classList.add('relative', 'min-h-[60vh]', 'flex', 'items-center', 'justify-center', 'overflow-hidden', 'rounded-[40px]', 'my-12', 'border', 'border-white/10', 'shadow-[0_20px_60px_rgba(0,0,0,0.5)]');
     banner.style.padding = '0';
     
-    // Add Iframe Background
-    const bgContainer = document.createElement('div');
-    bgContainer.className = 'absolute inset-0 w-full h-full z-0 pointer-events-none opacity-40 mix-blend-screen scale-[1.3]';
-    bgContainer.innerHTML = `<iframe class="w-full h-full" src="${sectionData[selector].bgVideo}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    
     const overlay = document.createElement('div');
     overlay.className = 'absolute inset-0 w-full h-full z-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/50 to-transparent';
 
@@ -222,7 +217,6 @@ Object.keys(sectionData).forEach(selector => {
     if(contentDiv) wrapper.appendChild(contentDiv);
     
     banner.innerHTML = '';
-    banner.appendChild(bgContainer);
     banner.appendChild(overlay);
     banner.appendChild(wrapper);
 

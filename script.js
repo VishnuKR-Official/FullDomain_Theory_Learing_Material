@@ -140,13 +140,28 @@ gsap.ticker.add(() => {
 });
 
 const bindHover = () => {
-  document.querySelectorAll('a, button, pre, .story-box, td').forEach(el => {
+  document.querySelectorAll('a:not(.magnetic), button:not(.magnetic), pre, .story-box, td').forEach(el => {
     el.addEventListener('mouseenter', () => { cursor.classList.add('active'); if(el.tagName!=='TD') playSound('hover'); });
     el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
   });
   document.querySelectorAll('h1, h2, h3').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('text-hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('text-hover'));
+  });
+  // Magnetic Buttons
+  document.querySelectorAll('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      gsap.to(el, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: 'power2.out' });
+      cursor.classList.add('magnetic-hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
+      cursor.classList.remove('magnetic-hover');
+    });
+    el.addEventListener('mouseenter', () => { playSound('hover'); cursor.classList.add('magnetic-hover'); });
   });
 };
 

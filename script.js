@@ -35,12 +35,13 @@ const playSound = (type) => {
     gain.gain.setValueAtTime(0.1, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
     osc.start(now); osc.stop(now + 0.15);
-  } else if (type === 'scroll-tick') { // Ultra-subtle wooden tick
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(150, now);
-    gain.gain.setValueAtTime(0.005, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
-    osc.start(now); osc.stop(now + 0.02);
+  } else if (type === 'scroll-tick') { // Ultra-subtle smooth tap
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(300, now);
+    osc.frequency.exponentialRampToValueAtTime(200, now + 0.05);
+    gain.gain.setValueAtTime(0.003, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+    osc.start(now); osc.stop(now + 0.05);
   } else if (type === 'bass') { // Deep satisfying entrance bass drop
     osc.type = 'sine';
     osc.frequency.setValueAtTime(150, now);
@@ -48,6 +49,24 @@ const playSound = (type) => {
     gain.gain.setValueAtTime(1, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
     osc.start(now); osc.stop(now + 1.5);
+  } else if (type === 'door') { // Deep smooth door opening
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(120, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 2);
+    
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(400, now);
+    filter.frequency.exponentialRampToValueAtTime(50, now + 2);
+    
+    osc.disconnect();
+    osc.connect(filter);
+    filter.connect(gain);
+    
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(0.2, now + 0.3);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 2);
+    osc.start(now); osc.stop(now + 2);
   } else if (type === 'copy') { // Copy code sound
     osc.type = 'square';
     osc.frequency.setValueAtTime(1500, now);
@@ -200,35 +219,6 @@ Object.keys(sectionData).forEach(selector => {
     banner.appendChild(overlay);
     banner.appendChild(wrapper);
 
-    // 2. Add Top Watched Videos Grid
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-8 my-16 w-full max-w-5xl mx-auto z-10 relative';
-    
-    sectionData[selector].tutorials.forEach(tut => {
-      const card = document.createElement('div');
-      card.className = 'flex flex-col gap-3 p-5 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-2xl hover:bg-white/10 transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:-translate-y-3 hover:shadow-[0_20px_50px_rgba(var(--accent),0.2)]';
-      
-      const aspect = tut.type === 'Short' ? 'aspect-[9/16] w-full max-w-[300px] mx-auto' : 'aspect-video w-full';
-      
-      card.innerHTML = `
-        <div class="flex justify-between items-center px-2">
-          <span class="text-xs font-black tracking-widest uppercase text-[var(--accent)] bg-[var(--accent)]/10 px-3 py-1 rounded-full">${tut.type}</span>
-          <span class="text-white/80 text-sm font-semibold">${tut.title}</span>
-        </div>
-        <div class="${aspect} rounded-2xl overflow-hidden border border-white/10 relative group">
-          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
-          <iframe class="w-full h-full relative z-0" src="${tut.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-    
-    const vidHeader = document.createElement('h3');
-    vidHeader.className = 'text-center text-4xl font-["Fredoka"] mt-12 mb-8 text-[var(--text)] drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]';
-    vidHeader.innerText = '🔥 Top Watched Tutorials';
-    
-    banner.after(grid);
-    banner.after(vidHeader);
     banner.after(createMarquee(sectionData[selector].marquee));
   }
 });
@@ -372,110 +362,53 @@ if (sidebarEl) {
   });
 }
 
-// ── Dynamic Content Media Injector (No Duplicates, Highly Relevant) ──
-const videoMap = [
-  { k: ['history', 'what is javascript'], v: 'dGcsHMXbSOA' },
-  { k: ['variable', 'declaration'], v: 'sjyJIdbiW8U' },
-  { k: ['scope', 'lexical'], v: 'bD-62OM4igw' },
-  { k: ['hoisting', 'tdz'], v: 'EvfRXyKa_GI' },
-  { k: ['primitive', 'data types'], v: '71hE3L-b5kQ' },
-  { k: ['mutability', 'immutable'], v: '3-B711RzDEw' },
-  { k: ['type conversion'], v: '2-iR0hXn3rI' },
-  { k: ['truthy', 'falsy'], v: 'XqCDeQO29v8' },
-  { k: ['operator', 'ternary', 'short-circuit'], v: 'O8wunCEZfK8' },
-  { k: ['loop', 'iteration'], v: 's9wW2PpJsmU' },
-  { k: ['function', 'arrow'], v: '3a0I8ICR1Vg' },
-  { k: ['closure'], v: 'vKJpN5FAeF4' },
-  { k: ['this keyword'], v: 'gvicrj31JOM' },
-  { k: ['prototype', 'inheritance'], v: 'Fsp45sWEQGQ' },
-  { k: ['built-in method', 'array', 'string'], v: 'R8rmfD9Y5-c' },
-  { k: ['destructuring'], v: 'NIq3qLaHCIs' },
-  { k: ['spread', 'rest'], v: 'iLx4ma8ZqvQ' },
-  { k: ['map vs set', 'object vs array'], v: 'hLgIlN22-s' },
-  { k: ['symbol'], v: '4J5hnOCj69w' },
-  { k: ['sync', 'async'], v: 'Kpn2ajSa92c' },
-  { k: ['callback', 'promise'], v: '8aGhZQkoFbQ' },
-  { k: ['async / await'], v: 'V_Kr9OSfDeU' },
-  { k: ['fetch api'], v: 'cuEtnrL9-H0' },
-  { k: ['event', 'propagation', 'delegation'], v: 'XF1_MlZ5l6M' },
-  { k: ['dom', 'bom'], v: 'y17RuWUpcgU' },
-  { k: ['shallow copy', 'deep copy'], v: 'c_H8H_L-xQo' },
-  { k: ['debounce', 'throttle'], v: 'cjIswDCKgu0' },
-  { k: ['crud in nested', 'array of object'], v: '7W43QQKCQlY' },
-  { k: ['map', 'filter', 'reduce'], v: 's9wW2PpJsmU' },
-  { k: ['what is node'], v: 'ENrzD9HAZK4' },
-  { k: ['module', 'node'], v: 'mK54Cn4ceac' },
-  { k: ['http vs express'], v: 'SccSCuHhOw0' },
-  { k: ['middleware'], v: 'lY6icfhap2o' },
-  { k: ['routing', 'param'], v: 'pKd0Rpw7O48' },
-  { k: ['auth', 'session', 'cookie'], v: 'mbsmsi7l3r4' },
-  { k: ['security', 'vulnerability'], v: 'W7CGW3KTMKA' },
-  { k: ['api', 'rest'], v: '-MTSRvTe1eM' },
-  { k: ['http status'], v: 'wGjC8xW3oM8' },
-  { k: ['mvc', 'mvcs'], v: 'pWbMrx5rVBE' },
-  { k: ['what is mongodb', 'database'], v: '-bt_y4Loofg' },
-  { k: ['shell command', 'crud', 'mongodb'], v: 'DZBGEVgL2eE' },
-  { k: ['aggregation pipeline'], v: 'Kk6Er0c7srU' },
-  { k: ['index', 'testing'], v: 'HnbxjK2H9XU' },
-  { k: ['scaling', 'replication', 'sharding'], v: 'pGjO6n5nOOM' },
-  { k: ['acid', 'base', 'cap theorem'], v: 'k-Yaq8AHlFA' },
-  { k: ['schema design'], v: 'leCECSSAE4Q' },
-  { k: ['project overview', 'architecture'], v: '7CqJlxBYj-M' },
-  { k: ['folder structure'], v: '4b_pG4W2V6E' },
-  { k: ['full workflow'], v: 'qY5AEE-U5uY' },
-  { k: ['admin portal'], v: 'CBsejb9E7K8' },
-  { k: ['user side'], v: 'jC8EIDmJz48' }
-];
+// ── Kinetic Horizontal Edge Scrolling for Code & Tables ──
+let horizontalScrollSpeed = 0;
+let activeScrollTarget = null;
 
-const fallbackVideos = ['W6NZfCO5SIk', 'hdI2bqOjy3c', 'PkZNo7MF68', 'zQnBQ4tB3ZA'];
-let usedVideos = new Set();
-
-document.querySelectorAll('h2').forEach((h2, index) => {
-  const text = h2.innerText.toLowerCase();
-  const searchWord = text.replace(/[^a-z0-9\s]/g, '').split(' ').filter(w => w.length > 3)[0] || 'code';
+document.addEventListener('mousemove', (e) => {
+  const target = e.target.closest('pre, .table-wrap');
   
-  // Find specific video mapping
-  let videoId = null;
-  for (let mapping of videoMap) {
-    if (mapping.k.some(keyword => text.includes(keyword)) && !usedVideos.has(mapping.v)) {
-      videoId = mapping.v;
-      usedVideos.add(mapping.v);
-      break;
+  if (target && target.scrollWidth > target.clientWidth) {
+    const rect = target.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const edgeSize = 100; // Hover area size from edge
+    
+    if (relativeX < edgeSize) {
+      // Scroll Left
+      horizontalScrollSpeed = -Math.pow((edgeSize - relativeX) / edgeSize, 2) * 20;
+      activeScrollTarget = target;
+    } else if (relativeX > rect.width - edgeSize) {
+      // Scroll Right
+      horizontalScrollSpeed = Math.pow((relativeX - (rect.width - edgeSize)) / edgeSize, 2) * 20;
+      activeScrollTarget = target;
+    } else {
+      horizontalScrollSpeed = 0;
+      activeScrollTarget = null;
     }
+  } else {
+    horizontalScrollSpeed = 0;
+    activeScrollTarget = null;
   }
-
-  // Fallback to avoid missing videos
-  if (!videoId) {
-    const unusedFallbacks = fallbackVideos.filter(v => !usedVideos.has(v));
-    videoId = unusedFallbacks.length > 0 ? unusedFallbacks[0] : 'W6NZfCO5SIk';
-    usedVideos.add(videoId);
-  }
-
-  const mediaContainer = document.createElement('div');
-  mediaContainer.className = 'w-full max-w-4xl mx-auto my-10 fade-up media-block';
-
-  mediaContainer.innerHTML = `
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black cursor-pointer flex justify-center items-center h-full" 
-         onclick="this.innerHTML='<iframe class=\\'w-full h-full aspect-video\\' src=\\'https://www.youtube.com/embed/${videoId}?autoplay=1\\' frameborder=\\'0\\' allow=\\'autoplay; encrypted-media; picture-in-picture\\' allowfullscreen></iframe>'">
-      <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial</div>
-      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10 pointer-events-none flex justify-center items-center">
-        <div class="w-20 h-20 bg-[var(--accent)] rounded-full flex justify-center items-center shadow-[0_0_30px_var(--accent)] group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-10 h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-      </div>
-      <img loading="lazy" src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" class="w-full h-full aspect-video object-cover relative z-0" alt="Video Thumbnail">
-    </div>
-  `;
-  
-  h2.after(mediaContainer);
 });
+
+document.addEventListener('mouseleave', () => { horizontalScrollSpeed = 0; activeScrollTarget = null; });
+
+gsap.ticker.add(() => {
+  if (horizontalScrollSpeed !== 0 && activeScrollTarget) {
+    activeScrollTarget.scrollLeft += horizontalScrollSpeed;
+  }
+});
+
+// ── Dynamic Content Media Injector (No Duplicates, Highly Relevant) ──
+// Removed per user request.
 
 // ── TAILWIND & BUBBLE GLARE SUPER STYLES INJECTION ──
 // We dynamically apply Tailwind utility classes to upgrade elements with glassmorphism & gradients
 setTimeout(() => {
   // Apply the incredibly glossy 3D Bubble Font to the major headers
   document.querySelectorAll('h1').forEach(h => {
-    h.classList.add('bubble-font', 'glare-effect', 'text-8xl', 'md:text-[10rem]', 'lowercase', 'leading-[0.8]', 'py-4', 'tracking-tighter');
+    h.classList.add('bubble-font', 'glare-effect', 'text-5xl', 'md:text-7xl', 'lg:text-[10rem]', 'lowercase', 'leading-[0.8]', 'py-4', 'tracking-tighter');
   });
   
   // Apply bubble font to the massive scrolling marquees
@@ -515,28 +448,56 @@ setTimeout(() => {
 // 2. Entry Modal Logic
 const entryModal = document.getElementById('entryModal');
 const enterBtn = document.getElementById('enterBtn');
+const curtainLeft = document.getElementById('curtainLeft');
+const curtainRight = document.getElementById('curtainRight');
+const orb1 = document.getElementById('orb1');
+const orb2 = document.getElementById('orb2');
 
-enterBtn.addEventListener('click', () => {
-  playSound('bass');
-  // Animate Modal out
-  entryModal.style.opacity = '0';
-  entryModal.style.transform = 'scale(1.5) filter: blur(20px)';
-  entryModal.style.pointerEvents = 'none';
-  
-  // Re-enable scrolling!
-  document.body.classList.remove('overflow-hidden');
-  
-  // Trigger opening animation on body
-  gsap.from("body", {
-    duration: 2,
-    filter: "blur(20px) brightness(3)",
-    scale: 0.9,
-    ease: "power4.out",
-    clearProps: "all"
+if (entryModal && enterBtn) {
+  // Interactive 3D tilt and orb floating on mousemove
+  entryModal.addEventListener('mousemove', (e) => {
+    const rect = enterBtn.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    
+    gsap.to(enterBtn, { rotationY: x * 0.05, rotationX: -y * 0.05, ease: "power2.out", duration: 0.5 });
+    if(orb1) gsap.to(orb1, { x: e.clientX - 100, y: e.clientY - 100, duration: 2, ease: "power2.out" });
+    if(orb2) gsap.to(orb2, { x: e.clientX - 200, y: e.clientY + 50, duration: 3, ease: "power2.out" });
   });
   
-  setTimeout(() => entryModal.remove(), 1000);
-});
+  entryModal.addEventListener('mouseleave', () => {
+    gsap.to(enterBtn, { rotationY: 0, rotationX: 0, ease: "power2.out", duration: 0.5 });
+  });
+
+  enterBtn.addEventListener('click', () => {
+    playSound('bass');
+    playSound('door');
+    
+    // Hide the button immediately with a pop
+    gsap.to(enterBtn, { scale: 0, opacity: 0, duration: 0.5, ease: "back.in(2)" });
+    
+    // Animate 3D doors opening
+    if (curtainLeft && curtainRight) {
+      gsap.to(curtainLeft, { rotationY: -105, duration: 2, ease: "power3.inOut", delay: 0.2 });
+      gsap.to(curtainRight, { rotationY: 105, duration: 2, ease: "power3.inOut", delay: 0.2 });
+    }
+    
+    // Re-enable scrolling!
+    document.body.classList.remove('overflow-hidden');
+    
+    // Trigger opening animation on body
+    gsap.from("body", {
+      duration: 2.5,
+      filter: "blur(20px) brightness(3)",
+      scale: 0.92,
+      ease: "power4.out",
+      delay: 0.5,
+      clearProps: "all"
+    });
+    
+    setTimeout(() => entryModal.remove(), 2500);
+  });
+}
 
 // 3. 7+ GSAP Transition Styles for ScrollTrigger
 const animationStyles = [
@@ -593,11 +554,16 @@ function showCopyModal() {
 
 console.log('%c✨ Multi-Sensory Multi-Theme Architecture Loaded', 'color:#FF3B00;font-size:1.2rem;font-weight:bold;');
 
-// ── Custom Scroll Progress Handle ──
+// ── Custom Scroll Progress Handle & Sidebar Fill ──
 window.addEventListener('scroll', () => {
   const scrollPx = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
   const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   const scrolled = (scrollPx / winHeightPx) * 100;
   const bar = document.getElementById('scrollProgress');
   if (bar) bar.style.height = `${scrolled}%`;
+  
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) {
+    sidebar.style.background = `linear-gradient(to bottom, #0396FF ${scrolled}%, #050505 ${scrolled}%)`;
+  }
 });

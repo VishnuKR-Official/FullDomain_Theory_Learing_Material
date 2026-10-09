@@ -140,11 +140,11 @@ body {
 /* ═══ TOPBAR & SIDEBAR ═══ */
 .topbar {
   position: fixed; top: 0; left: 0; width: 100%; height: var(--topbar-h);
-  background: var(--bg);
+  background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 4vw; z-index: 1000;
-  transition: background-color 0.8s ease, border-color 0.8s ease;
+  transition: border-color 0.8s ease;
 }
 .menu-toggle { background: transparent; border: none; cursor: pointer; color: var(--text); display: flex; align-items: center; transition: color 0.3s; }
 .menu-toggle:hover { color: var(--accent); }
@@ -165,9 +165,9 @@ body {
 
 .sidebar {
   position: fixed; top: var(--topbar-h); left: 0; width: var(--sidebar-w); height: calc(100vh - var(--topbar-h));
-  background: var(--bg); border-right: 1px solid var(--border); padding: 3rem 2rem; overflow-y: auto; z-index: 999;
-  transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), background-color 0.8s ease;
-  box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+  background: #050505; border-right: 1px solid var(--border); padding: 3rem 2rem; overflow-y: auto; z-index: 999;
+  transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 10px 0 30px rgba(0,0,0,0.5);
   -ms-overflow-style: none; scrollbar-width: none;
 }
 .sidebar::-webkit-scrollbar { display: none; }
@@ -185,7 +185,7 @@ body {
   content: ''; position: absolute; left: 0; top: 0; width: 0%; height: 100%; 
   background: var(--accent); z-index: -1; transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
 }
-.nav-link:hover, .nav-link.active { color: var(--bg); font-weight: 700; transform: translateX(10px); }
+.nav-link:hover, .nav-link.active { color: #FF0000; font-weight: 700; transform: translateX(10px); }
 .nav-link:hover::before, .nav-link.active::before { width: 100%; }
 
 /* ═══ LAYOUT & GRID ═══ */
@@ -229,7 +229,7 @@ th { padding: 1.5rem 1rem; color: #000000; font-weight: 700; text-transform: upp
 td { padding: 1.5rem 1rem; color: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,0,0,0.2); transition: all 0.3s; }
 tr:last-child td { border-bottom: none; }
 tr:hover td { color: #000000; background: rgba(0,0,0,0.1); }
-td code { color: var(--accent) !important; font-weight: 600; }
+td code { color: #FF0000 !important; font-weight: 600; }
 
 /* ═══ CARDS / SECTIONS ═══ */
 .card { margin: 15vh 0; padding: 0; background: transparent; border: none; position: relative; }
@@ -270,5 +270,49 @@ pre button:hover { background: var(--accent); color: #000; transform: scale(1.05
   filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.25));
   position: relative;
   -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+}
+
+/* ═══ RESPONSIVE DESIGN (MOBILE) ═══ */
+@media (max-width: 1024px) {
+  .grid-2 { grid-template-columns: 1fr; gap: 3rem; }
+  .topbar-tabs { display: none; } /* Hide tabs on tablet/mobile */
+}
+
+@media (max-width: 768px) {
+  .content { padding: 5vh 5vw; }
+  .story-box { padding: 1.5rem 2rem; margin: 3rem 0; font-size: 1.2rem; }
+  pre { padding: 2rem; font-size: 0.9rem; margin: 2rem 0; }
+  .card p { font-size: 1.1rem; }
+  .card ul { font-size: 1.1rem; }
+  .grid-2 { gap: 2rem; margin: 2rem 0; padding: 1rem 0; }
+  
+  .marquee-container { margin: 4rem 0; padding: 1.5rem 0; }
+  .marquee-content { font-size: 2rem; }
+  
+  .table-wrap { margin: 2rem 0; }
+  th, td { padding: 1rem 0.5rem; font-size: 0.95rem; }
+  
+  .custom-cursor, .mouse-blob { display: none !important; } /* Hide custom cursor on touch devices */
+  
+  .chapter-banner { min-height: 40vh; margin-bottom: 5vh; }
+  .chapter-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .chapter-banner p { font-size: 1.2rem; margin-top: 1rem; }
+  
+  h2 { font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; }
+  
+  .sidebar { width: 85vw; max-width: 320px; }
+  
+  pre button { top: 0.5rem; right: 0.5rem; padding: 0.5rem 1rem; font-size: 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .content { padding: 5vh 4vw; }
+  .topbar-logo { font-size: 1.1rem; }
+  .story-box { padding: 1rem 1.2rem; font-size: 1.05rem; }
+  .card p, .card ul { font-size: 1rem; }
+  pre { padding: 1.5rem; font-size: 0.85rem; }
+  th, td { font-size: 0.85rem; }
+  
+  h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
 }
 

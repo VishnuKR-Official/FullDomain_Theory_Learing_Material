@@ -51,7 +51,7 @@ body[data-theme="mongo"] {
 body[data-theme="project"] {
   --bg-gradient: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 40%, #A1C4FD 100%);
   --text: #121212;
-  --text-dim: #FF9A9E;
+  --text-dim: #ffffff;
   --border: rgba(0, 0, 0, 0.2);
   --accent: #FF9A9E;
   --link: #121212;

@@ -455,10 +455,15 @@ document.querySelectorAll('h2').forEach((h2, index) => {
   mediaContainer.className = 'w-full max-w-4xl mx-auto my-10 fade-up media-block';
 
   mediaContainer.innerHTML = `
-    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black">
+    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative group bg-black cursor-pointer flex justify-center items-center h-full" 
+         onclick="this.innerHTML='<iframe class=\\'w-full h-full aspect-video\\' src=\\'https://www.youtube.com/embed/${videoId}?autoplay=1\\' frameborder=\\'0\\' allow=\\'autoplay; encrypted-media; picture-in-picture\\' allowfullscreen></iframe>'">
       <div class="absolute top-0 right-0 m-4 px-3 py-1 bg-[var(--accent)] text-black text-xs font-black rounded-full z-20 pointer-events-none drop-shadow-lg uppercase tracking-widest">Tutorial</div>
-      <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
-      <iframe loading="lazy" title="Concept Video Tutorial" class="w-full h-full aspect-video relative z-0" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10 pointer-events-none flex justify-center items-center">
+        <div class="w-20 h-20 bg-[var(--accent)] rounded-full flex justify-center items-center shadow-[0_0_30px_var(--accent)] group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-10 h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <img loading="lazy" src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'" class="w-full h-full aspect-video object-cover relative z-0" alt="Video Thumbnail">
     </div>
   `;
   

@@ -3,18 +3,25 @@
 // ═══════════════════════════════════════════════
 
 // ── Web Audio API (Multi-Sensory Sounds) ──
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let audioCtx;
 let audioUnlocked = false;
 
-document.body.addEventListener('click', () => {
-  if (!audioUnlocked && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-    audioUnlocked = true;
+window.initAudio = () => {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
-}, { once: true });
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  audioUnlocked = true;
+};
+
+document.body.addEventListener('click', window.initAudio, { once: true });
 
 const playSound = (type) => {
-  if (!audioUnlocked || audioCtx.state === 'suspended') return;
+  if (!audioCtx) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.connect(gain);
@@ -470,16 +477,17 @@ if (entryModal && enterBtn) {
   });
 
   enterBtn.addEventListener('click', () => {
+    initAudio(); // Initialize audio context on first user click!
     playSound('bass');
     playSound('door');
     
     // Hide the button immediately with a pop
     gsap.to(enterBtn, { scale: 0, opacity: 0, duration: 0.5, ease: "back.in(2)" });
     
-    // Animate 3D doors opening
+    // Animate 3D doors opening (adding transformOrigin so they swing like doors!)
     if (curtainLeft && curtainRight) {
-      gsap.to(curtainLeft, { rotationY: -105, duration: 2, ease: "power3.inOut", delay: 0.2 });
-      gsap.to(curtainRight, { rotationY: 105, duration: 2, ease: "power3.inOut", delay: 0.2 });
+      gsap.to(curtainLeft, { rotationY: -120, x: "-20%", transformOrigin: "left center", duration: 2, ease: "power3.inOut", delay: 0.2 });
+      gsap.to(curtainRight, { rotationY: 120, x: "20%", transformOrigin: "right center", duration: 2, ease: "power3.inOut", delay: 0.2 });
     }
     
     // Re-enable scrolling!

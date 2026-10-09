@@ -5,7 +5,7 @@
 :root {
   /* Default Theme (Yellow-Blue) */
   --bg-gradient: linear-gradient(135deg, #FDEB71 0%, #F8D800 40%, #0396FF 100%);
-  --text: #ffffff;     
+  --text: #87CEEB;     
   --text-dim: #FDEB71; 
   --border: rgba(255, 255, 255, 0.2); 
   --accent: #F8D800;   

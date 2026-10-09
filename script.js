@@ -41,6 +41,20 @@ const playSound = (type) => {
     gain.gain.setValueAtTime(0.005, now);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
     osc.start(now); osc.stop(now + 0.02);
+  } else if (type === 'bass') { // Deep satisfying entrance bass drop
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(0.01, now + 1.5);
+    gain.gain.setValueAtTime(1, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+    osc.start(now); osc.stop(now + 1.5);
+  } else if (type === 'copy') { // Copy code sound
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(1500, now);
+    osc.frequency.exponentialRampToValueAtTime(500, now + 0.05);
+    gain.gain.setValueAtTime(0.1, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+    osc.start(now); osc.stop(now + 0.05);
   }
 };
 
@@ -482,7 +496,7 @@ setTimeout(() => {
     pre.title = "Click to copy code";
     pre.addEventListener('click', (e) => {
       navigator.clipboard.writeText(pre.innerText);
-      playClickSound();
+      playSound('copy');
       showCopyModal();
     });
   });
@@ -493,57 +507,12 @@ setTimeout(() => {
 // 1. Synthesized Audio System (No external MP3s needed)
 // audioCtx already declared at top of file
 
-function playBassDrop() {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  const osc = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
-  gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-  osc.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 1.5);
-}
-
-function playHoverSound() {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  const osc = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
-  gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-  osc.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.1);
-}
-
-function playClickSound() {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  const osc = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  osc.type = 'square';
-  osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.05);
-  gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-  osc.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.05);
-}
-
 // 2. Entry Modal Logic
 const entryModal = document.getElementById('entryModal');
 const enterBtn = document.getElementById('enterBtn');
 
 enterBtn.addEventListener('click', () => {
-  playBassDrop();
+  playSound('bass');
   // Animate Modal out
   entryModal.style.opacity = '0';
   entryModal.style.transform = 'scale(1.5) filter: blur(20px)';
@@ -562,11 +531,6 @@ enterBtn.addEventListener('click', () => {
   });
   
   setTimeout(() => entryModal.remove(), 1000);
-});
-
-// Bind Hover sounds to all buttons and interactive elements
-document.querySelectorAll('button, a, .story-box, pre').forEach(el => {
-  el.addEventListener('mouseenter', playHoverSound);
 });
 
 // 3. 7+ GSAP Transition Styles for ScrollTrigger

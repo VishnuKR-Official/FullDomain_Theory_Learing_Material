@@ -319,7 +319,7 @@ const filterSidebar = (targetCategory) => {
   if (targetCategory === 'JavaScript') bannerSelector = '.js-banner';
   else if (targetCategory === 'Node.js') bannerSelector = '.node-banner';
   else if (targetCategory === 'MongoDB') bannerSelector = '.mongo-banner';
-  else if (targetCategory === 'Project Guide') bannerSelector = '#project-overview';
+  else if (targetCategory === 'Project Guide') bannerSelector = '.proj-banner';
 
   const banner = document.querySelector(bannerSelector);
   if (banner) lenis.scrollTo(banner, { offset: -100 });

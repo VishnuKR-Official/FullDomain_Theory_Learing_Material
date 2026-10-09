@@ -4,7 +4,7 @@
 
 :root {
   /* Default Theme (JavaScript - Obsidian & Gold) */
-  --bg-gradient: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+  --bg-gradient: linear-gradient(135deg, #1c1c21 0%, #2a2a30 100%);
   --text: #f4f4f5;     
   --text-dim: #a1a1aa; 
   --border: rgba(255, 255, 255, 0.1); 

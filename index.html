@@ -62,6 +62,7 @@
   <nav class="nav">
 
     <div class="nav-section-label">JavaScript</div>
+    <a class="nav-link" href="#quick-revision">Quick Revision</a>
 
     <a class="nav-link" href="#js-what">What is JS &amp; History</a>
     <a class="nav-link" href="#js-vars">Variables &amp; Declarations</a>
@@ -123,6 +124,7 @@
     <a class="nav-link" href="#project-workflow">Full Workflow</a>
     <a class="nav-link" href="#project-admin">Admin Portal</a>
     <a class="nav-link" href="#project-user">User Side</a>
+    <a class="nav-link" href="#project-run-extend">Run, Debug &amp; Extend</a>
   </nav>
 </aside>
 
@@ -194,6 +196,43 @@
       <p style="font-size: 1.4rem; font-weight: 500; font-style: italic; max-width: 100%; margin: 0 auto; color: var(--text);">
         "If you are raising your eyebrows with doubts in MERN stack content, refer to this site... that's it!"
       </p>
+    </section>
+
+    <!-- ░░░░░░░░░░ QUICK REVISION ░░░░░░░░░░ -->
+    <section class="card" id="quick-revision">
+      <h2>⚡ Quick Revision (last-minute one-liners)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Topic</th><th>One-liner</th></tr></thead>
+          <tbody>
+            <tr><td>var / let / const</td><td>function / block / block scope; const blocks re-assign only, not mutation</td></tr>
+            <tr><td>Hoisting + TDZ</td><td>declarations lifted; let/const unusable until their line (TDZ)</td></tr>
+            <tr><td>Primitives (7)</td><td>string number bigint boolean undefined null symbol - immutable, by value</td></tr>
+            <tr><td>Falsy (8)</td><td>false 0 -0 0n '' null undefined NaN</td></tr>
+            <tr><td>== vs ===</td><td>== coerces types; === checks type + value</td></tr>
+            <tr><td>Event loop order</td><td>sync code -&gt; all microtasks (promise) -&gt; one macrotask (timer) -&gt; repeat</td></tr>
+            <tr><td>Arrow vs regular</td><td>arrow: no own this/arguments/new; lexical this</td></tr>
+            <tr><td>call / apply / bind</td><td>run now (args list) / run now (args array) / return new fn</td></tr>
+            <tr><td>rest vs spread</td><td>rest packs into array (params); spread unpacks (calls, copies)</td></tr>
+            <tr><td>&amp;&amp; || ??</td><td>&amp;&amp; first falsy; || first truthy; ?? first non-null/undefined</td></tr>
+            <tr><td>map / filter / reduce</td><td>transform / select / fold to single value</td></tr>
+            <tr><td>Promise states</td><td>pending -&gt; fulfilled or rejected; all / allSettled / race / any</td></tr>
+            <tr><td>Shallow vs deep copy</td><td>spread = shallow; structuredClone = deep</td></tr>
+            <tr><td>Node = ?</td><td>V8 + libuv + core modules; single thread + thread pool (4)</td></tr>
+            <tr><td>Middleware</td><td>(req, res, next) runs in order; error mw has 4 args</td></tr>
+            <tr><td>Params</td><td>path /users/:id -&gt; req.params; query ?a=1 -&gt; req.query</td></tr>
+            <tr><td>Session vs cookie</td><td>session data on server; cookie holds only session id</td></tr>
+            <tr><td>AuthN vs AuthZ</td><td>who are you vs what may you do</td></tr>
+            <tr><td>MVCS</td><td>Model data, View UI, Controller flow, Service business logic</td></tr>
+            <tr><td>Status codes</td><td>200 OK, 201 Created, 400 bad input, 401 login, 403 forbidden, 404, 409, 500</td></tr>
+            <tr><td>SQL vs NoSQL</td><td>tables + fixed schema + joins vs flexible documents + scale out</td></tr>
+            <tr><td>ACID / BASE / CAP</td><td>strict transactions / eventual consistency / choose C or A during partition</td></tr>
+            <tr><td>Replica set vs shard</td><td>copies for availability vs split data for scale</td></tr>
+            <tr><td>Index check</td><td>explain('executionStats'): IXSCAN good, COLLSCAN bad; keys ~ docs ~ returned</td></tr>
+            <tr><td>Embed vs reference</td><td>embed read-together one-to-few; reference large/shared/many</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- ░░░░░░░░░░ JAVASCRIPT ░░░░░░░░░░ -->
@@ -2485,6 +2524,44 @@ exports.deleteAccount = async (req, res, next) => {
 // Last login: &lt;%= new Date(user.lastLogin).toLocaleString() %&gt;
 // Email: &lt;%= user.email %&gt;
 // &lt;button onclick="showDeleteModal()"&gt;Delete Account&lt;/button&gt;</code></pre>
+    </section>
+
+    <section class="card" id="project-run-extend">
+      <h2>🚀 Run, Debug &amp; Extend</h2>
+      
+      <h3>Where to change what (so you never need AI again)</h3>
+      <div class="story-box">📖 Use the layer rule: look problem -> views and public/css; URL problem -> routes; request/response problem -> controllers; rule or database problem -> services and models; who may enter problem -> middlewares/auth.js; crash/error page -> errorHandler.js. To add a new feature follow the same six steps every time: model field -> service function -> controller function -> route -> view/button -> test. Story: like renovating a house - bathroom leaks (service), wrong door colour (view), new door position (route), new lock (middleware).</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>I want to...</th><th>Change this</th></tr></thead>
+          <tbody>
+            <tr><td>Add a field (e.g. phone)</td><td>models/User.js, signup form in views, authService.signup, profile.ejs</td></tr>
+            <tr><td>Change password length rule</td><td>authService.js and userService.update (both numbers) + minlength in the forms</td></tr>
+            <tr><td>Sort by newest first</td><td>userService.list -> .sort({ createdAt: -1 }) and a new option in dashboard.ejs</td></tr>
+            <tr><td>Add pagination</td><td>dashboard query ?page=, userService.list -> .skip().limit(), links in dashboard.ejs</td></tr>
+            <tr><td>Make session last 30 min</td><td>app.js cookie.maxAge</td></tr>
+            <tr><td>Add a new admin page</td><td>route in adminRoutes, function in adminController, EJS view in views/admin</td></tr>
+            <tr><td>Change the confirm message</td><td>data-confirm text in the EJS form</td></tr>
+            <tr><td>Show a toast for any action</td><td>setFlash(req,'success','...') before redirect in the controller</td></tr>
+            <tr><td>Debug a 500 error</td><td>console output + logs/access.log, then the error handler</td></tr>
+            <tr><td>Search only by name</td><td>userService.list -> filter.name = rx instead of $or</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Common mistakes and how to debug</h3>
+      <pre><code>// Cannot GET /something = missing route or wrong method.
+// Cannot read properties of undefined = variable not passed to res.render or req.body empty (missing express.urlencoded).
+// X is not defined in EJS = pass it in render or put it in res.locals.
+// Redirect loop = a guard redirecting to a page that has the same guard.
+// Always logged out = wrong session secret/cookie secure: true on http.
+// Duplicate key error = unique email already exists.
+// Debug by reading the terminal, logs/access.log, adding console.log(req.body, req.params, req.query), and testing queries in mongosh with .explain('executionStats').</code></pre>
+
+      <h3>Ideas to extend (next practice)</h3>
+      <p style="font-size: clamp(1.4rem, 4.5vw, 1.7rem); color: var(--text-dim); max-width: 900px; margin-bottom: 1.8rem; line-height: 1.6; font-weight: 500;">
+        Add pagination and per-page limit, a CSRF token (csurf alternative or double-submit cookie), helmet and express-rate-limit on login, 'forgot password' using a token with TTL index, an audit log collection (capped collection), role-based admin permissions, input validation with Joi, and tests with Jest/Supertest. Each extension reinforces the same MVCS routine.
+      </p>
     </section>
 
     <!-- FOOTER -->

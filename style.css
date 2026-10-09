@@ -208,6 +208,31 @@ h3 { font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 600; color: var(--text)
 .chapter-icon { font-size: 5rem; margin-bottom: 2rem; opacity: 0.8; }
 .chapter-banner p { font-size: 2rem; color: var(--text-dim); max-width: 900px; margin-top: 2rem; line-height: 1.3; }
 
+/* ═══ CINEMATIC HERO ═══ */
+.cinematic-hero {
+  position: relative; width: 100vw; height: 85vh;
+  left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; margin-bottom: 10vh; margin-top: -10vh; /* pull up under topbar */
+}
+.cinematic-hero-video {
+  position: absolute; top: 50%; left: 50%;
+  min-width: 100%; min-height: 100%; width: auto; height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover; z-index: -2;
+  opacity: 0.6; mix-blend-mode: lighten;
+  transition: opacity 1s ease;
+}
+.cinematic-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(5,5,5,1) 100%);
+  z-index: -1;
+}
+.cinematic-hero-content {
+  position: relative; z-index: 1; text-align: center; pointer-events: none;
+  padding: 0 5vw;
+}
+
 /* ═══ DYNAMIC ELEMENTS (Images & Marquee) ═══ */
 .marquee-container {
   width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; overflow: hidden; background: #000000; color: #ffffff;

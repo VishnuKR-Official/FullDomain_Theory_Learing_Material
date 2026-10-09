@@ -32,28 +32,28 @@ const playSound = (type) => {
     osc.type = 'sine';
     osc.frequency.setValueAtTime(800, now);
     osc.frequency.exponentialRampToValueAtTime(1500, now + 0.04);
-    gain.gain.setValueAtTime(0.015, now);
+    gain.gain.setValueAtTime(0.15, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
     osc.start(now); osc.stop(now + 0.04);
   } else if (type === 'click') { // Satisfying synthetic pop
     osc.type = 'triangle';
     osc.frequency.setValueAtTime(300, now);
     osc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
-    gain.gain.setValueAtTime(0.1, now);
+    gain.gain.setValueAtTime(0.5, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
     osc.start(now); osc.stop(now + 0.15);
   } else if (type === 'scroll-tick') { // Ultra-subtle smooth tap
     osc.type = 'sine';
     osc.frequency.setValueAtTime(300, now);
     osc.frequency.exponentialRampToValueAtTime(200, now + 0.05);
-    gain.gain.setValueAtTime(0.003, now);
+    gain.gain.setValueAtTime(0.03, now);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
     osc.start(now); osc.stop(now + 0.05);
   } else if (type === 'bass') { // Deep satisfying entrance bass drop
     osc.type = 'sine';
     osc.frequency.setValueAtTime(150, now);
     osc.frequency.exponentialRampToValueAtTime(0.01, now + 1.5);
-    gain.gain.setValueAtTime(1, now);
+    gain.gain.setValueAtTime(2.5, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
     osc.start(now); osc.stop(now + 1.5);
   } else if (type === 'door') { // Deep smooth door opening
@@ -71,14 +71,14 @@ const playSound = (type) => {
     filter.connect(gain);
     
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + 0.3);
+    gain.gain.linearRampToValueAtTime(1.5, now + 0.3);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 2);
     osc.start(now); osc.stop(now + 2);
   } else if (type === 'copy') { // Copy code sound
     osc.type = 'square';
     osc.frequency.setValueAtTime(1500, now);
     osc.frequency.exponentialRampToValueAtTime(500, now + 0.05);
-    gain.gain.setValueAtTime(0.1, now);
+    gain.gain.setValueAtTime(0.5, now);
     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
     osc.start(now); osc.stop(now + 0.05);
   }

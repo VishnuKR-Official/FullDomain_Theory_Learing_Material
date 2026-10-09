@@ -246,6 +246,7 @@ pre {
 }
 pre:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
 code { font-family: 'JetBrains Mono', monospace; color: var(--text); }
+pre code { color: #ffffff; }
 .story-box { background: transparent; border-left: 4px solid var(--accent); padding: 2.5rem 4rem; margin: 5rem 0; font-size: 1.8rem; font-weight: 500; color: var(--text); line-height: 1.4; position: relative; transition: border-color 0.8s ease; }
 .story-box strong { color: var(--accent); transition: color 0.8s ease; }
 .callout { padding: 2.5rem; border: 1px solid var(--border); margin: 3rem 0; font-size: 1.3rem; background: var(--bg); transition: background-color 0.8s, border-color 0.8s; }

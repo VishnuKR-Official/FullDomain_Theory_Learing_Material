@@ -525,55 +525,67 @@ setTimeout(() => {
 // 1. Synthesized Audio System (No external MP3s needed)
 // audioCtx already declared at top of file
 
-// 2. Seamless Preloader & Audio Unmute Logic
+// 2. Entry Modal Logic
 const entryModal = document.getElementById('entryModal');
-const unmuteBtn = document.getElementById('unmuteBtn');
-const unmuteIcon = document.getElementById('unmuteIcon');
-let isAudioEnabled = false;
+const enterBtn = document.getElementById('enterBtn');
+const curtainLeft = document.getElementById('curtainLeft');
+const curtainRight = document.getElementById('curtainRight');
+const orb1 = document.getElementById('orb1');
+const orb2 = document.getElementById('orb2');
 
-window.addEventListener('load', () => {
-  if (entryModal) {
-    // Add slight delay so preloader is visible briefly
-    setTimeout(() => {
-      entryModal.style.opacity = '0';
-      document.body.classList.remove('overflow-hidden');
-      setTimeout(() => entryModal.remove(), 1000);
-      
-      // Intro fade in
-      gsap.from("body", {
-        duration: 2,
-        filter: "blur(10px)",
-        ease: "power2.out",
-        clearProps: "all"
-      });
-    }, 1000);
-  }
-});
+if (entryModal && enterBtn) {
+  // Interactive 3D tilt and orb floating on mousemove
+  entryModal.addEventListener('mousemove', (e) => {
+    const rect = enterBtn.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    
+    gsap.to(enterBtn, { rotationY: x * 0.05, rotationX: -y * 0.05, ease: "power2.out", duration: 0.5 });
+    if(orb1) gsap.to(orb1, { x: e.clientX - 100, y: e.clientY - 100, duration: 2, ease: "power2.out" });
+    if(orb2) gsap.to(orb2, { x: e.clientX - 200, y: e.clientY + 50, duration: 3, ease: "power2.out" });
+  });
+  
+  entryModal.addEventListener('mouseleave', () => {
+    gsap.to(enterBtn, { rotationY: 0, rotationX: 0, ease: "power2.out", duration: 0.5 });
+  });
 
-if (unmuteBtn) {
-  unmuteBtn.addEventListener('click', () => {
-    if (!isAudioEnabled) {
-      initAudio();
-      playSound('door'); // Feedback sound
-      isAudioEnabled = true;
-      unmuteBtn.classList.add('bg-[var(--accent)]');
-      unmuteIcon.classList.replace('text-slate-400', 'text-white');
-      unmuteIcon.classList.remove('group-hover:text-[var(--accent)]');
-      
-      // Update icon to "speaker-on"
-      unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
-    } else {
-      // Mute (Suspend context)
-      if (audioCtx) {
-        audioCtx.suspend();
-        isAudioEnabled = false;
-        unmuteBtn.classList.remove('bg-[var(--accent)]');
-        unmuteIcon.classList.replace('text-white', 'text-slate-400');
-        unmuteIcon.classList.add('group-hover:text-[var(--accent)]');
-        
-        // Update icon to "speaker-off"
-        unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
-      }
+  enterBtn.addEventListener('click', () => {
+    isMuted = false;
+    initAudio(); // Initialize audio context on first user click!
+    playSound('bass');
+    playSound('door');
+    
+    // Hide the button immediately with a pop
+    gsap.to(enterBtn, { scale: 0, opacity: 0, duration: 0.5, ease: "back.in(2)" });
+    
+    // Animate 3D doors opening
+    if (curtainLeft && curtainRight) {
+      gsap.to(curtainLeft, { rotationY: -120, x: "-20%", transformOrigin: "left center", duration: 2, ease: "power3.inOut", delay: 0.2 });
+      gsap.to(curtainRight, { rotationY: 120, x: "20%", transformOrigin: "right center", duration: 2, ease: "power3.inOut", delay: 0.2 });
+    }
+    
+    // Re-enable scrolling!
+    document.body.classList.remove('overflow-hidden');
+    
+    // Trigger opening animation on body
+    gsap.from("body", {
+      duration: 2.5,
+      filter: "blur(20px) brightness(3)",
+      scale: 0.92,
+      ease: "power4.out",
+      delay: 0.5,
+      clearProps: "all"
+    });
+    
+    setTimeout(() => entryModal.remove(), 2500);
+
+    // Sync Unmute toggle button UI automatically since user started with audio enabled
+    const uBtn = document.getElementById('unmuteBtn');
+    const uIcon = document.getElementById('unmuteIcon');
+    if (uIcon && uBtn) {
+      uIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
+      uBtn.classList.add('bg-[var(--accent)]', 'text-black');
+      uBtn.classList.remove('bg-[#0f172a]/80');
     }
   });
 }

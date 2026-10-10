@@ -26,13 +26,22 @@
 <!-- AUDIO & EFFECTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
-<!-- ENTRY MODAL (Seamless Preloader) -->
-<div id="entryModal" class="fixed inset-0 z-[9999] bg-[#020617] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-1000">
-  <div class="relative w-16 h-16 mb-6">
-    <div class="absolute inset-0 rounded-full border-t-2 border-slate-800 animate-spin"></div>
-    <div class="absolute inset-2 rounded-full border-r-2 border-[var(--accent)] animate-[spin_1s_linear_infinite_reverse]"></div>
+<!-- ENTRY MODAL -->
+<div id="entryModal" class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden" style="perspective: 800px;">
+  <!-- Doors -->
+  <div id="curtainLeft" class="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-[#030303] to-[#0a0a0a] z-0 border-r border-white/10" style="transform-origin: left;"></div>
+  <div id="curtainRight" class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-[#030303] to-[#0a0a0a] z-0 border-l border-white/10" style="transform-origin: right;"></div>
+  
+  <!-- Interactive Orbs -->
+  <div id="orb1" class="absolute w-64 h-64 bg-cyan-600/30 rounded-full blur-[80px] pointer-events-none z-0"></div>
+  <div id="orb2" class="absolute w-80 h-80 bg-pink-600/30 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+  <div class="relative group cursor-pointer z-10" id="enterBtn" style="transform-style: preserve-3d;">
+    <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+    <div class="relative px-6 py-4 md:px-12 md:py-6 bg-black rounded-full border border-white/20 text-white font-['Fredoka'] text-xl md:text-3xl tracking-widest uppercase shadow-[0_0_50px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform duration-500 text-center">
+      Enter Experience
+    </div>
   </div>
-  <p class="text-slate-500 text-xs tracking-[0.4em] uppercase font-semibold animate-pulse">Initializing Layout</p>
 </div>
 
 <!-- FLOATING UNMUTE BUTTON -->

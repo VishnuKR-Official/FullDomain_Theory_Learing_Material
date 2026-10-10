@@ -335,7 +335,7 @@ setTimeout(() => {
 }, 200);
 
 // ── Navbar & Sidebar Filtering Logic ──
-const tabBtns = document.querySelectorAll('.tab-btn');
+const tabBtns = document.querySelectorAll('.tab-btn, .mobile-tab-btn');
 const navLinks = document.querySelectorAll('.nav-link');
 const menuToggle = document.getElementById('menuToggle');
 const sidebar = document.getElementById('sidebar');

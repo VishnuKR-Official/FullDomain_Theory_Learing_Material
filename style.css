@@ -314,40 +314,38 @@ pre button:hover { background: var(--accent); color: #000; transform: scale(1.05
 }
 
 @media (max-width: 768px) {
-  .content { padding: 5vh 5vw; }
-  .story-box { padding: 1.5rem 2rem; margin: 3rem 0; font-size: 1.2rem; }
-  pre { padding: 2rem; font-size: 0.9rem; margin: 2rem 0; }
-  .card p { font-size: 1.1rem; }
-  .card ul { font-size: 1.1rem; }
-  .grid-2 { gap: 2rem; margin: 2rem 0; padding: 1rem 0; }
+  /* Hide Topbar Menu Toggle & Sidebar since we use Bottom Tab Bar */
+  .menu-toggle { display: none !important; }
+  .sidebar { display: none !important; }
+  .topbar { justify-content: space-between; padding: 0 5vw !important; }
+  .topbar-tabs { display: none !important; } /* Hide domain tab drop down on mobile */
+
+  .layout { padding-top: var(--topbar-h); padding-bottom: 100px; } /* Room for bottom bar */
+  .mobile-tab-btn.active { color: var(--accent) !important; filter: drop-shadow(0 0 8px var(--accent)); }
+  .content { padding: 4vh 4vw; }
   
-  .marquee-container { margin: 4rem 0; padding: 1.5rem 0; }
-  .marquee-content { font-size: 2rem; }
+  /* Bold & Readable Typography (Medium/Apple style) */
+  .story-box { padding: 2rem; margin: 3rem 0; font-size: 1.35rem; }
+  pre { padding: 1.5rem; font-size: 1.1rem; margin: 2rem -4vw; border-radius: 0; border-left: none; border-right: none; }
+  .card p { font-size: 1.25rem; }
+  .card ul { font-size: 1.25rem; }
+  .grid-2 { gap: 2.5rem; margin: 3rem 0; padding: 1rem 0; }
   
-  .table-wrap { margin: 2rem 0; }
-  th, td { padding: 1rem 0.5rem; font-size: 0.95rem; }
+  .marquee-container { margin: 4rem -4vw; padding: 1.5rem 0; width: 100vw; }
+  
+  .table-wrap { margin: 3rem -4vw; width: 100vw; }
+  table { width: max-content; min-width: 100vw; } /* Ensure table stretches past viewport so it doesn't squish */
+  th, td { padding: 1.2rem 1rem; font-size: 1.05rem; }
   
   .custom-cursor, .mouse-blob { display: none !important; } /* Hide custom cursor on touch devices */
   
-  .chapter-banner { min-height: 40vh; margin-bottom: 5vh; }
-  .chapter-icon { font-size: 3rem; margin-bottom: 1rem; }
-  .chapter-banner p { font-size: 1.2rem; margin-top: 1rem; }
+  .chapter-banner { min-height: 50vh; margin-bottom: 8vh; }
+  .chapter-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+  .chapter-banner p { font-size: 1.35rem; margin-top: 1rem; }
   
-  h2 { font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; }
+  h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
+  h2 { font-size: 2rem; margin-bottom: 1.5rem; padding-bottom: 1rem; }
   
-  .sidebar { width: 85vw; max-width: 320px; }
-  
-  pre button { top: 0.5rem; right: 0.5rem; padding: 0.5rem 1rem; font-size: 0.75rem; }
-}
-
-@media (max-width: 480px) {
-  .content { padding: 5vh 4vw; }
-  .topbar-logo { font-size: 1.1rem; }
-  .story-box { padding: 1rem 1.2rem; font-size: 1.05rem; }
-  .card p, .card ul { font-size: 1rem; }
-  pre { padding: 1.5rem; font-size: 0.85rem; }
-  th, td { font-size: 0.85rem; }
-  
-  h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+  pre button { top: 0.5rem; right: 0.5rem; padding: 0.6rem 1.2rem; font-size: 0.85rem; }
 }
 

@@ -386,7 +386,7 @@ document.querySelector('.nav').childNodes.forEach(node => {
   }
 });
 
-const filterSidebar = (targetCategory) => {
+const filterSidebar = (targetCategory, shouldScroll = true) => {
   tabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.target === targetCategory));
   navLinks.forEach(link => link.classList.toggle('visible', link.dataset.category === targetCategory));
   
@@ -397,7 +397,7 @@ const filterSidebar = (targetCategory) => {
   else if (targetCategory === 'Project Guide') bannerSelector = '.proj-banner';
 
   const banner = document.querySelector(bannerSelector);
-  if (banner) lenis.scrollTo(banner, { offset: -100 });
+  if (banner && shouldScroll) lenis.scrollTo(banner, { offset: -100 });
 };
 
 tabBtns.forEach(btn => {
@@ -421,7 +421,7 @@ if (menuToggle && sidebar) {
   });
 }
 
-filterSidebar('JavaScript');
+filterSidebar('JavaScript', false);
 
 // ── Kinetic Edge Scrolling for Sidebar ──
 const sidebarEl = document.querySelector('.sidebar');

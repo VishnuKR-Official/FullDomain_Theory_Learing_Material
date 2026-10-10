@@ -314,11 +314,12 @@ pre button:hover { background: var(--accent); color: #000; transform: scale(1.05
 }
 
 @media (max-width: 768px) {
+  :root { --topbar-h: 100px; } /* Bigger top navbar for easy tap */
   /* Show Topbar Menu Toggle & Sidebar alongside Bottom Tab Bar as requested */
-  .topbar { justify-content: space-between; padding: 0 4vw !important; }
+  .topbar { justify-content: space-between; padding: 0 4vw !important; height: var(--topbar-h) !important; }
   .topbar-tabs { display: none !important; } /* Hide domain tab drop down on mobile */
 
-  .layout { padding-top: var(--topbar-h); padding-bottom: 100px; } /* Room for bottom bar */
+  .layout { padding-top: var(--topbar-h); padding-bottom: 130px; } /* Room for bigger bottom bar */
   .mobile-tab-btn.active { color: var(--accent) !important; filter: drop-shadow(0 0 8px var(--accent)); }
   .content { padding: 4vh 4vw; }
   

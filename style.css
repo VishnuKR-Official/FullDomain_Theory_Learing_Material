@@ -3,62 +3,62 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  /* Default Theme (JavaScript - Pure White & Refined Amber) */
-  --bg-gradient: #ffffff;
-  --text: #0f172a;     
-  --text-dim: #64748b; 
-  --border: rgba(0, 0, 0, 0.08); 
+  /* Default Theme (JavaScript - Midnight Aurora & Amber) */
+  --bg-gradient: linear-gradient(135deg, #020617 0%, #1e1b4b 50%, #083344 100%);
+  --text: #f8fafc;     
+  --text-dim: #94a3b8; 
+  --border: rgba(255, 255, 255, 0.1); 
   --accent: #f59e0b;   
-  --link: #d97706;
-  --code-bg: #f8fafc;  
-  --code-border: rgba(0, 0, 0, 0.05);
-  --selection-bg: rgba(245, 158, 11, 0.2);
-  --selection-text: #000;
+  --link: #fbbf24;
+  --code-bg: rgba(255, 255, 255, 0.03);  
+  --code-border: rgba(255, 255, 255, 0.08);
+  --selection-bg: rgba(245, 158, 11, 0.3);
+  --selection-text: #fff;
   
   --topbar-h: 80px;
   --sidebar-w: 300px;
 }
 
-/* Theme: Node.js (Fresh White & Mint) */
+/* Theme: Node.js (Midnight Aurora & Mint) */
 body[data-theme="node"] {
-  --bg-gradient: #ffffff;
-  --text: #0f172a;
-  --text-dim: #64748b;
-  --border: rgba(0, 0, 0, 0.08);
+  --bg-gradient: linear-gradient(135deg, #020617 0%, #064e3b 50%, #1e1b4b 100%);
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
   --accent: #10b981;
-  --link: #059669;
-  --code-bg: #f8fafc;
-  --code-border: rgba(0, 0, 0, 0.05);
-  --selection-bg: rgba(16, 185, 129, 0.2);
-  --selection-text: #000;
+  --link: #34d399;
+  --code-bg: rgba(255, 255, 255, 0.03);
+  --code-border: rgba(255, 255, 255, 0.08);
+  --selection-bg: rgba(16, 185, 129, 0.3);
+  --selection-text: #fff;
 }
 
-/* Theme: MongoDB (Soft White & Lavender) */
+/* Theme: MongoDB (Midnight Aurora & Lavender) */
 body[data-theme="mongo"] {
-  --bg-gradient: #ffffff;
-  --text: #0f172a;
-  --text-dim: #64748b;
-  --border: rgba(0, 0, 0, 0.08);
+  --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #3b0764 50%, #020617 100%);
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
   --accent: #8b5cf6;
-  --link: #7c3aed;
-  --code-bg: #f8fafc;
-  --code-border: rgba(0, 0, 0, 0.05);
-  --selection-bg: rgba(139, 92, 246, 0.2);
-  --selection-text: #000;
+  --link: #a78bfa;
+  --code-bg: rgba(255, 255, 255, 0.03);
+  --code-border: rgba(255, 255, 255, 0.08);
+  --selection-bg: rgba(139, 92, 246, 0.3);
+  --selection-text: #fff;
 }
 
-/* Theme: Project (Ice White & Azure) */
+/* Theme: Project (Midnight Aurora & Azure) */
 body[data-theme="project"] {
-  --bg-gradient: #ffffff;
-  --text: #0f172a;
-  --text-dim: #64748b;
-  --border: rgba(0, 0, 0, 0.08);
+  --bg-gradient: linear-gradient(135deg, #020617 0%, #0c4a6e 50%, #1e1b4b 100%);
+  --text: #f8fafc;
+  --text-dim: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
   --accent: #0ea5e9;
-  --link: #0284c7;
-  --code-bg: #f8fafc;
-  --code-border: rgba(0, 0, 0, 0.05);
-  --selection-bg: rgba(14, 165, 233, 0.2);
-  --selection-text: #000;
+  --link: #38bdf8;
+  --code-bg: rgba(255, 255, 255, 0.03);
+  --code-border: rgba(255, 255, 255, 0.08);
+  --selection-bg: rgba(14, 165, 233, 0.3);
+  --selection-text: #fff;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

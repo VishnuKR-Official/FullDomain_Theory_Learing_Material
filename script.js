@@ -397,7 +397,7 @@ const filterSidebar = (targetCategory, shouldScroll = true) => {
   else if (targetCategory === 'Project Guide') bannerSelector = '.proj-banner';
 
   const banner = document.querySelector(bannerSelector);
-  if (banner && shouldScroll) lenis.scrollTo(banner, { offset: -100 });
+  if (banner && shouldScroll) lenis.scrollTo(banner, { align: 'start', offset: -90 });
 };
 
 tabBtns.forEach(btn => {
@@ -410,7 +410,19 @@ if (menuToggle && sidebar) {
     sidebar.classList.toggle('open'); 
   });
   
-  navLinks.forEach(link => { link.addEventListener('click', () => sidebar.classList.remove('open')); });
+  navLinks.forEach(link => { 
+    link.addEventListener('click', (e) => { 
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          lenis.scrollTo(targetEl, { align: 'center' });
+        }
+      }
+      sidebar.classList.remove('open'); 
+    }); 
+  });
 
   // Close sidebar when clicking anywhere outside of it
   document.addEventListener('click', (e) => {

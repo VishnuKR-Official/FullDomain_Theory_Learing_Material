@@ -4,14 +4,18 @@
 
 // ── Web Audio API (Multi-Sensory Sounds) ──
 let audioCtx;
+let masterGain;
 let audioUnlocked = false;
-let isMuted = false; // Add mute flag
+let isMuted = false;
 
 window.initAudio = () => {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.connect(audioCtx.destination);
+    masterGain.gain.value = isMuted ? 0 : 1;
   }
-  if (!isMuted && audioCtx.state === 'suspended') {
+  if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
   audioUnlocked = true;
@@ -27,7 +31,7 @@ const playSound = (type) => {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.connect(gain);
-  gain.connect(audioCtx.destination);
+  gain.connect(masterGain);
   
   const now = audioCtx.currentTime;
   if (type === 'hover') { // High, sharp tick
@@ -114,7 +118,7 @@ const startAmbientDrone = () => {
     lfo.connect(lfoGain);
     lfoGain.connect(gain.gain);
     osc.connect(gain);
-    gain.connect(audioCtx.destination);
+    gain.connect(masterGain);
     gain.gain.setValueAtTime(0, audioCtx.currentTime);
     gain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 5);
     osc.start();
@@ -142,26 +146,33 @@ document.addEventListener('click', (e) => {
 // ── Unmute Toggle Logic ──
 const unmuteBtn = document.getElementById('unmuteBtn');
 const unmuteIcon = document.getElementById('unmuteIcon');
-if (unmuteBtn) {
-  // Start in "muted" visual state since audio context requires click to start
-  isMuted = true;
-  unmuteBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (!audioCtx) initAudio();
-    
-    isMuted = !isMuted;
-    if (isMuted) {
-      if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+
+const setMuteState = (muted) => {
+  isMuted = muted;
+  if (masterGain) {
+    masterGain.gain.setTargetAtTime(muted ? 0 : 1, audioCtx.currentTime, 0.1);
+  }
+  if (unmuteIcon && unmuteBtn) {
+    if (muted) {
       unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
       unmuteBtn.classList.remove('bg-[var(--accent)]', 'text-black');
       unmuteBtn.classList.add('bg-[#0f172a]/80');
     } else {
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
       unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
       unmuteBtn.classList.add('bg-[var(--accent)]', 'text-black');
       unmuteBtn.classList.remove('bg-[#0f172a]/80');
-      playSound('click');
     }
+  }
+};
+
+if (unmuteBtn) {
+  isMuted = true; // start muted
+  unmuteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!audioCtx) initAudio();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    setMuteState(!isMuted);
+    if (!isMuted) playSound('click');
   });
 }
 
@@ -550,8 +561,9 @@ if (entryModal && enterBtn) {
   });
 
   enterBtn.addEventListener('click', () => {
-    isMuted = false;
-    initAudio(); // Initialize audio context on first user click!
+    initAudio(); 
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    setMuteState(false);
     playSound('bass');
     playSound('door');
     
@@ -578,15 +590,6 @@ if (entryModal && enterBtn) {
     });
     
     setTimeout(() => entryModal.remove(), 2500);
-
-    // Sync Unmute toggle button UI automatically since user started with audio enabled
-    const uBtn = document.getElementById('unmuteBtn');
-    const uIcon = document.getElementById('unmuteIcon');
-    if (uIcon && uBtn) {
-      uIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
-      uBtn.classList.add('bg-[var(--accent)]', 'text-black');
-      uBtn.classList.remove('bg-[#0f172a]/80');
-    }
   });
 }
 

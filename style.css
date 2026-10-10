@@ -140,6 +140,12 @@ body {
   position: fixed; background: var(--accent); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9998;
 }
 
+/* ═══ MARQUEE KEYFRAMES ═══ */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ═══ TOPBAR & SIDEBAR ═══ */
 .topbar {
   position: fixed; top: 0; left: 0; width: 100%; height: var(--topbar-h);

@@ -397,7 +397,15 @@ const filterSidebar = (targetCategory, shouldScroll = true) => {
   else if (targetCategory === 'Project Guide') bannerSelector = '.proj-banner';
 
   const banner = document.querySelector(bannerSelector);
-  if (banner && shouldScroll) lenis.scrollTo(banner, { align: 'start', offset: -90 });
+  if (banner && shouldScroll) {
+    let target = banner;
+    // The marquee is technically the wrapper div before the banner
+    const prev = banner.previousElementSibling;
+    if (prev && prev.classList.contains('overflow-hidden')) {
+      target = prev;
+    }
+    lenis.scrollTo(target, { align: 'start', offset: -80 }); // offset for navbar height
+  }
 };
 
 tabBtns.forEach(btn => {

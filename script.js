@@ -5,12 +5,13 @@
 // ── Web Audio API (Multi-Sensory Sounds) ──
 let audioCtx;
 let audioUnlocked = false;
+let isMuted = false; // Add mute flag
 
 window.initAudio = () => {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
-  if (audioCtx.state === 'suspended') {
+  if (!isMuted && audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
   audioUnlocked = true;
@@ -20,7 +21,7 @@ window.initAudio = () => {
 document.body.addEventListener('click', window.initAudio, { once: true });
 
 const playSound = (type) => {
-  if (!audioCtx) return;
+  if (!audioCtx || isMuted) return;
   if (audioCtx.state === 'suspended') audioCtx.resume();
   
   const osc = audioCtx.createOscillator();
@@ -137,6 +138,32 @@ document.addEventListener('click', (e) => {
   gsap.fromTo(ripple, { width: 0, height: 0, opacity: 1 }, { width: 200, height: 200, opacity: 0, duration: 0.8, ease: 'power2.out', onComplete: () => ripple.remove() });
   gsap.fromTo(inner, { width: 0, height: 0, opacity: 0.8 }, { width: 80, height: 80, opacity: 0, duration: 0.4, ease: 'power3.out', onComplete: () => inner.remove() });
 });
+
+// ── Unmute Toggle Logic ──
+const unmuteBtn = document.getElementById('unmuteBtn');
+const unmuteIcon = document.getElementById('unmuteIcon');
+if (unmuteBtn) {
+  // Start in "muted" visual state since audio context requires click to start
+  isMuted = true;
+  unmuteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!audioCtx) initAudio();
+    
+    isMuted = !isMuted;
+    if (isMuted) {
+      if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+      unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
+      unmuteBtn.classList.remove('bg-[var(--accent)]', 'text-black');
+      unmuteBtn.classList.add('bg-[#0f172a]/80');
+    } else {
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      unmuteIcon.innerHTML = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
+      unmuteBtn.classList.add('bg-[var(--accent)]', 'text-black');
+      unmuteBtn.classList.remove('bg-[#0f172a]/80');
+      playSound('click');
+    }
+  });
+}
 
 // ── Lenis Smooth Scroll & Scroll Audio ──
 const lenis = new Lenis({

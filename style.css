@@ -314,7 +314,8 @@ pre button:hover { background: var(--accent); color: #000; transform: scale(1.05
 }
 
 @media (max-width: 768px) {
-  :root { --topbar-h: 100px; } /* Bigger top navbar for easy tap */
+  html { font-size: 24px !important; } /* 50% Zoom on entire mobile layout */
+  :root { --topbar-h: 7rem; } /* Bigger top navbar for easy tap */
   /* Show Topbar Menu Toggle & Sidebar alongside Bottom Tab Bar as requested */
   .topbar { justify-content: space-between; padding: 0 4vw !important; height: var(--topbar-h) !important; }
   .topbar-tabs { display: none !important; } /* Hide domain tab drop down on mobile */

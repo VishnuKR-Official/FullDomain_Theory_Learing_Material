@@ -81,7 +81,7 @@ html.lenis { height: auto; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text);

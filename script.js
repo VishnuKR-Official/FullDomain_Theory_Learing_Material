@@ -14,6 +14,7 @@ window.initAudio = () => {
     audioCtx.resume();
   }
   audioUnlocked = true;
+  startAmbientDrone();
 };
 
 document.body.addEventListener('click', window.initAudio, { once: true });
@@ -30,18 +31,26 @@ const playSound = (type) => {
   const now = audioCtx.currentTime;
   if (type === 'hover') { // High, sharp tick
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, now);
-    osc.frequency.exponentialRampToValueAtTime(1500, now + 0.04);
-    gain.gain.setValueAtTime(0.15, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-    osc.start(now); osc.stop(now + 0.04);
+    osc.frequency.setValueAtTime(1200, now);
+    osc.frequency.exponentialRampToValueAtTime(1800, now + 0.02);
+    gain.gain.setValueAtTime(0.03, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+    osc.start(now); osc.stop(now + 0.02);
   } else if (type === 'click') { // Satisfying synthetic pop
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, now);
+    osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    osc.start(now); osc.stop(now + 0.1);
+  } else if (type === 'swoosh') {
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(300, now);
-    osc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
-    gain.gain.setValueAtTime(0.5, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-    osc.start(now); osc.stop(now + 0.15);
+    osc.frequency.setValueAtTime(100, now);
+    osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.05, now + 0.15);
+    gain.gain.linearRampToValueAtTime(0, now + 0.3);
+    osc.start(now); osc.stop(now + 0.3);
   } else if (type === 'scroll-tick') { // Ultra-subtle smooth tap
     osc.type = 'sine';
     osc.frequency.setValueAtTime(300, now);
@@ -82,6 +91,34 @@ const playSound = (type) => {
     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
     osc.start(now); osc.stop(now + 0.05);
   }
+};
+
+// ── Ethereal Ambient Drone Generator ──
+let droneActive = false;
+const startAmbientDrone = () => {
+  if (droneActive || !audioCtx) return;
+  droneActive = true;
+  const rootFreq = 220; 
+  const freqs = [rootFreq, rootFreq * 1.5, rootFreq * 2]; 
+  freqs.forEach(freq => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    const lfo = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    lfo.type = 'sine';
+    lfo.frequency.value = 0.05 + (Math.random() * 0.05);
+    const lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 0.01;
+    lfo.connect(lfoGain);
+    lfoGain.connect(gain.gain);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 5);
+    osc.start();
+    lfo.start();
+  });
 };
 
 // ── Advanced Touch/Click Ripple ──
@@ -554,6 +591,7 @@ function showCopyModal() {
 console.log('%c✨ Multi-Sensory Multi-Theme Architecture Loaded', 'color:#FF3B00;font-size:1.2rem;font-weight:bold;');
 
 // ── Custom Scroll Progress Handle & Sidebar Fill ──
+let lastScrollPercent = 0;
 window.addEventListener('scroll', () => {
   const scrollPx = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
   const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -564,5 +602,10 @@ window.addEventListener('scroll', () => {
   const sidebar = document.getElementById('sidebar');
   if (sidebar) {
     sidebar.style.background = `linear-gradient(to bottom, #0396FF ${scrolled}%, #050505 ${scrolled}%)`;
+  }
+  
+  if (Math.abs(scrolled - lastScrollPercent) > 5) {
+    playSound('swoosh');
+    lastScrollPercent = scrolled;
   }
 });

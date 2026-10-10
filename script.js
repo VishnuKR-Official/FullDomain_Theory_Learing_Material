@@ -553,26 +553,48 @@ if (entryModal && enterBtn) {
   });
 }
 
-// 3. (Removed conflicting random GSAP animations that caused blank spaces)
+// 3. Fluid Staggered Scroll Reveal (Stripe-style)
+gsap.utils.toArray('.card, pre, .story-box').forEach((el, i) => {
+  gsap.fromTo(el, 
+    { y: 60, opacity: 0, scale: 0.98 }, 
+    {
+      y: 0, opacity: 1, scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 90%",
+        toggleActions: "play none none none"
+      }
+    }
+  );
+});
 
 // Refresh ScrollTrigger to calculate heights correctly after all initial dynamic changes
 setTimeout(() => {
   ScrollTrigger.refresh();
 }, 2000);
-// 4. 5+ Dynamic Transformation Styles added randomly to elements
-const transformClasses = [
-  'hover:scale-105 hover:-translate-y-2 hover:rotate-1', // Lift & tilt
-  'hover:scale-[1.02] hover:skew-x-2', // Slight skew
-  'hover:translate-x-3 hover:shadow-[10px_10px_0px_rgba(var(--accent),1)]', // Retro shift
-  'hover:scale-110 hover:z-50', // Pop out
-  'hover:rotate-[-2deg] hover:scale-105' // Reverse tilt
-];
 
-document.querySelectorAll('.story-box, pre, .grid > div').forEach(el => {
-  // Pick random transform
-  const tClass = transformClasses[Math.floor(Math.random() * transformClasses.length)];
-  tClass.split(' ').forEach(c => el.classList.add(c));
-  el.classList.add('transition-all', 'duration-500');
+// 4. Premium Magnetic 3D Glass Hover (Tactile effect)
+document.querySelectorAll('.card, pre, .story-box, .grid > div').forEach(el => {
+  el.classList.add('transition-transform', 'duration-300', 'ease-out');
+  
+  el.addEventListener('mousemove', (e) => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -4; // Max 4deg rotation
+    const rotateY = ((x - centerX) / centerX) * 4;
+    
+    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+  
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
 });
 
 // 5. Code Copy Modal
